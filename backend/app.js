@@ -2,18 +2,28 @@ const express = require('express');
 const userRoutes = require('./routes/user');
 const app = express();
 const path = require('path');
+const { Sequelize } = require('sequelize');
 const helmet = require('helmet');
 const Ddos = require('ddos');
 var ddos = new Ddos({ burst: 10, limit: 15 })
 
 
-// mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}?retryWrites=true&w=majority`,
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//     })
-//     .then(() => console.log('Connexion à MongoDB réussie !'))
-//     .catch((err) => console.log(err));
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect:  'mysql' 
+  });
+
+  (async ()=>{
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
+  })();
+
+
+
 
 app.use(ddos.express);
 
