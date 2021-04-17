@@ -1,5 +1,10 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect: 'mysql'
+});
+
+
 
 const User = sequelize.define('User', {
 
@@ -40,12 +45,8 @@ const User = sequelize.define('User', {
     tableName: 'users'
 });
 
-
-(async () => {
-    await User.sync({ alter: true });
-});
-
-
-
 User === sequelize.models.User;
+User.sync();
+
+
 module.exports = User;
