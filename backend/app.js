@@ -1,31 +1,25 @@
 const express = require('express');
-const userRoutes = require('./routes/user');
+const mariadb = require('mariadb');
 const app = express();
 const path = require('path');
-const { Sequelize } = require('sequelize');
+const userRoutes = require('./routes/user');
 const helmet = require('helmet');
 const Ddos = require('ddos');
-var ddos = new Ddos({ burst: 10, limit: 15 })
-
-
-const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect:  'mysql' 
-  });
-
-  (async ()=>{
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-      } catch (error) {
-        console.error('Unable to connect to the database:', error);
-      }
-  })();
-
+var ddos = new Ddos({ burst: 10, limit: 15 });
 
 
 
 app.use(ddos.express);
+
+global.conn = mariadb.createConnection({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE})
+ .then(conn => {
+   console.log("Connection réussit ! Vous êtes maintenant connecté sur : " + process.env.DB_DATABASE);
+ })
+ .catch(err => {
+   console.log("Erreur lors de la connection à la base de donnée : " + err);
+ });
+
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
