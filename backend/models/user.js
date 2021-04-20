@@ -1,12 +1,26 @@
+const mariadb = require('mariadb');
+
+
+  //const pool =  mariadb.createConnection({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE});
+  const pool = mariadb.createPool({host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE});
+
+
 async function addUser(email, password) { 
-console.log('test');
     try {
-        const res = await conn.query("INSERT INTO users value (?, ?)", [email, password]);
-        console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
-        res.status(400).json({ error });
+        const conn = await pool.getConnection();
+        const res = await conn.query("select * FROM users");
+        console.log(res);
+        return res;
     }
-    catch (err) {
-        throw (error => res.status(500).json({ error }));
+    catch (error) {
+        throw ({
+            status : 500,
+            msg : error
+        });
     }
+
+    
 }
+
+module.exports.addUser = addUser;
 
