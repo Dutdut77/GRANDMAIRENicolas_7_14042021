@@ -5,12 +5,23 @@ const User = require('../models/user');
 
 exports.signup = async (req, res, next) => {
     try {
-        await User.addUser(req.body.email, req.body.password);
+        await User.addUser(req.body);
         res.status(201).json({ message: 'Utilisateur créé !' });
+        
     }
-    catch(error) {
+    catch (error) {
         res.status(500).json({ error })
-    } 
+    }
+}
+
+exports.findOneEmail = async (req, res, next) => {
+    try {
+        await User.findOneEmail(req.body.email);
+        res.status(201).json({ message: 'Email trouvé' });
+    }
+    catch (error) {
+        res.status(500).json({ error })
+    }
 }
 
 
