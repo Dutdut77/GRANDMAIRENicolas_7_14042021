@@ -1,3 +1,4 @@
+/*global error */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -6,25 +7,23 @@ const User = require('../models/user');
 exports.signup = async (req, res, next) => {
     try {
         await User.addUser(req.body);
-        res.status(201).json({ message: 'Utilisateur créé !' });
+        res.status(201).json({ User :  req.body});
         
     }
-    catch (error) {
-        res.status(500).json({ error })
+    catch (receivedError) {
+        error(receivedError, res);
     }
 }
 
-exports.findOneEmail = async (req, res, next) => {
+exports.findEmail = async (req, res, next) => {
     try {
-        await User.findOneEmail(req.body.email);
-        res.status(201).json({ message: 'Email trouvé' });
+        const answer = await User.findOneEmail(req.body.email);
+        res.status(200).json({ message: 'Email trouvé', email: answer.email });
     }
-    catch (error) {
-        res.status(500).json({ error })
+    catch (receivedError) {
+        error(receivedError, res);
     }
 }
-
-
 
 
 /**
