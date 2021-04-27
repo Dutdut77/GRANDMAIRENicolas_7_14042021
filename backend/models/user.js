@@ -1,6 +1,10 @@
-async function addUser(user) {
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+async function addUser(user) {    
     try {
-        const res = await database.findAll("INSERT INTO users(prenom, nom, pseudo, password, email, avatar, role) VALUES (?,?,?,?,?,?,?)", [user.prenom, user.nom, user.pseudo, user.password, user.email, user.avatar, user.role]);
+        const pass = await bcrypt.hash(user.password, 10);
+        const res = await database.addUser("INSERT INTO users(prenom, nom, pseudo, password, email, avatar, role) VALUES (?,?,?,?,?,?,?)", [user.prenom, user.nom, user.pseudo, pass, user.email, user.avatar, user.role]);
         return res;
     }
     catch (error) {
@@ -13,7 +17,7 @@ async function addUser(user) {
 
 async function findOneEmail(id) {
     try {
-        const res = await database.findOne("SELECT email FROM users WHERE email = ?", [id]);
+        const res = await database.findOne("SELECT * FROM users WHERE email = ?", [id]);
         return res;
     }
     catch (error) {
