@@ -1,10 +1,8 @@
-function translate(object){
-
-if (object.errno ===1062) object ="Adresse Email déjà prise !";
-
-
-
-
+function translate(object) {
+    
+    if (object.errno === 1062) {
+        object = "Adresse Email déjà prise !";
+    }
     return object;
 }
 
@@ -18,11 +16,13 @@ if (object.errno ===1062) object ="Adresse Email déjà prise !";
  *
  * @return  {void}      send response to the browser
  */
-module.exports = function error(err, res){
+module.exports = function error(err, res) {
 
     const msgErreur = translate(err.msg)
 
-    res.status(err.status|500).json({ msgErreur })
+    res.status(err.status | 500).json({ msgErreur })
 
 
 }
+
+
