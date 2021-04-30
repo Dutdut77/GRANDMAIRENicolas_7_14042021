@@ -17,6 +17,7 @@ const User = require('../models/user');
  *
  */
 exports.signup = async (req, res, next) => {
+
     try {
         await User.addUser(req.body);
         res.status(201).json({ User: req.body });
@@ -64,7 +65,16 @@ exports.login = async (req, res, next) => {
 
 }
 
+exports.update = async (req, res, next) => {
+    try {
+        await User.addUser(req.body);
+        res.status(201).json({ User: req.body });
 
+    }
+    catch (receivedError) {
+        error(receivedError, res);
+    }
+}
 
 
 
