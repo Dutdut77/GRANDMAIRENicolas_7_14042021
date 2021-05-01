@@ -29,5 +29,11 @@ module.exports.findOne = async function(sql, data = []) {
     return res[0];
 }
 
+module.exports.addImage = async function(sql, data = []){
+    const res = await conn.query(sql, data);
+    delete res["meta"];
+    return res;
+}
+
 
 

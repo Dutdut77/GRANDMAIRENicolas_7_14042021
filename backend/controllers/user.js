@@ -57,7 +57,7 @@ exports.login = async (req, res, next) => {
                 error(receivedError, res);
             }
         }
-    }
+    } 
     catch (receivedError) {
         console.log("erreur 2");
         error(receivedError, res);

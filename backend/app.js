@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const userRoutes = require('./routes/user');
+const imagesRoutes = require('./routes/image');
 const helmet = require('helmet');
 const Ddos = require('ddos');
 var ddos = new Ddos({ burst: 10, limit: 15 });
@@ -22,6 +23,6 @@ app.use(express.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
-
+app.use('/api/image', imagesRoutes);
 
 module.exports = app;
