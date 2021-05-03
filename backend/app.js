@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const Ddos = require('ddos');
 var ddos = new Ddos({ burst: 10, limit: 15 });
 
-global.error = require("./controllers/errorManager");
+global.errorManager = require("./controllers/errorManager");
 global.database = require("./models/dataManager");
 database.start();
 

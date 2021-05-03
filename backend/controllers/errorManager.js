@@ -16,7 +16,7 @@ function translate(object) {
  *
  * @return  {void}      send response to the browser
  */
-module.exports = function error(err, res) {
+module.exports = function (err, res) {
 
     const msgErreur = translate(err.msg)
 
