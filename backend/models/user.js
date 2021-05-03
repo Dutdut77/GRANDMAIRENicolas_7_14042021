@@ -17,7 +17,7 @@ async function addUser(user) {
 
 async function findOneEmail(id) {
     try {
-        const res = await database.findOne("SELECT avatar FROM users WHERE email = ?", [id]);
+        const res = await database.findOne("SELECT * FROM users WHERE email = ?", [id]);
         return res;
     }
     catch (error) {

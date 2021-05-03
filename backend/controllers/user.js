@@ -23,16 +23,23 @@ exports.signup = async (req, res, next) => {
         if (answer) {
             try {
                 await Delete.user(req.file.filename);
-                res.status(401).json({ message: 'Adresse Email déjà prise !!!'});
+                res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
             }
             catch (receivedError) {
                 errorManager(receivedError, res);
-            }             
+            }
         }
         else {
             try {
                 await User.addUser(req);
-                res.status(201).json({ User: req.body });
+                res.status(201).json({
+                    prenom: req.body.prenom,
+                    nom: req.body.nom,
+                    pseudo: req.body.pseudo,
+                    email: req.body.email,
+                    avatar: req.file.filename,
+                    role: req.body.role
+                });
             }
             catch (receivedError) {
                 errorManager(receivedError, res);

@@ -20,7 +20,9 @@ module.exports.addImage = request;
 module.exports.findAll = request;
 
 module.exports.findOne = async function(sql, data = []) {
-    return request(sql, data)[0];
+    const res = await conn.query(sql, data);
+    delete res["meta"];
+    return res[0];
 }
 
 
