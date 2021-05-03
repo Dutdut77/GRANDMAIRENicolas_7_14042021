@@ -9,31 +9,20 @@ module.exports.start  = async function() {
     conn = await pool.getConnection();
 }
 
-
-module.exports.addUser = async function(sql, data = []){
+async function request(sql, data = []){
     const res = await conn.query(sql, data);
     delete res["meta"];
     return res;
 }
 
-
-module.exports.findAll = async function(sql, data = []){
-    const res = await conn.query(sql, data);
-    delete res["meta"];
-    return res;
-}
+module.exports.addUser = request;
+module.exports.addImage = request;
+module.exports.findAll = request;
 
 module.exports.findOne = async function(sql, data = []) {
-    const res = await conn.query(sql, data);
-    delete res["meta"];
-    return res[0];
+    return request(sql, data)[0];
 }
 
-module.exports.addImage = async function(sql, data = []){
-    const res = await conn.query(sql, data);
-    delete res["meta"];
-    return res;
-}
 
 
 
