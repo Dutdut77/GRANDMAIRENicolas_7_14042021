@@ -8,7 +8,7 @@ const fs = require('fs');
  *
  *
  */
-async function user(imageUrl) {
+async function imageUser(imageUrl) {
     try {
         const res = await fs.unlink(process.cwd() + "/images/" + imageUrl, (err) => {
             if (err) throw err;
@@ -23,6 +23,6 @@ async function user(imageUrl) {
     }
 }
 
-module.exports.user = user;
+module.exports.imageUser = imageUser;
 
 

@@ -22,7 +22,7 @@ exports.signup = async (req, res, next) => {
         const answer = await User.findOneEmail(req.body.email);
         if (answer) {
             try {
-                await Delete.user(req.file.filename);
+                await Delete.imageUser(req.file.filename);
                 res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
             }
             catch (receivedError) {
@@ -90,12 +90,36 @@ exports.login = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
     try {
-        await User.addUser(req.body);
-        res.status(201).json({ User: req.body });
-
+        
+        const answer = await User.findOneEmail(req.body.email);
+        if (answer) {
+            try {
+                await Delete.imageUser(req.file.filename);
+                res.status(401).json({ message: 'Adresse Email déjà prise !!' });
+            }
+            catch (receivedError) {
+                errorManager(receivedError, res);
+            }
+        }
+        else {
+            try {
+                await User.addUser(req);
+                res.status(201).json({
+                    prenom: req.body.prenom,
+                    nom: req.body.nom,
+                    pseudo: req.body.pseudo,
+                    email: req.body.email,
+                    avatar: req.file.filename,
+                    role: req.body.role
+                });
+            }
+            catch (receivedError) {
+                errorManager(receivedError, res);
+            }
+        }
     }
     catch (receivedError) {
-        error(receivedError, res);
+        errorManager(receivedError, res);
     }
 }
 
