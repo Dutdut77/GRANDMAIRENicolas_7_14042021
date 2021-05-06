@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const multer  = require('multer')
+const upload = multer()
+upload.none();
 
 /**
  * Vérifie l'autorisation de l'utilisateur
