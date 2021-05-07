@@ -16,6 +16,7 @@ async function request(sql, data = []){
 }
 
 module.exports.addUser = request;
+module.exports.updateUser = request;
 module.exports.addImage = request;
 module.exports.findAll = request;
 

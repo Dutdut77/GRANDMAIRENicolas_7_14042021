@@ -1,7 +1,4 @@
 const jwt = require('jsonwebtoken');
-const multer  = require('multer')
-const upload = multer()
-upload.none();
 
 /**
  * Vérifie l'autorisation de l'utilisateur
@@ -11,21 +8,22 @@ upload.none();
  *
  */
 module.exports = (req, res, next) => {
-  console.log(req.body);
+  
   try {
    
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
     const userId = decodedToken.userId;
+
     if (req.body.userId && parseInt(req.body.userId) !== userId) {
-      throw 'Invalid user ID';
+          throw 'Invalid user ID';
     }
     next();
 
   }
   catch {
     res.status(401).json({
-      error: 'Invalid request!!!'
+      error: 'Authentification refusée !!!'
     });
   }
 };
