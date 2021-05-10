@@ -1,27 +1,52 @@
 /*global error */
 const Image = require('../models/image');
+const Delete = require('../middleware/delete');
 
-/**
- * 
- *
- * @param   {Object}  req.body   Champs du formulaire
- * @param   {String}  req.body.prenom   Prénom de l'utilisateur
- * @param   {String}  req.body.nom   Nom de l'utilisateur
- * @param   {String}  req.body.pseudo   Pseudo de l'utilisateur
- * @param   {String}  req.body.password   Mot de passe de l'utilisateur
- * @param   {String}  req.body.email   Email de l'utilisateur
- * @param   {String}  req.body.image_url   URL de la photo "avatar" de l'utilisateur
- * @param   {Number}  req.body.role   Role de l'utilisateur
- *
- */
+
 exports.addImage = async (req, res, next) => {
     try {
-        await Image.add(req.body);
-        res.status(201).json({ Image: req.body });
+        await Image.add(req);
+        res.status(201).json({
+            content: req.body.content
+        });
     }
     catch (receivedError) {
         error(receivedError, res);
     }
 }
 
+exports.getOneStorie = async (req, res, next) => {
+    try {
+        const Storie = await Image.getOneStorie(req.params.id);
+        res.status(201).json({ Storie });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
+}
+
+exports.getAllStorie = async (req, res, next) => {
+    try {
+        const Storie = await Image.getAllStorie();
+        res.status(201).json({ Storie });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
+}
+
+
+exports.deleteImage = async (req, res, next) => {
+    try {
+        const Storie = await Image.getOneStorie(req.params.id);
+        await Delete.imageStorie(Storie.image_url);
+        await Image.deleteStorie(req.params.id);
+        res.status(201).json({ message: "Utilisateur supprimé !" });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+}
 

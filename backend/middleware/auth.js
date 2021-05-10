@@ -16,14 +16,14 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
 
     if (req.body.userId && parseInt(req.body.userId) !== userId) {
-          throw 'Invalid user ID';
+          throw 'Authentification refusée !!!';
     }
     next();
 
   }
-  catch {
+  catch(err) {
     res.status(401).json({
-      error: 'Authentification refusée !!!'
+      error: err
     });
   }
 };

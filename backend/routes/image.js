@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
+const multer = require('../middleware/multer-image');
 const imageCtrl = require('../controllers/image');
 
 
-router.post('/addImage',  auth, multer, imageCtrl.addImage);
+router.post('/',  auth, multer, imageCtrl.addImage);
+router.get('/:id', auth, imageCtrl.getOneStorie);
+router.get('/', auth, imageCtrl.getAllStorie);
 //router.put('/updateImage',  auth, imageCtrl.updateImage);
-//router.delete('/deleteImage',  auth, imageCtrl.deleteImage);
+router.delete('/:id',  auth, imageCtrl.deleteImage);
 
 module.exports = router;

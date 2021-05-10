@@ -19,32 +19,20 @@ const Delete = require('../middleware/delete');
  */
 exports.signup = async (req, res, next) => {
     try {
-        const answer = await User.findOneEmail(req.body.email);
+        const answer = await User.emailExists(req.body.email);
         if (answer) {
-            try {
-                await Delete.imageUser(req.file.filename);
-                res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
-            }
-            catch (receivedError) {
-                errorManager(receivedError, res);
-            }
+            await Delete.imageUser(req.file.filename);
+            return res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
         }
-        else {
-            try {
-                await User.addUser(req);
-                res.status(201).json({
-                    prenom: req.body.prenom,
-                    nom: req.body.nom,
-                    pseudo: req.body.pseudo,
-                    email: req.body.email,
-                    avatar: req.file.filename,
-                    role: req.body.role
-                });
-            }
-            catch (receivedError) {
-                errorManager(receivedError, res);
-            }
-        }
+        await User.addUser(req);
+        res.status(201).json({
+            prenom: req.body.prenom,
+            nom: req.body.nom,
+            pseudo: req.body.pseudo,
+            email: req.body.email,
+            avatar: req.file.filename,
+            role: req.body.role
+        });
     }
     catch (receivedError) {
         errorManager(receivedError, res);
@@ -54,32 +42,22 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const answer = await User.findOneEmail(req.body.email);
+        const answer = await User.findByEmail(req.body.email);
         if (!answer) {
-            res.status(401).json({ message: 'Email Non trouvé', email: req.body.email });
+            return res.status(401).json({ message: 'Email Non trouvé', email: req.body.email });
         }
-        else {
-            try {
-                const valid = await bcrypt.compare(req.body.password, answer.password);
-                if (!valid) {
-                    res.status(401).json({ message: 'Mot de passe incorrect' });
-                }
-                else {
-                    res.status(200).json({
-                        userId: answer.id,
-                        token: jwt.sign(
-                            { userId: answer.id },
-                            process.env.SECRET_TOKEN,
-                            { expiresIn: '24h' }
-                        )
-                    });
-                }
-            }
-            catch (receivedError) {
-                console.log("erreur 1");
-                error(receivedError, res);
-            }
+        const valid = await bcrypt.compare(req.body.password, answer.password);
+        if (!valid) {
+            return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
+        res.status(200).json({
+            userId: answer.id,
+            token: jwt.sign(
+                { userId: answer.id },
+                process.env.SECRET_TOKEN,
+                { expiresIn: '24h' }
+            )
+        });
     }
     catch (receivedError) {
         console.log("erreur 2");
@@ -89,23 +67,54 @@ exports.login = async (req, res, next) => {
 }
 
 exports.update = async (req, res, next) => {
-            try {
-                await User.updateUser(req);
-                res.status(201).json({
-                    prenom: req.body.prenom,
-                    nom: req.body.nom,
-                    pseudo: req.body.pseudo,
-                    email: req.body.email,
-                    role: req.body.role
-                });
-            }
-            catch (receivedError) {
-                errorManager(receivedError, res);
-            }
-   
+    try {
+        await User.updateUser(req.body, req.params.id);
+        res.status(201).json({
+            prenom: req.body.prenom,
+            nom: req.body.nom,
+            pseudo: req.body.pseudo,
+            email: req.body.email
+        });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
 }
 
 
+exports.getOneUser = async (req, res, next) => {
+    try {
+        const user = await User.getOneUser(req.params.id);
+        res.status(201).json({ user });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
+}
+
+exports.getAllUser = async (req, res, next) => {
+    try {
+        const user = await User.getAllUser();
+        res.status(201).json({ user });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+}
+
+exports.deleteUser = async (req, res, next) => {
+    try {
+        const user = await User.getOneUser(req.params.id);
+        await Delete.imageUser(user.avatar);
+        await User.deleteUser(req.params.id);
+        res.status(201).json({ message: "Utilisateur supprimé !" });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+}
 
 
 

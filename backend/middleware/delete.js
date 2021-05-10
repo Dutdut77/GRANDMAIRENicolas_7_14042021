@@ -10,7 +10,30 @@ const fs = require('fs');
  */
 async function imageUser(imageUrl) {
     try {
-        const res = await fs.unlink(process.cwd() + "/images/" + imageUrl, (err) => {
+        const res = await fs.unlink(process.cwd() + "/images/users/" + imageUrl, (err) => {
+            if (err) throw err;
+        });
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
+
+
+/**
+ * Supprime la photo de l'utilisateur
+ *
+ * @param   {String}  imageUrl  nom de la photo de l'utilisateur
+ *
+ *
+ */
+ async function imageStorie(imageUrl) {
+    try {
+        const res = await fs.unlink(process.cwd() + "/images/stories/" + imageUrl, (err) => {
             if (err) throw err;
         });
         return res;
@@ -24,5 +47,5 @@ async function imageUser(imageUrl) {
 }
 
 module.exports.imageUser = imageUser;
-
+module.exports.imageStorie = imageStorie;
 
