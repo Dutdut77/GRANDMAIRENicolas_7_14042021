@@ -8,8 +8,18 @@ exports.addStorie = async (req, res, next) => {
         await Image.addStorie(req);
         res.status(201).json({
             ...req.body,
-            image_url: req.file.filename
+            content: `${req.protocol}://${req.get('host')}/images/stories/${req.file.filename}`,
         });
+    }
+    catch (receivedError) {
+        error(receivedError, res);
+    }
+}
+
+exports.addComment = async (req, res, next) => {
+    try {
+        await Image.addComment(req);
+        res.status(201).json({ ...req.body });
     }
     catch (receivedError) {
         error(receivedError, res);
@@ -44,7 +54,7 @@ exports.deleteImage = async (req, res, next) => {
         const Storie = await Image.getOneStorie(req.params.id);
         await Delete.imageStorie(Storie.image_url);
         await Image.deleteStorie(req.params.id);
-        res.status(201).json({ message: "Utilisateur supprimé !" });
+        res.status(201).json({ message: "Storie supprimée !" });
     }
     catch (receivedError) {
         errorManager(receivedError, res);
