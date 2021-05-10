@@ -1,8 +1,6 @@
-async function add(image) {
+async function addStorie(image) {
     try {
-        console.log(Date());
-        
-        const res = await database.Image("INSERT INTO images (id_parent, userId, content, date, image_url) VALUES (?,?,?,?,?)", [image.body.id_parent, image.body.userId, image.body.content, Date(), image.file.filename]);
+        const res = await database.Image("INSERT INTO images (id_parent, userId, content, image_url) VALUES (?,?,?,?)", [image.body.id_parent, image.body.userId, image.body.content, image.file.filename]);
         return res;
     }
     catch (error) {
@@ -53,7 +51,7 @@ async function deleteStorie(id) {
     }
 }
 
-module.exports.add = add;
+module.exports.addStorie = addStorie;
 module.exports.getOneStorie = getOneStorie;
 module.exports.getAllStorie = getAllStorie;
 module.exports.deleteStorie = deleteStorie;

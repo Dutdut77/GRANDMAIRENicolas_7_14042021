@@ -3,11 +3,12 @@ const Image = require('../models/image');
 const Delete = require('../middleware/delete');
 
 
-exports.addImage = async (req, res, next) => {
+exports.addStorie = async (req, res, next) => {
     try {
-        await Image.add(req);
+        await Image.addStorie(req);
         res.status(201).json({
-            content: req.body.content
+            ...req.body,
+            image_url: req.file.filename
         });
     }
     catch (receivedError) {

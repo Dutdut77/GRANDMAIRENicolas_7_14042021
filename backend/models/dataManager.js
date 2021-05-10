@@ -15,7 +15,7 @@ async function request(sql, data = []){
     return res;
 }
 
-async function findOne(sql, data = []) {
+async function findOne(sql, data = []) {    
     const res = await conn.query(sql, data);
     delete res["meta"];
     return res[0];
@@ -23,7 +23,6 @@ async function findOne(sql, data = []) {
 
 module.exports.User = request;
 module.exports.Image = request;
-
 module.exports.FindOne = findOne;
 
 /**
