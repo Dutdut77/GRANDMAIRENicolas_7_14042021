@@ -7,7 +7,7 @@ const userCtrl = require('../controllers/user');
 
 router.post('/signup', multer, userCtrl.signup);
 router.post('/login', userCtrl.login);
-//router.post('/avatar/:id', auth, multer, userCtrl.avatar);
+router.put('/avatar/:id', auth, multer, userCtrl.avatar);
 router.put('/:id', auth, userCtrl.update);
 router.get('/:id', auth, userCtrl.getOneUser);
 router.get('/', auth, userCtrl.getAllUser);

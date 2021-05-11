@@ -55,7 +55,7 @@ async function getAllStorie() {
 
 async function deleteStorie(id) {
     try {
-        const res = await database.Image("DELETE FROM images WHERE id = ?", [id]);
+        const res = await database.Image("DELETE FROM images WHERE id = ? OR id_parent = ?", [id, id]);
         return res;
     }
     catch (error) {

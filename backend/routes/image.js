@@ -9,7 +9,6 @@ router.post('/', auth, multer, imageCtrl.addStorie);
 router.post('/comment', auth, imageCtrl.addComment);
 router.get('/:id', auth, imageCtrl.getOneStorie);
 router.get('/', auth, imageCtrl.getAllStorie);
-//router.put('/updateImage',  auth, imageCtrl.updateImage);
-router.delete('/:id',  auth, imageCtrl.deleteImage);
+router.delete('/:id',  auth, imageCtrl.deleteStorie);
 
 module.exports = router;

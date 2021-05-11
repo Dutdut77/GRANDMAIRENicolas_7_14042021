@@ -94,9 +94,24 @@ async function deleteUser(id) {
     }
 }
 
+
+async function updateAvatar(avatar, id) {
+    try {
+        const res = await database.User("UPDATE users SET avatar=? WHERE id=?", [avatar, id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
+
 module.exports.addUser = addUser;
 module.exports.emailExists = emailExists;
 module.exports.updateUser = updateUser;
+module.exports.updateAvatar = updateAvatar;
 module.exports.findByEmail = findByEmail;
 module.exports.getOneUser = getOneUser;
 module.exports.getAllUser = getAllUser;

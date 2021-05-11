@@ -5,6 +5,7 @@ const Delete = require('../middleware/delete');
 
 exports.addStorie = async (req, res, next) => {
     try {
+        console.log(req);
         await Image.addStorie(req);
         res.status(201).json({
             ...req.body,
@@ -49,7 +50,7 @@ exports.getAllStorie = async (req, res, next) => {
 }
 
 
-exports.deleteImage = async (req, res, next) => {
+exports.deleteStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getOneStorie(req.params.id);
         await Delete.imageStorie(Storie.image_url);

@@ -117,6 +117,22 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 
+exports.avatar = async (req, res, next) => {
+    try {
+        const answer = await User.getOneUser(req.params.id);
+        if (answer) {
+            await Delete.imageUser(answer.avatar);            
+        }
+        await User.updateAvatar(req.file.filename, req.params.id);
+        res.status(201).json({            
+            avatar: req.file.filename            
+        });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+}
+
 
 
 
