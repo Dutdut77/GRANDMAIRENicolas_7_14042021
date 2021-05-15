@@ -2,7 +2,7 @@ const fs = require('fs');
 
 
 /**
- * Supprime la photo de l'utilisateur
+ * Supprime physiquement la photo de l'utilisateur
  *
  * @param   {String}  imageUrl  nom de la photo de l'utilisateur
  *
@@ -25,13 +25,13 @@ async function imageUser(imageUrl) {
 
 
 /**
- * Supprime la photo de l'utilisateur
+ * Supprime physiquement la photo de l'image
  *
  * @param   {String}  imageUrl  nom de la photo de l'utilisateur
  *
  *
  */
- async function imageStorie(imageUrl) {
+async function imageStorie(imageUrl) {
     try {
         const res = await fs.unlink(process.cwd() + "/images/stories/" + imageUrl, (err) => {
             if (err) throw err;

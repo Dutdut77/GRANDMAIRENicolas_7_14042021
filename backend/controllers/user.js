@@ -5,16 +5,16 @@ const User = require('../models/user');
 const Delete = require('../middleware/delete');
 
 /**
- * 
+ * SIGNUP
  *
- * @param   {Object}  req.body   Champs du formulaire
+ * @param   {Object}  req               Champs du formulaire
  * @param   {String}  req.body.prenom   Prénom de l'utilisateur
- * @param   {String}  req.body.nom   Nom de l'utilisateur
+ * @param   {String}  req.body.nom      Nom de l'utilisateur
  * @param   {String}  req.body.pseudo   Pseudo de l'utilisateur
- * @param   {String}  req.body.password   Mot de passe de l'utilisateur
- * @param   {String}  req.body.email   Email de l'utilisateur
- * @param   {String}  req.body.image_url   URL de la photo "avatar" de l'utilisateur
- * @param   {Number}  req.body.role   Role de l'utilisateur
+ * @param   {String}  req.body.password Mot de passe de l'utilisateur
+ * @param   {String}  req.body.email    Email de l'utilisateur
+ * @param   {String}  req.file.filename URL de la photo "avatar" de l'utilisateur
+ * @param   {Number}  req.body.role     Role de l'utilisateur
  *
  */
 exports.signup = async (req, res, next) => {
@@ -39,7 +39,15 @@ exports.signup = async (req, res, next) => {
     }
 }
 
-
+/**
+ * LOGIN
+ *
+ * @param   {Object}  req                Champs du formulaire
+ * @param   {String}  req.body.email     Email de l'utilisateur
+ * @param   {String}  req.body.password  Password de l'utilisateur
+ *
+ * @return  {Objet}                      Objet comprenant UserId + Token
+ */
 exports.login = async (req, res, next) => {
     try {
         const answer = await User.findByEmail(req.body.email);
@@ -66,6 +74,17 @@ exports.login = async (req, res, next) => {
 
 }
 
+/**
+ * Modifier les données d'un user !
+ *
+ * @param   {Object}  req                Champs du formulaire
+ * @param   {String}  req.body.prenom    Prénom de l'utilisateur
+ * @param   {String}  req.body.nom       Nom de l'utilisateur
+ * @param   {String}  req.body.pseudo    Pseudo de l'utilisateur
+ * @param   {String}  req.body.password  Mot de passe de l'utilisateur
+ * @param   {String}  req.body.email     Email de l'utilisateur
+ *
+ */
 exports.update = async (req, res, next) => {
     try {
         await User.updateUser(req.body, req.params.id);
@@ -82,7 +101,13 @@ exports.update = async (req, res, next) => {
 
 }
 
-
+/**
+ * Récupération des données d'un utilisateur
+ *
+ * @param   {Number}  req.params.id   Id de l'utilisateur souhaité.
+ *
+ * @return  {JSON}                    JSON de l'utilisateur.
+ */
 exports.getOneUser = async (req, res, next) => {
     try {
         const user = await User.getOneUser(req.params.id);
@@ -94,6 +119,13 @@ exports.getOneUser = async (req, res, next) => {
 
 }
 
+
+/**
+ * Récupération de toutes les données des utilisateurs
+ *
+ *
+ * @return  {JSON}                    JSON des utilisateurs.
+ */
 exports.getAllUser = async (req, res, next) => {
     try {
         const user = await User.getAllUser();
@@ -104,6 +136,14 @@ exports.getAllUser = async (req, res, next) => {
     }
 }
 
+
+/**
+ * Supprimer un utilisateur
+ *
+ * @param   {Number}  req.params.id   Id de l'utilisateur souhaité.
+ *
+ * @return  {void}               
+ */
 exports.deleteUser = async (req, res, next) => {
     try {
         const user = await User.getOneUser(req.params.id);
@@ -116,16 +156,23 @@ exports.deleteUser = async (req, res, next) => {
     }
 }
 
-
+/**
+ * Modification de l'avatar d'un utilisateur
+ *
+ * @param   {Number}  req.params.id       Id de l'utilisateur souhaité.
+ * @param   {String}  req.file.filename   Nom de fichier.
+ *
+ * @return  {void}                 
+ */
 exports.avatar = async (req, res, next) => {
     try {
         const answer = await User.getOneUser(req.params.id);
         if (answer) {
-            await Delete.imageUser(answer.avatar);            
+            await Delete.imageUser(answer.avatar);
         }
         await User.updateAvatar(req.file.filename, req.params.id);
-        res.status(201).json({            
-            avatar: req.file.filename            
+        res.status(201).json({
+            avatar: req.file.filename
         });
     }
     catch (receivedError) {

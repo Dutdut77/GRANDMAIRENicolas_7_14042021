@@ -5,17 +5,17 @@ let conn;
 const pool = mariadb.createPool({ host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASSWORD, database: process.env.DB_DATABASE });
 
 
-module.exports.start  = async function() {
+module.exports.start = async function () {
     conn = await pool.getConnection();
 }
 
-async function request(sql, data = []){
+async function request(sql, data = []) {
     const res = await conn.query(sql, data);
     delete res["meta"];
     return res;
 }
 
-async function findOne(sql, data = []) {    
+async function findOne(sql, data = []) {
     const res = await conn.query(sql, data);
     delete res["meta"];
     return res[0];
@@ -26,18 +26,18 @@ module.exports.Image = request;
 module.exports.FindOne = findOne;
 
 /**
- * [existsInTable description]
+ * Vérifie si "champ / Valeur" existe dans la Bdd
  *
- * @param   {String}  table                [table description]
- * @param   {String}  fieldName  the filed name
- * @param   {String}  value      the filed name
+ * @param   {String}  table                Nom de la table SQL
+ * @param   {String}  fieldName            Nom du champ de la table
+ * @param   {String}  value                Valeur du champ
  *
- * @return  {Boolean}                      exists or not
+ * @return  {Boolean}                      True ou False
  */
-module.exports.existsInTable = async function(table, fieldName, value){
+module.exports.existsInTable = async function (table, fieldName, value) {
     const anwser = await findOne(`SELECT id FROM ${table} WHERE ${fieldName} = ?`, [value]);
     return anwser === undefined ? false : true;
-} 
+}
 
 
 

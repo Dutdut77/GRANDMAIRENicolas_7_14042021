@@ -1,5 +1,5 @@
 function translate(object) {
-    
+
     if (object.errno === 1062) {
         object = "Adresse Email déjà prise !";
     }

@@ -2,7 +2,16 @@
 const Image = require('../models/image');
 const Delete = require('../middleware/delete');
 
-
+/**
+ * Ajouter une storie
+ *
+ * @param   {Object}  req                 Champs du formulaire
+ * @param   {String}  req.file.filename   Nom de l'image
+ * @param   {Number}  req.body.userId     Id de l'utilisateur
+ * @param   {Number}  req.body.id_parent  0
+ *
+ *
+ */
 exports.addStorie = async (req, res, next) => {
     try {
         console.log(req);
@@ -17,6 +26,16 @@ exports.addStorie = async (req, res, next) => {
     }
 }
 
+/**
+ * Ajouter un commentaire à une storie
+ *
+ * @param   {Object}  req                  Champs du formulaire
+ * @param   {String}  req.body.content     Commentaire
+ * @param   {Number}  req.body.userId      Id de l'utilisateur
+ * @param   {Number}  req.body.id_parent   Id de la storie
+ *
+ *
+ */
 exports.addComment = async (req, res, next) => {
     try {
         await Image.addComment(req);
@@ -27,6 +46,14 @@ exports.addComment = async (req, res, next) => {
     }
 }
 
+
+/**
+ * Afficher une storie
+ *
+ * @param   {Number}  req.params.id   Id de la storie souhaitée
+ *
+ * @return  {JSON}                    Json des info de la storie
+ */
 exports.getOneStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getOneStorie(req.params.id);
@@ -38,6 +65,12 @@ exports.getOneStorie = async (req, res, next) => {
 
 }
 
+/**
+ * Afficher toutes les stories
+ *
+ *
+ * @return  {JSON}        JSON de toutes les stories
+ */
 exports.getAllStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getAllStorie();
@@ -49,7 +82,13 @@ exports.getAllStorie = async (req, res, next) => {
 
 }
 
-
+/**
+ * Effacer une storie
+ *
+ * @param   {Number}  req.parmas.id  Champs du formulaire
+ *
+ *
+ */
 exports.deleteStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getOneStorie(req.params.id);
