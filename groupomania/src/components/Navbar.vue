@@ -1,23 +1,19 @@
 <template>
-    <div class="navbar">
-        <div class="logo">
-            Dark World
-        </div>
-        <a href="#" class="hamburger" id="hamburger" @click="ShowMenu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </a>
-        <nav>
-            <ul>
-                <li><a class="active" href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+<div id="menu-bar">
+			<div id="menu" @click="ShowMenu()">
+				<div id="bar1" class="bar"></div>
+				<div id="bar2" class="bar"></div>
+				<div id="bar3" class="bar"></div>
+			</div>
+			<ul class="nav" id="nav">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Blog</a></li>
+				<li><a href="#">Gallery</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+    	<div class="menu-bg" id="menu-bg"></div>
 </template>
 
 <script>
@@ -25,113 +21,87 @@ export default {
   name: "Navbar",
   methods: {
     ShowMenu() {
-      const hamburger = document.getElementById("hamburger");
-      const ul = document.querySelector("nav > ul");
-      ul.classList.toggle("menu-slide");
-      hamburger.classList.toggle("cross");
+	document.getElementById("menu").classList.toggle("change");
+	document.getElementById("nav").classList.toggle("change");	
+	document.getElementById("menu-bg").classList.toggle("change-bg");
     },
   },
 };
 </script>
 
 <style lang="scss">
-a {
-  text-decoration: none;
-  text-transform: uppercase;
+#menu{
+	width: 35px;
+	height: 30px;
+	margin: 30px 0 20px 20px;
+	cursor: pointer;
 }
-
-ul {
-  list-style-type: none;
+.bar{
+	height: 5px;
+	width: 100%;
+	background-color: #b81568;
+	display: block;
+	border-radius: 5px;
+	transition: 0.3s ease;
 }
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.7);
-  align-items: center;
-  padding: 2rem 0rem;
-  height: 8vh;
+#bar1{
+	transform: translateY(-4px);
 }
-
-.navbar .logo {
-  font-size: 1rem;
-  margin: 0rem 1.5rem;
+#bar3{
+	transform: translateY(4px);
 }
-
-ul {
-  display: flex;
-  justify-content: space-evenly;
+.nav li a{
+	color: #fff;
+	text-decoration: none;
 }
-
-ul li {
-  margin-right: 1rem;
+.nav li a:hover{
+	font-weight: bold;
 }
-
-ul li a {
-  font-size: 1.3 rem;
-  padding: 8px 10px;
+.nav li{
+	list-style: none;
+	padding: 16px 0;
 }
-
-ul li a.active,
-ul li a:hover {
-  background-color: grey;
-  transition: 0.5s;
-  border-radius: 4px;
+.nav{
+	padding: 0;
+	margin: 0 20px;
+	transition: 0.3s ease;
+	display: none;
 }
-
-.hamburger {
-  position: absolute;
-  right: 1.5rem;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 20px;
-  height: 16px;
-  display: none;
+.menu-bg, #menu-bar{
+	top: 0;
+	left: 0;
+	position: absolute;
 }
-
-.hamburger .bar {
-  height: 2px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-  transition: 0.3s all;
+.menu-bg{
+	z-index: 1;
+	width: 0;
+	height: 0;
+	margin: 30px 0 20px 20px;
+	background: radial-gradient(circle,#e94498,#b81568);
+	border-radius: 50%;
+	transition: 0.3s ease;
 }
-
-@media (max-width: 768px) {
-
-  .hamburger {
-    display: flex;
-    cursor: pointer;
-  }
-
-  ul {
-    flex-direction: column;
-    position: absolute;
-    top: 8vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    height: 86vh;
-    width: 100%;
-    align-items: center;
-    transition: right 0.3s ease-in;
-  }
-
-  ul li {
-    margin-right: 0px;
-  }
-
-  .menu-slide {
-    right: 0%;
-    transition: right 0.3s ease-in;
-  }
-
-  .cross .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .cross .bar:first-child {
-    transform: rotate(-45deg) translate(-5px, 7px);
-  }
-  .cross .bar:last-child {
-    transform: rotate(45deg) translate(-5px, -7px);
-  }
+#menu-bar{
+	z-index: 2;	
+}
+.change-bg{
+	width: 550px;
+	height: 540px;
+	transform: translate(-60%,-30%);
+}
+.change .bar{
+	background-color: white;
+}
+.change #bar1{
+	transform: translateY(4px) rotateZ(-45deg);
+}
+.change #bar3{
+	transform: translateY(-6px) rotate(45deg);
+}
+.change #bar2{
+	opacity: 0;
+}
+.change{
+	display: block;
 }
 </style>

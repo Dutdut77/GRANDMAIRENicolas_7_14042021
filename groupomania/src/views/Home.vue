@@ -20,7 +20,7 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: rgba(24, 130, 236, 0.267) ;
+  background-color: white ;
   background-size: cover;
   height: 100vh;
 }
