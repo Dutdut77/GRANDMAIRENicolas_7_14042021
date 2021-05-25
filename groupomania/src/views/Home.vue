@@ -1,8 +1,11 @@
 <template>
-<body>
+  <body>
     <header>
-  <Navbar /> 
-      </header>
+      <Navbar />
+    </header>
+    <div class="content"> 
+  Le contenu
+    </div>
   </body>
 </template>
 
@@ -20,8 +23,12 @@ export default {
 
 <style scoped lang="scss">
 body {
-  background-color: white ;
-  background-size: cover;
-  height: 100vh;
+  width: 100%;
+  
 }
+.content {
+ padding-top : 70px;
+ color : #000;
+}
+
 </style>
