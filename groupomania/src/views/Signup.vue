@@ -4,7 +4,7 @@
       <Navbar />
     </header>
     <div class="content"> 
-  Login
+  Signup
     </div>
   </body>
 </template>
@@ -14,7 +14,7 @@
 import Navbar from "@/components/Navbar.vue";
 
 export default {
-  name: "Login",
+  name: "Signup",
   components: {
     Navbar,
   },

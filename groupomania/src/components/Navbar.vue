@@ -11,9 +11,9 @@
       <span class="bar"></span>
     </div>
     <ul class="nav" id="nav">
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#">Se connecter</a></li>
-      <li><a href="#">S'enregistrer</a></li>
+      <li><a href="#"><router-link to="/">Accueil</router-link></a></li>
+      <li><a href="#"><router-link to="/login">Se connecter</router-link></a></li>
+      <li><a href="#"><router-link to="/signup">S'enregistrer</router-link></a></li>
     </ul>
   </div>
 </template>
@@ -25,7 +25,6 @@ export default {
     ShowMenu() {
       document.getElementById("hamburger").classList.toggle("cross");
       document.getElementById("nav").classList.toggle("change");
-      document.getElementById("menu-bg").classList.toggle("change-bg");
     },
   },
 };
@@ -41,11 +40,16 @@ export default {
   align-items: center;
   width: 100%;
   height: 60px;
-  position: absolute;
-
+  position: fixed;
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 .logo {
   display: flex;
+  z-index: 10;
   align-items: center;
   color: white;
   height: 35px;
@@ -60,6 +64,7 @@ export default {
   width: 30px;
   height: 100%;
   cursor: pointer;
+  z-index: 10;
   @media (min-width: 768px) {
     display: none;
   }
@@ -87,23 +92,36 @@ export default {
   flex-direction: column;
   background: linear-gradient(#45cafc, #303f9f);
   width: 100%;
-  min-height: calc(100vh - 60px);
+  height: 0;
   padding: 0;
   margin: 0;
-  transition: 0.9s ease;
-  display: none;
+  visibility: hidden;
+  transition: 0.4s ease;
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
     background: none;
+    height: 60px;
     width: auto;
-    min-height: auto;
+    margin: 0 10px;
+    z-index: 1;
+    visibility: visible;
   }
 }
-
+.nav li:first-child {
+  margin-top: 50px;
+    @media (min-width: 768px) {
+    margin-top: 0;
+   }
+}
 .nav li {
   list-style: none;
   padding: 10px 10px;
+  @media (min-width: 768px) {
+    display: block;
+  }
 }
 
 .nav li a {
@@ -115,7 +133,9 @@ export default {
 }
 
 .change {
-  display: block;
-
+  visibility: visible;
+  z-index: 5;
+  height: 100vh;
+  transition: 0.4s ease;
 }
 </style>
