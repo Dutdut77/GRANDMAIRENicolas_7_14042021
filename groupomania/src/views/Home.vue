@@ -4,7 +4,8 @@
       <Navbar />
     </header>
     <div class="content"> 
-  Le contenu
+  Le contenu <br>
+  {{afficheMessage}}
     </div>
   </body>
 </template>
@@ -17,6 +18,11 @@ export default {
   name: "Home",
   components: {
     Navbar,
+  },
+  computed: {
+afficheMessage(){
+  return this.$store.state.messageFromVuex;
+}
   },
 };
 </script>

@@ -4,7 +4,10 @@
       <Navbar />
     </header>
     <div class="content"> 
-  Login
+Email : <input type="text" v-model="email" />
+{{email}} <br><br>
+Password : <input type="text" v-model="password" />
+{{password}}
     </div>
   </body>
 </template>
@@ -18,6 +21,12 @@ export default {
   components: {
     Navbar,
   },
+  data(){
+    return {
+      email: "",
+      password: ""
+    }
+  }
 };
 </script>
 
@@ -29,6 +38,11 @@ body {
 .content {
  padding-top : 70px;
  color : #000;
+}
+
+input {
+  color:black;
+  margin:  5px;
 }
 
 </style>
