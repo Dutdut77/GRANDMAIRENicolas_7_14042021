@@ -1,17 +1,18 @@
 <template>
-    <body>
+  <body>
     <header>
       <Navbar />
     </header>
-    <div class="content"> 
-Email : <input type="text" v-model="email" />
- <br><br>
-Password : <input type="text" v-model="password" />
- <br><br>
-<button class="button" :class="{'button-disabled' : !validatedFields}" @click="login()">Login</button>
-<div class="error" v-if="status == 'error_login'">
-  Adresse Email et / ou mot de passe invalide
-    </div>
+    <div class="content">
+      Email : <input type="text" v-model="email" /> <br /><br />
+      Password : <input type="text" v-model="password" /> <br /><br />
+      <button  class="button" :class="{ 'button-disabled': !validatedFields }" @click="login()">
+        <span v-if="status == 'loading'">Connexion en cours</span>
+        <span v-else>Login</span>
+      </button>      
+      <div class="error" v-if="status == 'error_login'">
+        Adresse Email et / ou mot de passe invalide
+      </div>
     </div>
   </body>
 </template>
@@ -19,7 +20,7 @@ Password : <input type="text" v-model="password" />
 <script>
 // @ is an alias to /src
 import Navbar from "@/components/Navbar.vue";
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Login",
@@ -28,31 +29,33 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
+      email: null,
+      password: null,
     };
   },
   computed: {
     validatedFields() {
-      if (this.email != "" && this.password != "") {
-        return true;
-      } else {
-        return false;
-      }
+      return  this.email != "" && this.password != "" ? true : false;
     },
     ...mapState(["status"])
   },
   methods: {
     login() {
       const self = this;
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      }).then(function () {
-        self.$router.push("/about");
-      }, function (error) {
-        console.log(error);
-      })
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(
+          function (data) {
+            if (!data.token) return;
+            self.$router.push("/about");
+          },
+          function (error) {
+            console.log(error);
+          }
+        );
     },
   },
 };
@@ -72,16 +75,18 @@ input {
   margin: 5px;
 }
 .button {
+  color: black;
   padding: 5px;
   border: solid 1px;
   border-color: blue;
 }
 .button-disabled {
-  border: solid 1px;
-  border-color: red;
+   border-color: red;
+}
+span {
+  color : black;
 }
 .error {
   color: black;
 }
- 
 </style>
