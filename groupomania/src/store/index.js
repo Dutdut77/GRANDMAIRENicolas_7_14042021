@@ -23,21 +23,19 @@ export default createStore({
     }
   },
   actions: {
-    login: ({ commit }, userinfos) => {
-      commit("setStatus", "loading");
-      return new Promise((resolve, reject) => {
-          instance.post("/login", userinfos)
-          .then(function (response) {
-            commit("setStatus", "");
-            commit("logUser", response.data);
-            resolve(response);
-          })
-          .catch(function (error) {
-            commit("setStatus", "error_login");
-            reject(error);
-          });
-      });
-
+    login: async ( { commit }, userinfos) => {
+      try {
+        commit("setStatus", "loading");
+        const response = await instance.post("/login", userinfos);
+        commit("setStatus", "");
+        commit("logUser", response.data);
+        return response.data;
+      }
+      catch (error) {
+        commit("setStatus", "error_login");
+        console.error(error);
+        throw(error);
+      };
     }
   },
   modules: {},
