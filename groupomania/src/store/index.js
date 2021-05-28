@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 const axios = require("axios");
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/auth/"
+  baseURL: "http://localhost:3000/api/"
 });
 
 export default createStore({
@@ -11,6 +11,11 @@ export default createStore({
     user: {
       userId: -1,
       token :"",
+    },
+    allStories : {
+      nom : "",
+      content : "",
+      date : "",
     }
   },
   getters: {},
@@ -19,16 +24,21 @@ export default createStore({
       state.status = status;
     },
     logUser(state, user) {
-      state.user = user;
+      instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+      localStorage.setItem("user", JSON.stringify(user));
+      state.user = user;     
+    },
+    allStories(state, allStories) {
+      state.allStories = allStories;        
     }
   },
   actions: {
     login: async ( { commit }, userinfos) => {
       try {
         commit("setStatus", "loading");
-        const response = await instance.post("/login", userinfos);
+        const response = await instance.post("/auth/login", userinfos);
         commit("setStatus", "");
-        commit("logUser", response.data);
+        commit("logUser", response.data);        
         return response.data;
       }
       catch (error) {
@@ -36,7 +46,19 @@ export default createStore({
         console.error(error);
         throw(error);
       };
-    }
+    },
+     getAllStories : async ({commit}) => {
+       try {
+         const response = await instance.get("/image");
+         commit("allStories", response.data.Storie);
+         console.log(response.data.Storie);
+         return response.data.Storie;
+       }
+       catch (error) {        
+        console.error(error);
+        throw(error);
+      };
+     }
   },
   modules: {},
 });

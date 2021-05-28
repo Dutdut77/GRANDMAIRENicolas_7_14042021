@@ -42,15 +42,10 @@ export default {
   methods: {
     login() {
       const self = this;
-      this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
-        })
+      this.$store.dispatch("login", {email: this.email, password: this.password})
         .then(
-          function (data) {
-            if (!data.token) return;
-            self.$router.push("/about");
+          function () {
+            self.$router.push("/storie");
           },
           function (error) {
             console.log(error);
