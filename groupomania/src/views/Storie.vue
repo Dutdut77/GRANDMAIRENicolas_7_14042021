@@ -20,7 +20,7 @@ export default {
     this.$store.dispatch("getAllStories");
   },
   computed: {
-    ...mapState(["allStories", "user"])
+    ...mapState(["allStories"])
   },
   
 };
@@ -29,6 +29,9 @@ export default {
 <style>
 * {
   color: black;
+}
+.container {
+  padding-top : 60px;
 }
 .card {
   margin : 20px;

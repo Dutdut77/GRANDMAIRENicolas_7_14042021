@@ -1,24 +1,18 @@
 <template>
-  <body>
-    <header>
-      <Navbar />
-    </header>
+
     <div class="content"> 
   Le contenu <br>
   {{afficheMessage}}
     </div>
-  </body>
+
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: "Home",
-  components: {
-    Navbar,
-  },
+  components: { },
   computed: {
 afficheMessage(){
   return this.$store.state.messageFromVuex;

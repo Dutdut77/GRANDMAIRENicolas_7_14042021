@@ -3,8 +3,28 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div> -->
-  <router-view />
+    <body>
+    <header>
+      <Navbar />
+    </header>
+ <router-view />
+  </body>
+ 
 </template>
+
+
+<script>
+// @ is an alias to /src
+import Navbar from "@/components/Navbar.vue";
+
+export default {
+  name: "Groupomania",
+  components: {
+    Navbar,
+  },
+};
+</script>
+
 
 <style lang="scss">
 #app {

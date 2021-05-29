@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+//import store from "../store/";
 
 const routes = [
   {
@@ -12,6 +13,9 @@ const routes = [
     name: "Storie",
     component: function () {
       return import(/* webpackChunkName: "storie" */ "../views/Storie.vue");
+    },
+    meta: {
+      requiresAuth: true
     },
   },
   {
@@ -28,12 +32,33 @@ const routes = [
       return import(/* webpackChunkName: "signup" */ "../views/Signup.vue");
     },
   },
-  
+
 ];
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    let user = localStorage.getItem('user');
+    if (!user) {
+      console.log("pas bon")
+      next({ name: 'Login' })
+    }
+    else {
+      console.log("ok")
+      next()
+    }
+  }
+  else {
+    console.log("ok ok")
+    next({ name: "Login", path: "/login" });
+  }  
 });
 
 export default router;

@@ -4,6 +4,27 @@ const instance = axios.create({
   baseURL: "http://localhost:3000/api/"
 });
 
+let user = localStorage.getItem('user');
+if (!user) {
+  user = {
+    userId: -1,
+    token : "",
+  };
+} else {
+  try{
+    user = JSON.parse(user);
+    instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+  }catch  {
+    user = {
+      userId: -1,
+      token : "",
+    };
+  }
+  
+}
+
+
+
 export default createStore({
   state: {
     messageFromVuex: "Message provenant de VueX",
@@ -51,7 +72,6 @@ export default createStore({
        try {
          const response = await instance.get("/image");
          commit("allStories", response.data.Storie);
-         console.log(response.data.Storie);
          return response.data.Storie;
        }
        catch (error) {        

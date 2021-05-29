@@ -1,8 +1,5 @@
 <template>
-  <body>
-    <header>
-      <Navbar />
-    </header>
+
     <div class="content">
       Email : <input type="text" v-model="email" /> <br /><br />
       Password : <input type="text" v-model="password" /> <br /><br />
@@ -14,19 +11,17 @@
         Adresse Email et / ou mot de passe invalide
       </div>
     </div>
-  </body>
+
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from "@/components/Navbar.vue";
+
 import { mapState } from "vuex";
 
 export default {
   name: "Login",
-  components: {
-    Navbar,
-  },
+  components: { },
   data() {
     return {
       email: null,
