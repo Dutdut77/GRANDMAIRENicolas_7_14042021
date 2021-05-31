@@ -37,7 +37,12 @@ export default createStore({
       nom : "",
       content : "",
       date : "",
-    }
+    },
+    oneStorie : {
+      nom : "",
+      content : "",
+      date : "",
+    },
   },
   getters: {},
   mutations: {
@@ -51,6 +56,10 @@ export default createStore({
     },
     allStories(state, allStories) {
       state.allStories = allStories;        
+    },
+    oneStorie(state, oneStorie) {
+      state.oneStorie = oneStorie;   
+      console.log(state.oneStorie);     
     }
   },
   actions: {
@@ -78,7 +87,19 @@ export default createStore({
         console.error(error);
         throw(error);
       };
-     }
+     },
+     getOneStorie : async ({commit}, id) => {
+      const route = '/image/'.concat('', id.id);
+      try {
+        const response = await instance.get(route);
+        commit("oneStorie", response.data.Storie);
+        return response.data.Storie;
+      }
+      catch (error) {        
+       console.error(error);
+       throw(error);
+     };
+    }
   },
   modules: {},
 });

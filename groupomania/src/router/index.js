@@ -1,35 +1,61 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-//import store from "../store/";
+import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
+import Storie from "../views/Storie.vue";
+import OneStorie from "../views/OneStorie.vue";
+import NotFound from "../views/NotFound.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/storie",
-    name: "Storie",
-    component: function () {
-      return import(/* webpackChunkName: "storie" */ "../views/Storie.vue");
-    },
     meta: {
-      requiresAuth: true
+      title: "Groupomania",
     },
   },
   {
     path: "/login",
     name: "Login",
-    component: function () {
-      return import(/* webpackChunkName: "login" */ "../views/Login.vue");
+    component: Login,
+    meta: {
+      title: "Login",
     },
   },
   {
     path: "/signup",
     name: "Signup",
-    component: function () {
-      return import(/* webpackChunkName: "signup" */ "../views/Signup.vue");
+    component: Signup,
+    meta: {
+      title: "S'enregistrer",
+    },
+  },
+  {
+    path: "/storie",
+    name: "Storie",
+    component: Storie,
+    meta: {
+      title: "Album Groupomania",
+      requiresAuth: true
+    },
+  },
+  {
+    path: "/onestorie/:id",
+    name: "OneStorie",
+    component: OneStorie,
+    props: true,
+    meta: {
+      title: "Photo Groupomania",
+      requiresAuth: true
+    },
+  },
+  {
+    path: "/:patchMatch(.*)",
+    name: "NotFound",
+    component: NotFound,
+    meta: {
+      title: "404 Not Found",
     },
   },
 
@@ -43,22 +69,27 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    let user = localStorage.getItem('user');
-    if (!user) {
-      console.log("pas bon")
-      next({ name: 'Login' })
-    }
-    else {
-      console.log("ok")
-      next()
-    }
-  }
-  else {
-    console.log("ok ok")
-    next({ name: "Login", path: "/login" });
-  }  
+router.afterEach((to) => {
+  document.title = to.meta.title;
 });
+
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     let user = localStorage.getItem('user');
+//     if (!user) {
+//       console.log("pas bon")
+//       next({ name: 'Login' })
+//     }
+//     else {
+//       console.log("ok")
+//       next()
+//     }
+//   }
+//   else {
+//     console.log("ok ok")
+//     next({ name: "Login", path: "/login" });
+//   }  
+// });
 
 export default router;
