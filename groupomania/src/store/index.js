@@ -42,7 +42,24 @@ export default createStore({
       nom : "",
       content : "",
       date : "",
+    },   
+     profil : {
+      nom : "",
+      prenom : "",
+      email : "",
+      pseudo : "",
+      avatar : "",
+      titre : ""
     },
+    allProfil : {
+      nom : "",
+      prenom : "",
+      email : "",
+      pseudo : "",
+      avatar : "",
+      titre : ""
+    },
+
   },
   getters: {},
   mutations: {
@@ -58,8 +75,13 @@ export default createStore({
       state.allStories = allStories;        
     },
     oneStorie(state, oneStorie) {
-      state.oneStorie = oneStorie;   
-      console.log(state.oneStorie);     
+      state.oneStorie = oneStorie;         
+    },
+    profil(state, profil) {
+      state.profil = profil;           
+    },
+    allProfil(state, allProfil) {
+      state.allProfil = allProfil;           
     }
   },
   actions: {
@@ -99,7 +121,30 @@ export default createStore({
        console.error(error);
        throw(error);
      };
+    },
+    getProfil : async ({commit}) => {
+        try {
+        const response = await instance.get("/auth/94");
+        commit("profil", response.data.user);
+        return response.data.user;
+      }
+      catch (error) {        
+       console.error(error);
+       throw(error);
+     };
+    },
+    getAllProfil : async ({commit}) => {
+      try {
+      const response = await instance.get("/auth");
+      commit("allProfil", response.data.user);
+      console.log(response.data.user)
+      return response.data.user;
     }
+    catch (error) {        
+     console.error(error);
+     throw(error);
+   };
+  }
   },
   modules: {},
 });

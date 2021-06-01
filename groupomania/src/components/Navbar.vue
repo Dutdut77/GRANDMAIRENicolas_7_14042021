@@ -17,6 +17,7 @@
       <li><a href="#"><router-link to="/storie">Album</router-link></a></li>
       <li><a href="#"><router-link to="/profil">Mon profil</router-link></a></li>
       <li><a href="#"><router-link to="/logout">Logout</router-link></a></li>
+      <li><a href="#"><router-link to="/Admin">Admin</router-link></a></li>
     </ul>
   </div>
 </template>

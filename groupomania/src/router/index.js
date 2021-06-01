@@ -6,6 +6,7 @@ import Storie from "../views/Storie.vue";
 import OneStorie from "../views/OneStorie.vue";
 import NotFound from "../views/NotFound.vue";
 import Profil from "../views/Profil.vue";
+import Admin from "../views/Admin.vue";
 
 const routes = [
   {
@@ -14,6 +15,14 @@ const routes = [
     component: Home,
     meta: {
       title: "Groupomania",
+    },
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    meta: {
+      title: "Admin - Groupomania",
     },
   },
   {
