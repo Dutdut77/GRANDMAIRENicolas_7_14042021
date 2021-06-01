@@ -5,6 +5,7 @@ import Signup from "../views/Signup.vue";
 import Storie from "../views/Storie.vue";
 import OneStorie from "../views/OneStorie.vue";
 import NotFound from "../views/NotFound.vue";
+import Profil from "../views/Profil.vue";
 
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
     component: Signup,
     meta: {
       title: "S'enregistrer",
+    },
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    component: Profil,
+    meta: {
+      title: "Mon profil",
     },
   },
   {

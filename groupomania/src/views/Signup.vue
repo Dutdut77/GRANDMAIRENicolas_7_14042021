@@ -1,8 +1,5 @@
 <template>
     <body>
-    <header>
-      <Navbar />
-    </header>
     <div class="content"> 
   Signup
     </div>
@@ -11,12 +8,11 @@
 
 <script>
 // @ is an alias to /src
-import Navbar from "@/components/Navbar.vue";
+
 
 export default {
   name: "Signup",
   components: {
-    Navbar,
   },
 };
 </script>

@@ -7,7 +7,10 @@
     <header>
       <Navbar />
     </header>
- <router-view />
+    <div class="container">
+      <router-view /> 
+    </div>
+
   </body>
  
 </template>
@@ -41,5 +44,8 @@ export default {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   color: #fff;
+}
+.container {
+  padding-top: 60px;
 }
 </style>

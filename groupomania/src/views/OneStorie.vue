@@ -20,7 +20,7 @@ export default {
   name: "OneStorie",
   props : ["id"],
   mounted () {
-    this.$store.dispatch("getOneStorie", { id: "23"});
+    this.$store.dispatch("getOneStorie", { id: this.id });
   },
   computed: {
     ...mapState(["oneStorie"])

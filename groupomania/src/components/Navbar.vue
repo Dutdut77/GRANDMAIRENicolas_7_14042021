@@ -15,6 +15,7 @@
       <li><a href="#"><router-link to="/login">Se connecter</router-link></a></li>
       <li><a href="#"><router-link to="/signup">S'enregistrer</router-link></a></li>
       <li><a href="#"><router-link to="/storie">Album</router-link></a></li>
+      <li><a href="#"><router-link to="/profil">Mon profil</router-link></a></li>
       <li><a href="#"><router-link to="/logout">Logout</router-link></a></li>
     </ul>
   </div>

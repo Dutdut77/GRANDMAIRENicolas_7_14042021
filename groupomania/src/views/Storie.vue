@@ -4,8 +4,8 @@
     <div class="card" v-for="storie in allStories" :key="storie.id">
       Url photo : {{ storie.content }}<br />
       Nom utilisateur : {{ storie.userId }}<br />
-      Date : {{ storie.date }}<br />
-      <button @click="OneStorie(storie.userId)">En savoir plus</button>
+      Date : {{ storie.date}}<br />
+      <button @click="OneStorie(storie.id)">En savoir plus</button>
     </div>
   </div>
 </template>
