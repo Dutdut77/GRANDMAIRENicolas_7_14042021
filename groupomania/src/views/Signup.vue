@@ -45,7 +45,7 @@ export default {
   methods: {
     signup() {
       const self = this;
-      this.$store.dispatch("signup", {email: this.email, password: this.password, nom: this.nom, prenom: this.prenom, pseudo: this.pseudo, role: 1, image_url : this.image_url})
+      this.$store.dispatch("signup", {email: this.email, password: this.password, nom: this.nom, prenom: this.prenom, pseudo: this.pseudo, role: 1, image_url:this.image_url})
         .then(
           function () {
             self.$router.push("/storie");
@@ -55,10 +55,9 @@ export default {
           }
         );
     },
-    previewFile() {    
-      const formData = new FormData();   
-       this.files = event.target.files
-      this.image_url = formData.append('files', this.files[0])
+    previewFile() {      
+      this.image_url = event.target.files[0];
+      // this.image_url = formData.append('files', this.files[i])
     }
   },
 };

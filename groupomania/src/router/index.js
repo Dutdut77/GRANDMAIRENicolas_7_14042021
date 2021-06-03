@@ -15,6 +15,7 @@ const routes = [
     component: Home,
     meta: {
       title: "Groupomania",
+      requiresAuth: true
     },
   },
   {
@@ -31,6 +32,7 @@ const routes = [
     component: Login,
     meta: {
       title: "Login",
+      requiresAuth: false
     },
   },
   {
@@ -92,22 +94,25 @@ router.afterEach((to) => {
 });
 
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     let user = localStorage.getItem('user');
-//     if (!user) {
-//       console.log("pas bon")
-//       next({ name: 'Login' })
-//     }
-//     else {
-//       console.log("ok")
-//       next()
-//     }
-//   }
-//   else {
-//     console.log("ok ok")
-//     next({ name: "Login", path: "/login" });
-//   }  
-// });
+router.beforeEach((to, from, next) => {
+
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    let user = localStorage.getItem('user');
+    if (!user) {
+      console.log("pas bon")
+      next({ path: "/login" })
+    }
+    else {
+      console.log("ok");
+      next()
+    }
+  }
+  else {
+  console.log("ok ok")
+  next({ name: "Login", path: "/login" });
+
+  }
+ });
 
 export default router;

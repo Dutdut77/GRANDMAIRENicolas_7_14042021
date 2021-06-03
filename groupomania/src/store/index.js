@@ -101,9 +101,20 @@ export default createStore({
     },
     signup: async ( { commit }, userinfos) => {
       console.log(userinfos);
+      
+      const data = new FormData(); 
+      for (const [key, value] of Object.entries(userinfos)){
+        data.append(key, value);
+      }
+      // data.append("file", file);
+      const headers = {
+        header : {
+          "Content-Type" : "multipart/form-data"
+        }
+      }
       try {
         commit("setStatus", "loading");
-        const response = await instance.post("/auth/signup", userinfos);
+        const response = await instance.post("/auth/signup", data, headers);
         commit("setStatus", "");
         commit("profil", response.data);        
         return response.data;
