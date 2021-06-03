@@ -99,6 +99,21 @@ export default createStore({
         throw(error);
       };
     },
+    signup: async ( { commit }, userinfos) => {
+      console.log(userinfos);
+      try {
+        commit("setStatus", "loading");
+        const response = await instance.post("/auth/signup", userinfos);
+        commit("setStatus", "");
+        commit("profil", response.data);        
+        return response.data;
+      }
+      catch (error) {
+        commit("setStatus", "error_login");
+        console.error(error);
+        throw(error);
+      };
+    },
      getAllStories : async ({commit}) => {
        try {
          const response = await instance.get("/image");
@@ -137,7 +152,6 @@ export default createStore({
       try {
       const response = await instance.get("/auth");
       commit("allProfil", response.data.user);
-      console.log(response.data.user)
       return response.data.user;
     }
     catch (error) {        
