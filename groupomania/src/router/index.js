@@ -24,6 +24,7 @@ const routes = [
     component: Admin,
     meta: {
       title: "Admin - Groupomania",
+      requiresAuth: true
     },
   },
   {
@@ -41,6 +42,7 @@ const routes = [
     component: Signup,
     meta: {
       title: "S'enregistrer",
+      requiresAuth: false
     },
   },
   {
@@ -49,6 +51,7 @@ const routes = [
     component: Profil,
     meta: {
       title: "Mon profil",
+      requiresAuth: true
     },
   },
   {
@@ -88,15 +91,7 @@ const router = createRouter({
   routes,
 });
 
-
-router.afterEach((to) => {
-  document.title = to.meta.title;
-});
-
-
 router.beforeEach((to, from, next) => {
-
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     let user = localStorage.getItem('user');
     if (!user) {
@@ -108,8 +103,18 @@ router.beforeEach((to, from, next) => {
   }
   else {  
   next(); //{ name: "Login", path: "/login" }
-
   }
  });
+
+router.afterEach((to) => {
+  document.title = to.meta.title;
+});
+
+
+
+
+
+
+
 
 export default router;

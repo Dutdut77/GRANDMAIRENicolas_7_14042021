@@ -3,9 +3,9 @@
     <h1>Mes photos</h1>
     <div class="card">
       id : {{id}}<br />
-      Url photo : {{oneStorie.content}}<br />
-      Nom utilisateur : {{oneStorie.userId}}<br />
-      Date : {{oneStorie.date}}<br />
+      Url photo : {{stories.content}}<br />
+      Nom utilisateur : {{stories.userId}}<br />
+      Date : {{stories.date}}<br />
       <button @click="Storie()">Retour</button>
     </div>
     
@@ -23,7 +23,7 @@ export default {
     this.$store.dispatch("getOneStorie", { id: this.id });
   },
   computed: {
-    ...mapState(["oneStorie"])
+    ...mapState(["stories"])
   },
   methods : {
     Storie() {

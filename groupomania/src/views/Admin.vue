@@ -3,11 +3,11 @@
       <h1>Administation</h1>
 <div class="user" >
    
-   <p v-for="(user, index) in allProfil" :key="index"> avatar : {{user.avatar}} | Email : {{user.email}} | Pseudo : {{user.pseudo}}</p>
+   <p v-for="(user, index) in profil" :key="index"> avatar : {{user.avatar}} | Email : {{user.email}} | Pseudo : {{user.pseudo}}</p>
 </div>
 
 <div class="stories" >
-   <p v-for="storie in allStories" :key="storie.id"> Photo : {{storie.content}} | Date : {{storie.date}} |Pseudo : {{storie.userId}} </p> 
+   <p v-for="storie in stories" :key="storie.id"> Photo : {{storie.content}} | Date : {{storie.date}} |Pseudo : {{storie.userId}} </p> 
 </div>
 
   </div>
@@ -23,7 +23,7 @@ export default {
     this.$store.dispatch("getAllStories");
   },
     computed: {
-    ...mapState(["allProfil", "allStories"]),
+    ...mapState(["profil", "stories"]),
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Mes photos</h1>
-    <div class="card" v-for="storie in allStories" :key="storie.id">
+    <div class="card" v-for="storie in stories" :key="storie.id">
       Url photo : {{ storie.content }}<br />
       Nom utilisateur : {{ storie.userId }}<br />
       Date : {{ storie.date}}<br />
@@ -19,7 +19,7 @@ export default {
     this.$store.dispatch("getAllStories");
   },
   computed: {
-    ...mapState(["allStories"]),
+    ...mapState(["stories"]),
   },
   methods: {
     OneStorie(id) {

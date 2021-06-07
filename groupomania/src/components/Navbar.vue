@@ -11,27 +11,45 @@
       <span class="bar"></span>
     </div>
     <ul class="nav" id="nav">
-      <li><a href="#"><router-link to="/">Accueil</router-link></a></li>
-      <li><a href="#"><router-link to="/login">Se connecter</router-link></a></li>
-      <li><a href="#"><router-link to="/signup">S'enregistrer</router-link></a></li>
-      <li><a href="#"><router-link to="/storie">Album</router-link></a></li>
-      <li><a href="#"><router-link to="/profil">Mon profil</router-link></a></li>
-      <li><a href="#"><router-link to="/logout">Logout</router-link></a></li>
-      <li><a href="#"><router-link to="/Admin">Admin</router-link></a></li>
+      <li><a href="#" @click="ShowMenu()"><router-link to="/">Accueil</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">Se connecter</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">S'enregistrer</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">Album</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">Mon profil</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="Logout()">Logout</a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/Admin">Admin</router-link></a></li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+// // Vérifie si on est enregistrer
+// let user = localStorage.getItem('user');
+// user = JSON.parse(user);
+//
+
+
 export default {
   name: "Navbar",
+
   methods: {
     ShowMenu() {
       document.getElementById("hamburger").classList.toggle("cross");
       document.getElementById("nav").classList.toggle("change");
-    },
+    }, 
+    Logout() {
+      localStorage.removeItem('user');
+      this.$store.commit("deleteStore");
+      this.$router.push({ name: "Home"});
+    }
   },
+   computed: {
+    ...mapState(["user"]),
+  }
 };
+
 </script>
 
 <style scoped lang="scss">
