@@ -100,17 +100,14 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     let user = localStorage.getItem('user');
     if (!user) {
-      console.log("pas bon")
-      next({ path: "/login" })
+       next({ path: "/login" })
     }
-    else {
-      console.log("ok");
+    else {     
       next()
     }
   }
-  else {
-  console.log("ok ok")
-  next({ name: "Login", path: "/login" });
+  else {  
+  next(); //{ name: "Login", path: "/login" }
 
   }
  });
