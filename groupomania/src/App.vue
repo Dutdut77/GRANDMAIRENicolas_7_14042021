@@ -38,12 +38,14 @@ export default {
   color: #2c3e50;
 }
 
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  color: #fff;
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;    
 }
 .container {
   padding-top: 60px;

@@ -2,7 +2,7 @@
   <div class="navbar">
     <img
       class="logo"
-      src="../assets/logo.svg"
+      src="../assets/logo-blue.png"
       alt="Groupomania Mon réseau social d'entreprise"
     />
     <div class="hamburger" id="hamburger" @click="ShowMenu()">
@@ -55,7 +55,7 @@ export default {
 <style scoped lang="scss">
 .navbar {
   transition: 0.6s ease;
-  background-color: #45cafc;
+  background-color: #d1515a;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -72,8 +72,7 @@ export default {
 .logo {
   display: flex;
   z-index: 10;
-  align-items: center;
-  color: white;
+  align-items: center;  
   height: 35px;
   font-size: 1rem;
   margin: 0 1rem;
@@ -95,7 +94,7 @@ export default {
   height: 3px;
   width: 100%;
   margin: 2px;
-  background-color: white;
+  background-color: #091f43;
   border-radius: 10px;
   transition: 0.3s ease;
 }
@@ -112,7 +111,7 @@ export default {
 .nav {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(#45cafc, #303f9f);
+  background: linear-gradient(#d1515a, #f3838a);
   width: 100%;
   height: 0;
   padding: 0;
@@ -147,7 +146,7 @@ export default {
 }
 
 .nav li a {
-  color: #fff;
+  color: #091f43;
   text-decoration: none;
 }
 .nav li a:hover {

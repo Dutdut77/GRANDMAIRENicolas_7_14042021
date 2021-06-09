@@ -1,17 +1,50 @@
 <template>
-
+  <section>
+    <div class="custom-shape-divider-top-1623269035">
+      <svg
+        data-name="Layer 1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+          opacity=".25"
+          class="shape-fill"
+        ></path>
+        <path
+          d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+          opacity=".5"
+          class="shape-fill"
+        ></path>
+        <path
+          d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+          class="shape-fill"
+        ></path>
+      </svg>
+    </div>
     <div class="content">
-      Email : <input type="text" v-model="email" /> <br /><br />
-      Password : <input type="text" v-model="password" /> <br /><br />
-      <button  class="button" :class="{ 'button-disabled': !validatedFields }" @click="login()">
-        <span v-if="status == 'loading'">Connexion en cours</span>
-        <span v-else>Login</span>
-      </button>      
-      <div class="error" v-if="status == 'error_login'">
-        Adresse Email et / ou mot de passe invalide
+      <img src="../assets/profil.svg" class="profil" />
+
+      <div class="login">
+        <img src="../assets/avatar.svg" class="avatar" />
+        <div class="titre"><h1>SE CONNECTER</h1></div>
+        Email : <input type="text" v-model="email" /> <br /><br />
+        Password : <input type="text" v-model="password" /> <br /><br />
+        <button
+          class="button"
+          :class="{ 'button-disabled': !validatedFields }"
+          @click="login()"
+        >
+          <span v-if="status == 'loading'">Connexion en cours</span>
+          <span v-else>Login</span>
+        </button>
+        <div class="error" v-if="status == 'error_login'">
+          Adresse Email et / ou mot de passe invalide
+        </div>
       </div>
     </div>
-
+  </section>
 </template>
 
 <script>
@@ -21,7 +54,7 @@ import { mapState } from "vuex";
 
 export default {
   name: "Login",
-  components: { },
+  components: {},
   data() {
     return {
       email: null,
@@ -30,14 +63,15 @@ export default {
   },
   computed: {
     validatedFields() {
-      return  this.email != "" && this.password != "" ? true : false;
+      return this.email != "" && this.password != "" ? true : false;
     },
-    ...mapState(["status"])
+    ...mapState(["status"]),
   },
   methods: {
     login() {
       const self = this;
-      this.$store.dispatch("login", {email: this.email, password: this.password})
+      this.$store
+        .dispatch("login", { email: this.email, password: this.password })
         .then(
           function () {
             self.$router.push("/storie");
@@ -52,12 +86,79 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.custom-shape-divider-top-1623269035 {
+  padding-top: 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: -1;
+}
+
+.custom-shape-divider-top-1623269035 svg {
+  position: relative;
+  display: block;
+  width: calc(168% + 1.3px);
+  height: 195px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1623269035 .shape-fill {
+  fill: #d1515a;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .content {
-  padding-top: 70px;
-  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 195px;
+  padding: 30px 0 30px 0;
+  width: 100%;
+  height: calc(100vh - 255px);
+}
+.profil {
+  margin: auto;
+  width: 30%;
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    animation-name: fade-in;
+    animation-duration: 3s;
+  }
+}
+
+.login {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  @media (min-width: 768px) {
+    border-left: solid 1px #091f43;
+    width: 50%;
+  }
+}
+.avatar {
+  width: 20%;
+  // filter: drop-shadow(0 0 0.5rem #091f43);
+}
+.titre {
+  width: 100%;
+  h1 {
+    font-size: 30px;
+    color: #091f43;
+  }
 }
 
 input {
@@ -71,10 +172,10 @@ input {
   border-color: blue;
 }
 .button-disabled {
-   border-color: red;
+  border-color: red;
 }
 span {
-  color : black;
+  color: black;
 }
 .error {
   color: black;
