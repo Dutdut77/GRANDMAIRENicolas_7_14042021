@@ -44,9 +44,6 @@ export default {
 	box-sizing: border-box;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;    
-}
 .container {
   padding-top: 60px;
 }

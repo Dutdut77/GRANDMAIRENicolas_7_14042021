@@ -29,16 +29,25 @@
       <div class="login">
         <img src="../assets/avatar.svg" class="avatar" />
         <div class="titre"><h1>SE CONNECTER</h1></div>
-        Email : <input type="text" v-model="email" /> <br /><br />
-        Password : <input type="text" v-model="password" /> <br /><br />
-        <button
-          class="button"
-          :class="{ 'button-disabled': !validatedFields }"
-          @click="login()"
-        >
+
+<div class="form__group field">
+  <input type="input" class="form__field" placeholder="Email" name="Email" id='email' autocomplete="off" v-model="email"/>
+  <label for="email" class="form__label">Email :</label>
+</div>
+
+<div class="form__group field">
+  <input type="password" class="form__field" placeholder="Mot de passe" name="Password" id='password' v-model="password"/>
+  <label for="password" class="form__label">Mot de passe :</label>
+</div>
+
+
+        <button class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }"  @click="login()">
           <span v-if="status == 'loading'">Connexion en cours</span>
-          <span v-else>Login</span>
+          <span v-else>VALIDER</span>
         </button>
+
+
+        
         <div class="error" v-if="status == 'error_login'">
           Adresse Email et / ou mot de passe invalide
         </div>
@@ -85,7 +94,15 @@ export default {
 };
 </script>
 
+
+
 <style scoped lang="scss">
+
+$primary: #091f43;
+$secondary: #d1515a;
+$white: #fff;
+$gray: #091f43;
+
 .custom-shape-divider-top-1623269035 {
   padding-top: 60px;
   position: absolute;
@@ -101,12 +118,12 @@ export default {
   position: relative;
   display: block;
   width: calc(168% + 1.3px);
-  height: 195px;
+  height: 100px;
   transform: rotateY(180deg);
 }
 
 .custom-shape-divider-top-1623269035 .shape-fill {
-  fill: #d1515a;
+  fill: $secondary;
 }
 @keyframes fade-in {
   from {
@@ -120,8 +137,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 195px;
-  padding: 30px 0 30px 0;
+  margin-top: 100px;
+  margin-bottom: 30px;
   width: 100%;
   height: calc(100vh - 255px);
 }
@@ -143,41 +160,129 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: auto;
+
   @media (min-width: 768px) {
-    border-left: solid 1px #091f43;
+    border-left: solid 2px $primary;
     width: 50%;
   }
 }
 .avatar {
-  width: 20%;
-  // filter: drop-shadow(0 0 0.5rem #091f43);
+  width: 25%;
+        @media (min-width: 768px) {
+    width: 15%;
+  }
 }
 .titre {
   width: 100%;
   h1 {
     font-size: 30px;
-    color: #091f43;
+    color: $primary;
   }
 }
 
-input {
-  color: black;
-  margin: 5px;
+
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin: 0px 20% 10px 20%;
+  width: 100%;   
 }
-.button {
-  color: black;
-  padding: 5px;
-  border: solid 1px;
-  border-color: blue;
+
+.form__field {
+  position: relative;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid $primary;
+  outline: 0;
+  font-size: 1.3rem;
+  color: $primary;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+    
+  }
 }
-.button-disabled {
-  border-color: red;
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $primary;
+  z-index: -1;
 }
-span {
-  color: black;
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $secondary;  
+         
+  }
+  padding-bottom: 6px;  
+  border-width: 3px;
+  border-color: $secondary;
+  border-image-slice: 1;
 }
-.error {
-  color: black;
+
+.custom-btn {
+  color : $primary;
+  width: 100%;
+  height: 60px;
+  margin: 20px 20% 10px 20%;
+  padding: 10px 25px;
+  border: 2px solid $primary; 
+  font-size: 1.3rem; 
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  z-index: 0;
 }
+
+.btn-10 {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.btn-10:after {
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+  -webkit-transform: scale(.1);
+  transform: scale(.1);
+}
+.btn-10:hover {
+   border: 2px solid $secondary; 
+}
+.btn-10:hover:after {  
+  background: $secondary;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+
+
+
 </style>

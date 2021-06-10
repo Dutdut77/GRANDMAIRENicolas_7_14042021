@@ -112,13 +112,15 @@ export default {
   display: flex;
   flex-direction: column;
   background: linear-gradient(#d1515a, #f3838a);
+  font-size: 1.2rem;
   width: 100%;
   height: 0;
   padding: 0;
   margin: 0;
   visibility: hidden;
-  transition: 0.4s ease;
-  @media (min-width: 768px) {
+  transition: 0.1s ease;
+  
+   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -127,7 +129,6 @@ export default {
     height: 60px;
     width: auto;
     margin: 0 10px;
-    z-index: 1;
     visibility: visible;
   }
 }
@@ -155,7 +156,7 @@ export default {
 
 .change {
   visibility: visible;
-  z-index: 5;
+  z-index: 500;
   height: 100vh;
   transition: 0.4s ease;
 }

@@ -14,7 +14,7 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "Groupomania",
+      title: "Groupomania - Accueil",
       requiresAuth: true
     },
   },
@@ -32,7 +32,7 @@ const routes = [
     name: "Login",
     component: Login,
     meta: {
-      title: "Login",
+      title: "Connexion sur Groupomania",
       requiresAuth: false
     },
   },
@@ -41,7 +41,7 @@ const routes = [
     name: "Signup",
     component: Signup,
     meta: {
-      title: "S'enregistrer",
+      title: "Enregistrement sur Groupomania",
       requiresAuth: false
     },
   },
@@ -50,7 +50,7 @@ const routes = [
     name: "Profil",
     component: Profil,
     meta: {
-      title: "Mon profil",
+      title: "Mon profil Groupomania",
       requiresAuth: true
     },
   },
@@ -59,7 +59,7 @@ const routes = [
     name: "Storie",
     component: Storie,
     meta: {
-      title: "Album Groupomania",
+      title: "Albums photos Groupomania",
       requiresAuth: true
     },
   },
