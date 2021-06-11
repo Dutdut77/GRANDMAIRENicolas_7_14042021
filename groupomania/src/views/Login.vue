@@ -24,7 +24,12 @@
       </svg>
     </div>
     <div class="content">
-      <img src="../assets/profil.svg" class="profil" />
+
+      <div class="signup">
+        <img src="../assets/profil.svg" class="profil" />
+        <div class="profil--titre">Pas encore inscrit ? Par ici </div>
+      </div>
+
 
       <div class="login">
         <img src="../assets/avatar.svg" class="avatar" />
@@ -142,20 +147,31 @@ $gray: #091f43;
   width: 100%;
   height: calc(100vh - 255px);
 }
-.profil {
-  margin: auto;
-  width: 30%;
-  display: none;
+.signup{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+   display: none;
   @media (min-width: 768px) {
     display: block;
     animation-name: fade-in;
     animation-duration: 3s;
   }
 }
+.profil { 
+   margin: auto;
+   width: 70%;
+   margin-bottom: 40px;   
+
+  &--titre {
+    font-size: 1.3rem;
+    color: $primary;
+  }
+}
 
 .login {
   display: flex;
-  flex-wrap: wrap;
+ flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -169,15 +185,20 @@ $gray: #091f43;
 }
 .avatar {
   width: 25%;
+  margin: 30px;
         @media (min-width: 768px) {
     width: 15%;
   }
 }
 .titre {
   width: 100%;
+   margin: 10px;
   h1 {
-    font-size: 30px;
+    font-size: 1.3rem;
     color: $primary;
+            @media (min-width: 768px) {
+    font-size: 2rem;
+  }
   }
 }
 
@@ -186,8 +207,8 @@ $gray: #091f43;
 .form__group {
   position: relative;
   padding: 15px 0 0;
-  margin: 0px 20% 10px 20%;
-  width: 100%;   
+  margin: 10px 20% 10px 20%;
+  width: 70%;   
 }
 
 .form__field {
@@ -208,10 +229,12 @@ $gray: #091f43;
   }
 
   &:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     cursor: text;
     top: 20px;
-    
+                @media (min-width: 768px) {
+    font-size: 1.3rem;
+  }
   }
 }
 
@@ -243,9 +266,9 @@ $gray: #091f43;
 
 .custom-btn {
   color : $primary;
-  width: 100%;
+  width: 50%;
   height: 60px;
-  margin: 20px 20% 10px 20%;
+  margin: 50px 20% 10px 20%;
   padding: 10px 25px;
   border: 2px solid $primary; 
   font-size: 1.3rem; 
