@@ -76,9 +76,7 @@ export default createStore({
         throw (error);
       };
     },
-    signup: async ({ commit }, userinfos) => {
-      console.log(userinfos);
-
+    signup: async ({ commit }, userinfos) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(userinfos)) {
         data.append(key, value);
@@ -94,6 +92,7 @@ export default createStore({
         const response = await instance.post("/auth/signup", data, headers);
         commit("setStatus", "");
         commit("profil", response.data);
+        //this.dispatch("login", { email: this.email, password: this.password });
         return response.data;
       }
       catch (error) {

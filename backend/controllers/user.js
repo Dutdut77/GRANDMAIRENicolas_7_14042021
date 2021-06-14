@@ -24,7 +24,7 @@ exports.signup = async (req, res, next) => {
             await Delete.imageUser(req.file.filename);
             return res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
         }
-        await User.addUser(req);
+        await User.addUser(req);       
         res.status(201).json({
             prenom: req.body.prenom,
             nom: req.body.nom,

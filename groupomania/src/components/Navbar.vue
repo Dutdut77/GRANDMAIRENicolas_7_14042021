@@ -12,8 +12,8 @@
     </div>
     <ul class="nav" id="nav">
       <li><a href="#" @click="ShowMenu()"><router-link to="/">Accueil</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">Se connecter</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">S'enregistrer</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">Connexion</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">Enregistrement</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">Album</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">Mon profil</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="Logout()">Logout</a></li>
@@ -24,11 +24,6 @@
 
 <script>
 import { mapState } from "vuex";
-
-// // Vérifie si on est enregistrer
-// let user = localStorage.getItem('user');
-// user = JSON.parse(user);
-//
 
 
 export default {
@@ -119,6 +114,7 @@ export default {
   margin: 0;
   visibility: hidden;
   transition: 0.1s ease;
+ 
   
    @media (min-width: 768px) {
     display: flex;
@@ -156,6 +152,7 @@ export default {
 
 .change {
   visibility: visible;
+  position: relative;
   z-index: 500;
   height: 100vh;
   transition: 0.4s ease;

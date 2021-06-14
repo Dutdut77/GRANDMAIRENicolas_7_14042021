@@ -27,7 +27,7 @@
 
       <div class="signup">
         <img src="../assets/profil.svg" class="profil" />
-        <div class="profil--titre">Pas encore inscrit ? Par ici </div>
+        <div class="profil--titre">Pas encore inscrit ? <router-link to="/signup">Par ici </router-link></div>
       </div>
 
 
@@ -35,12 +35,12 @@
         <img src="../assets/avatar.svg" class="avatar" />
         <div class="titre"><h1>SE CONNECTER</h1></div>
 
-<div class="form__group field">
+<div class="form__group">
   <input type="input" class="form__field" placeholder="Email" name="Email" id='email' autocomplete="off" v-model="email"/>
   <label for="email" class="form__label">Email :</label>
 </div>
 
-<div class="form__group field">
+<div class="form__group">
   <input type="password" class="form__field" placeholder="Mot de passe" name="Password" id='password' v-model="password"/>
   <label for="password" class="form__label">Mot de passe :</label>
 </div>
@@ -108,6 +108,12 @@ $secondary: #d1515a;
 $white: #fff;
 $gray: #091f43;
 
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .custom-shape-divider-top-1623269035 {
   padding-top: 60px;
   position: absolute;
@@ -142,10 +148,8 @@ $gray: #091f43;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 100px;
-  margin-bottom: 30px;
+  margin-top: 160px; 
   width: 100%;
-  height: calc(100vh - 255px);
 }
 .signup{
   width: 50%;
@@ -160,7 +164,7 @@ $gray: #091f43;
 }
 .profil { 
    margin: auto;
-   width: 70%;
+   width: 60%;
    margin-bottom: 40px;   
 
   &--titre {
@@ -172,20 +176,21 @@ $gray: #091f43;
 .login {
   display: flex;
  flex-direction: column;
-  justify-content: center;
+
   align-items: center;
   width: 100%;
   height: 100%;
   padding: auto;
 
   @media (min-width: 768px) {
+      justify-content: center;
     border-left: solid 2px $primary;
     width: 50%;
   }
 }
 .avatar {
   width: 25%;
-  margin: 30px;
+  margin: 15px;
         @media (min-width: 768px) {
     width: 15%;
   }
@@ -205,14 +210,16 @@ $gray: #091f43;
 
 
 .form__group {
-  position: relative;
+  // position: relative;
   padding: 15px 0 0;
   margin: 10px 20% 10px 20%;
-  width: 70%;   
+  width: 40%;   
+  // z-index: 0;
 }
 
 .form__field {
-  position: relative;
+  // position: relative;   
+  // z-index: 0;
   width: 100%;
   border: 0;
   border-bottom: 2px solid $primary;
@@ -224,9 +231,9 @@ $gray: #091f43;
   transition: border-color 0.2s;
   
 
-  &::placeholder {
-    color: transparent;
-  }
+  // &::placeholder {
+    // color: transparent;
+  // }
 
   &:placeholder-shown ~ .form__label {
     font-size: 1.1rem;
@@ -266,43 +273,43 @@ $gray: #091f43;
 
 .custom-btn {
   color : $primary;
-  width: 50%;
-  height: 60px;
+  width: 40%;
+  height: 50px;
   margin: 50px 20% 10px 20%;
-  padding: 10px 25px;
+  padding: 0 15px;
   border: 2px solid $primary; 
   font-size: 1.3rem; 
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  z-index: 0;
+  // position: relative;
+  display: block;
+  // z-index: 0;
 }
 
 .btn-10 {
   transition: all 0.3s ease;
   overflow: hidden;
 }
-.btn-10:after {
-  position: absolute;
-  content: " ";
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  transition: all 0.3s ease;
-  -webkit-transform: scale(.1);
-  transform: scale(.1);
-}
+// .btn-10:after {
+//   position: relative;
+//   content: " ";
+//   // top: 0;
+//   // left: 0;
+//   // z-index: -1;
+//   width: 0;
+//   height: 0;
+//   transition: all 0.3s ease;
+//   // -webkit-transform: scale(.1);
+//   // transform: scale(.1);
+//   display: block;
+// }
 .btn-10:hover {
    border: 2px solid $secondary; 
-}
-.btn-10:hover:after {  
   background: $secondary;
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  // -webkit-transform: scale(1);
+  // transform: scale(1);
+
 }
 
 
