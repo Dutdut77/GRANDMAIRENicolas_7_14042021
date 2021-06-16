@@ -28,7 +28,7 @@
       <div class="login">
         <div class="form">
         <img src="../assets/avatar.svg" class="avatar" />
-        <div class="titre"><h1>ENREGISTREMENT</h1></div>
+        <div class="titre"><h1>INSCRIPTION</h1></div>
 .
         <div class="form__group">
           <input
@@ -40,7 +40,7 @@
             autocomplete="off"
             v-model="nom"
           />
-          <label for="nom" class="form__label">Nom :</label>
+          
         </div>
 
         <div class="form__group">
@@ -53,7 +53,7 @@
             autocomplete="off"
             v-model="prenom"
           />
-          <label for="prenom" class="form__label">Prénom :</label>
+          
         </div>
 
         <div class="form__group">
@@ -66,7 +66,7 @@
             autocomplete="off"
             v-model="pseudo"
           />
-          <label for="pseudo" class="form__label">Pseudo :</label>
+          
         </div>
 
         <div class="form__group">
@@ -79,7 +79,7 @@
             autocomplete="off"
             v-model="email"
           />
-          <label for="email" class="form__label">Email :</label>
+          
         </div>
 
         <div class="form__group">
@@ -91,13 +91,12 @@
             id="password"
             v-model="password"
           />
-          <label for="password" class="form__label">Mot de passe :</label>
+         
         </div>
 
         <div class="form__group form__file">
           <input type="file" id="file" class="custom-file-input" @change="previewFile" />
-          <label for="file" class="form__label">File :</label>
-        </div>
+         </div>
 </div>
         <button
           class="custom-btn btn-10"
@@ -326,30 +325,7 @@ section {
   width: 90%;
   margin : 15px;
 }
-.form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: $primary;
-  z-index: -1;
-}
 
-.form__field:focus {
-  ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: $secondary;
-  }
-  padding-bottom: 6px;
-  border-width: 3px;
-  border-color: $secondary;
-  border-image-slice: 1;
-}
 
 .custom-btn {
   color: $primary;

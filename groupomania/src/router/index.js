@@ -15,7 +15,7 @@ const routes = [
     component: Home,
     meta: {
       title: "Groupomania - Accueil",
-      requiresAuth: true
+      requiresAuth: false
     },
   },
   {

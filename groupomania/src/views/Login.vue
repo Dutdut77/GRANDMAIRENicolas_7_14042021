@@ -37,12 +37,12 @@
 
 <div class="form__group">
   <input type="input" class="form__field" placeholder="Email" name="Email" id='email' autocomplete="off" v-model="email"/>
-  <label for="email" class="form__label">Email :</label>
+  
 </div>
 
 <div class="form__group">
   <input type="password" class="form__field" placeholder="Mot de passe" name="Password" id='password' v-model="password"/>
-  <label for="password" class="form__label">Mot de passe :</label>
+
 </div>
 
 
@@ -209,17 +209,16 @@ section {
 
 
 
-.form__group {
-  // position: relative;
+.form__group {  
   padding: 15px 0 0;
-  margin: 10px 20% 10px 20%;
-  width: 40%;   
-  // z-index: 0;
+  margin: 10px;
+  width: 80%;
+      @media (min-width: 768px) {
+       width: 40%;
+    }
 }
 
 .form__field {
-  // position: relative;   
-  // z-index: 0;
   width: 100%;
   border: 0;
   border-bottom: 2px solid $primary;
@@ -231,9 +230,7 @@ section {
   transition: border-color 0.2s;
   
 
-  // &::placeholder {
-    // color: transparent;
-  // }
+  
 
   &:placeholder-shown ~ .form__label {
     font-size: 1.1rem;
@@ -243,32 +240,6 @@ section {
     font-size: 1.3rem;
   }
   }
-}
-
-.form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: $primary;
-  z-index: -1;
-}
-
-.form__field:focus {
-  ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: $secondary;  
-         
-  }
-  padding-bottom: 6px;  
-  border-width: 3px;
-  border-color: $secondary;
-  border-image-slice: 1;
 }
 
 .custom-btn {

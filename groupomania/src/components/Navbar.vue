@@ -13,7 +13,7 @@
     <ul class="nav" id="nav">
       <li><a href="#" @click="ShowMenu()"><router-link to="/">Accueil</router-link></a></li>
       <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">Connexion</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">Enregistrement</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">Inscription</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">Album</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">Mon profil</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="Logout()">Logout</a></li>
