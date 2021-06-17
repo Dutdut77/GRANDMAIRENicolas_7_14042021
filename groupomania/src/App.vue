@@ -1,8 +1,4 @@
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
     <body>
     <header>
       <Navbar />
@@ -11,8 +7,7 @@
       <router-view /> 
     </div>
 
-  </body>
- 
+  </body> 
 </template>
 
 
@@ -20,10 +15,11 @@
 // @ is an alias to /src
 import Navbar from "@/components/Navbar.vue";
 
+
 export default {
   name: "Groupomania",
   components: {
-    Navbar,
+    Navbar
   },
 };
 </script>
@@ -49,5 +45,6 @@ export default {
 .container {
   padding-top: 60px;
   min-height: 100vh;
+  width: 100%;
 }
 </style>
