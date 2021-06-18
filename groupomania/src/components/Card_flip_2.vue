@@ -29,9 +29,6 @@ export default {
   name: "Card",
 
   methods: {
-    Btnflip() {
-      document.getElementById("flip").classList.toggle("flipped");         
-    },
     Cardflip() { 
       document.getElementById("clickcard").classList.toggle("flipped");
     }
@@ -62,6 +59,7 @@ export default {
   transition: all .5s linear;
   border-radius:10px;
 }
+
 .face {
   position: absolute;
   width: 100%;
@@ -106,6 +104,9 @@ export default {
 .back{
   box-shadow: 0 0 0 #aaa;
 }
+
+
+
 .flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);

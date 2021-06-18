@@ -35,9 +35,7 @@ export default {
     Btnflip() {
       document.getElementById("flip").classList.toggle("flipped");         
     },
-    Cardflip() { 
-      document.getElementById("clickcard").classList.toggle("flipped");
-    }
+
 
   }
 }

@@ -1,4 +1,5 @@
 <template>
+
   <div class="navbar">
     <img
       class="logo"
@@ -19,7 +20,9 @@
       <li v-if="user.userId > 0" ><a href="#" @click="Logout()">Logout</a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/Admin">Admin</router-link></a></li>
     </ul>
-  </div>
+
+  </div> 
+
 </template>
 
 <script>
@@ -48,6 +51,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$primary: #091f43;
+$secondary: #d1515a;
+
+
 .navbar {
   transition: 0.6s ease;
   background-color: #d1515a;
