@@ -76,7 +76,7 @@ $secondary: #d1515a;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  z-index: -1;
+  z-index: 5;
 }
 
 .custom-shape-divider-top-1623269035 svg {
