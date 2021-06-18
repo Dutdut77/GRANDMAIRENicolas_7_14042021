@@ -1,95 +1,79 @@
 <template>
-<section>
-
-
-
-       <div class="content">
-
-
-   
+  <section>
+    <div class="content">
       <Card />
-
       <div class="titre">
-     <h1>Bienvenue sur le réseau social interne GROUPOMANIA</h1>
-     <p>Postez ici vos photos afin de favoriser les échanges entre collègues</p>
-     <button class="btn" @click="storie()">         
-          <span>COMMENCER</span></button>
-    </div> 
-
+        <h1>Bienvenue sur le réseau social interne GROUPOMANIA</h1>
+        <p>
+          Postez ici vos photos afin de favoriser les échanges entre collègues.
+        </p>
+        <button class="btn" @click="storie()">
+          <span>COMMENCER</span>
+        </button>
       </div>
-    
-
-
-
-
-
-
-
-</section>
-
+    </div>
+  </section>
 </template>
 
 <script>
-import Card from "@/components/Card_1.vue";
+import Card from "@/components/Card_2.vue";
 // @ is an alias to /src
 
 export default {
   name: "Home",
-  components: {Card},
+  components: { Card },
   computed: {
     afficheMessage() {
       return this.$store.state.messageFromVuex;
     },
   },
-  methods : {
-    storie() {           
+  methods: {
+    storie() {
       this.$router.push("/storie");
-    }
+    },
   },
- 
 };
 </script>
 
 <style scoped lang="scss">
-
 $primary: #091f43;
 $secondary: #d1515a;
 $white: #fff;
 $gray: #091f43;
 
-
 section {
   display: flex;
   justify-content: center;
-  align-items: center;  
-  min-height: calc(100vh - 160px);
+  align-items: center;
+  padding-top : 160px;
+  min-height: 100vh;
+
 }
 
 .content {
+  min-width: 100%;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-
-  width: 100%;
-  height: 100%;
 }
 
-
-.titre{
+.titre {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding : 40px 0;
+  padding: 40px 0;
   order: -1;
-      @media (min-width: 768px) {
+  @media (min-width: 768px) {
     width: 50%;
-order :2;
-   }
+    order: 2;
+  }
 }
-.titre h1, p {
+.titre h1,
+p {
   color: $primary;
 }
 
@@ -99,10 +83,7 @@ order :2;
 }
 .titre p {
   font-size: 1.4rem;
-  
 }
-
-
 
 .btn {
   color: $primary;
@@ -116,22 +97,12 @@ order :2;
   cursor: pointer;
   transition: all 0.3s ease;
   display: block;
-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   overflow: hidden;
-
 }
 
 .btn:hover {
   border: 2px solid $secondary;
   background: $secondary;
 }
-
-
-
-
-
-
-
-
-
 </style>

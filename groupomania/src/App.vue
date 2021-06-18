@@ -26,9 +26,9 @@
       </svg>
     </div>
     </header>
-    <div class="container">
-      <router-view /> 
-    </div>
+ 
+      <router-view />
+  
 
   </body> 
 </template>
@@ -76,7 +76,7 @@ $secondary: #d1515a;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  z-index: 10;
+  z-index: -1;
 }
 
 .custom-shape-divider-top-1623269035 svg {
@@ -91,10 +91,5 @@ $secondary: #d1515a;
   fill: $secondary;
 }
 
-.container {
-  padding-top: 160px;
-  min-height: 100vh;
-  width: 100%;
 
-}
 </style>
