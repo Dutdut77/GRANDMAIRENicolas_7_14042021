@@ -105,6 +105,7 @@ export default createStore({
       try {
         const response = await instance.get("/image");
         commit("stories", response.data.Storie);
+        console.log(response.data.Storie);
         return response.data.Storie;
       }
       catch (error) {

@@ -1,23 +1,32 @@
 <template>
-  <div class="container">
+  <section>
     <h1>Mes photos</h1>
-    <div class="card" v-for="storie in stories" :key="storie.id">
+    <Card  v-for="storie in stories" :key="storie.id" :storie="storie"/>
+
+
+
+
+    <!-- <div class="card" v-for="storie in stories" :key="storie.id">
       Url photo : {{ storie.content }}<br />
       Nom utilisateur : {{ storie.userId }}<br />
       Date : {{ storie.date}}<br />
       <button @click="OneStorie(storie.id)">En savoir plus</button>
-    </div>
-  </div>
+    </div> -->
+
+
+  </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Card from "@/components/Card.vue";
 
 export default {
   name: "Storie",
   mounted() {
     this.$store.dispatch("getAllStories");
   },
+  components: { Card },
   computed: {
     ...mapState(["stories"]),
   },
@@ -33,8 +42,8 @@ export default {
 * {
   color: black;
 }
-.container {
-  padding-top: 60px;
+section {
+  padding-top: 160px;
 }
 .card {
   margin: 20px;

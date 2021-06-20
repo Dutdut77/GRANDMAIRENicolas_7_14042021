@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Card from "@/components/Card_2.vue";
+import Card from "@/components/Card.vue";
 // @ is an alias to /src
 
 export default {
@@ -95,14 +95,12 @@ p {
   font-size: 1.3rem;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: block;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  display: block;  
   overflow: hidden;
 }
 
 .btn:hover {
-  border: 2px solid $secondary;
   background: $secondary;
 }
 </style>

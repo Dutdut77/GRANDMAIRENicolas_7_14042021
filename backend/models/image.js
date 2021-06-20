@@ -65,7 +65,27 @@ async function getOneStorie(id) {
  */
 async function getAllStorie() {
     try {
-        const res = await database.Image("SELECT * FROM images");
+        const res = await database.Image("SELECT * FROM images WHERE id_parent = ?", [0]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
+
+/**
+ * Rechercher une storie dans la Bdd
+ *
+ * @param   {Number}  id  Id de la storie
+ *
+ * @return  {Object}      Info de la storie
+ */
+ async function getAllCommentaires(id) {
+    try {
+        const res = await database.Image("SELECT * FROM images WHERE id_parent = ?", [id]);
         return res;
     }
     catch (error) {
@@ -100,4 +120,5 @@ module.exports.addStorie = addStorie;
 module.exports.addComment = addComment;
 module.exports.getOneStorie = getOneStorie;
 module.exports.getAllStorie = getAllStorie;
+module.exports.getAllCommentaires = getAllCommentaires;
 module.exports.deleteStorie = deleteStorie;

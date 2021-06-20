@@ -73,7 +73,17 @@ exports.getOneStorie = async (req, res, next) => {
 exports.getAllStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getAllStorie();
+        for (let i = 0, size = Storie.length; i < size; i++) {
+            const Commentaire = await Image.getAllCommentaires(Storie[i].id);
+
+     
+
+
+        }
+        console.log(Storie);
+
         res.status(201).json({ Storie });
+
     }
     catch (receivedError) {
         errorManager(receivedError, res);

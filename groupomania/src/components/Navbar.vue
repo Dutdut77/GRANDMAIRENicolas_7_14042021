@@ -51,8 +51,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
+
+   $primary: #091f43;
+   $secondary: #d1515a;
 
 
 .navbar {
@@ -65,6 +66,7 @@ $secondary: #d1515a;
   width: 100%;
   height: 60px;
   position: fixed;
+  z-index: 100;
   @media (min-width: 768px) {
     flex-wrap: nowrap;
     justify-content: space-between;

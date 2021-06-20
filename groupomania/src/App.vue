@@ -2,7 +2,7 @@
     <body>
     <header>
       <Navbar />
-                    <div class="custom-shape-divider-top-1623269035">
+    <div class="custom-shape-divider-top-1623269035">
       <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +68,7 @@ $secondary: #d1515a;
   
 
 }
+
 .custom-shape-divider-top-1623269035 {
   padding-top: 60px;
   position: fixed;
@@ -76,7 +77,7 @@ $secondary: #d1515a;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  z-index: 5;
+  z-index: 1;
 }
 
 .custom-shape-divider-top-1623269035 svg {
