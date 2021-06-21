@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Mes photos</h1>
+    <h1>Album photos GROUPOMANIA</h1>
     <Card  v-for="storie in stories" :key="storie.id" :storie="storie"/>
 
 
@@ -44,7 +44,17 @@ export default {
 }
 section {
   padding-top: 160px;
+  display : flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
 }
+section h1 {
+  width: 100%;
+  padding: 30px;
+}
+
 .card {
   margin: 20px;
 }

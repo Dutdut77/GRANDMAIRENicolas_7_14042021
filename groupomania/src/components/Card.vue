@@ -2,17 +2,19 @@
   <div class="card">
     <div class="image">
       <div class="titre">
-        <div class="pseudo"><h2>{{storie.userId}}</h2></div>
+        <div class="pseudo">
+          <h2>{{ storie.userId }}</h2>
+        </div>
 
-        <div class="btn" id="icon" @click="ShowDiag()">
+        <div class="btn" :id="'icon'+storie.id" @click="ShowDiag(storie.id)">
           <p>V</p>
         </div>
-        <div class="date">{{storie.date}}</div>
+        <div class="date">{{ storie.date }}</div>
       </div>
     </div>
-    <div class="dialogue" id="diag">
 
-      <div class="group">
+    <div class="dialogue" :id="'diag'+storie.id">
+      <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
         <div class="group--avatar">
           <img
             class="group--image"
@@ -21,94 +23,37 @@
           />
         </div>
         <div class="group--desc">
-          <div class="group--pseudo">{{storie.userId}}</div>
-          <div class="group--date">21/06/2021</div>
-          <div class="group--text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            voluptate a tempora architecto? 
-          </div>
+          <div class="group--pseudo">{{ commentaire.userId }}</div>
+          <div class="group--date">{{ commentaire.date }}</div>
+          <div class="group--text">{{ commentaire.content }}</div>
         </div>
-
-        
       </div>
-
-            <div class="group">
-        <div class="group--avatar">
-          <img
-            class="group--image"
-            src="../assets/avatar.svg"
-            alt="user photo"
-          />
-        </div>
-        <div class="group--desc">
-          <div class="group--pseudo">Nicolas</div>
-          <div class="group--date">21/06/2021</div>
-          <div class="group--text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            voluptate a tempora architecto? 
-          </div>
-        </div>
-
-        
-      </div>
-
-            <div class="group">
-        <div class="group--avatar">
-          <img
-            class="group--image"
-            src="../assets/avatar.svg"
-            alt="user photo"
-          />
-        </div>
-        <div class="group--desc">
-          <div class="group--pseudo">Nicolas</div>
-          <div class="group--date">21/06/2021</div>
-          <div class="group--text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            voluptate a tempora architecto? 
-          </div>
-        </div>
-
-        
-      </div>
-
-            <div class="group">
-        <div class="group--avatar">
-          <img
-            class="group--image"
-            src="../assets/avatar.svg"
-            alt="user photo"
-          />
-        </div>
-        <div class="group--desc">
-          <div class="group--pseudo">Nicolas</div>
-          <div class="group--date">21/06/2021</div>
-          <div class="group--text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-            voluptate a tempora architecto? 
-          </div>
-        </div>
-
-        
-      </div>
-
-
     </div>
+
+   
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Card",
   props: {
-    storie : {
-      default : "Valeur par défaut"
-    }
+    storie: {
+      default: "Valeur par défaut",
+    },
+  },
+  computed: {
+    ...mapState(["commentaires"]),
   },
   methods: {
-    ShowDiag() {
-      document.getElementById("diag").classList.toggle("show");
-      document.getElementById("icon").classList.toggle("rotate");
+    ShowDiag(id) {
+      let diag = 'diag'+id; 
+      let icon = 'icon'+id;     
+      this.$store.dispatch("getAllCommentaires", id);
+      document.getElementById(icon).classList.toggle("rotate");      
+      document.getElementById(diag).classList.toggle("show");          
     },
   },
 };
@@ -130,7 +75,7 @@ $secondary: #d1515a;
   justify-content: center;
   align-items: center;
   @media (min-width: 768px) {
-    width: 40%;
+    width: 30%;
   }
 }
 
@@ -150,7 +95,7 @@ $secondary: #d1515a;
 .titre {
   width: 100%;
   background: linear-gradient(0deg, $secondary 30%, transparent 100%);
-  height : 80px;
+  height: 80px;
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-end;
@@ -192,11 +137,17 @@ $secondary: #d1515a;
   overflow: hidden;
 }
 
+.new {
+  height: 300px;
+  visibility: visible;
+  transition: 0.3s ease-in-out;
+}
+
 .show {
   height: 300px;
   visibility: visible;
   transition: 0.3s ease-in-out;
-  overflow-y : scroll;
+  overflow-y: auto;
 }
 
 .btn p {
@@ -225,7 +176,6 @@ $secondary: #d1515a;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-   
   }
   &--image {
     width: 100%;
@@ -235,17 +185,17 @@ $secondary: #d1515a;
     width: 50%;
     text-align: start;
     font-weight: bold;
-     color: $primary;
+    color: $primary;
   }
   &--date {
     width: 50%;
     text-align: end;
-     color: $primary;
+    color: $primary;
   }
   &--text {
     width: 100%;
     text-align: justify;
-     color: $primary;
+    color: $primary;
   }
 }
 </style>

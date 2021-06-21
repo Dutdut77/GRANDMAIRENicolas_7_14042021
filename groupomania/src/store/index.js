@@ -27,12 +27,11 @@ if (!user) {
 
 export default createStore({
   state: {
-    messageFromVuex: "Message provenant de VueX",
     status: "",
     user: user,
     stories: {},    
     profil: {},
-
+    commentaires: {},
 
   },
   getters: {},
@@ -47,6 +46,16 @@ export default createStore({
     },
     stories(state, stories) {
       state.stories = stories;
+    }, 
+    commentaires(state, commentaires) {
+      
+      if (commentaires.length > 0) {
+      state.commentaires = commentaires;         
+      }
+      else {
+      state.commentaires = {};     
+     }
+      
     }, 
     profil(state, profil) {
       state.profil = profil;
@@ -104,8 +113,7 @@ export default createStore({
     getAllStories: async ({ commit }) => {
       try {
         const response = await instance.get("/image");
-        commit("stories", response.data.Storie);
-        console.log(response.data.Storie);
+        commit("stories", response.data.Storie);        
         return response.data.Storie;
       }
       catch (error) {
@@ -117,8 +125,20 @@ export default createStore({
       const route = '/image/'.concat('', id.id);
       try {
         const response = await instance.get(route);
-        commit("stories", response.data.Storie);
+        commit("stories", response.data.Storie);        
         return response.data.Storie;
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
+    getAllCommentaires: async ({ commit }, id) => {
+      const route = '/image/comment/'.concat('', id);
+      try {
+        const response = await instance.get(route);
+        commit("commentaires", response.data.Commentaires);
+        return response.data.Commentaires;
       }
       catch (error) {
         console.error(error);

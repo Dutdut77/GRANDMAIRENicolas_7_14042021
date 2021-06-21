@@ -10,11 +10,14 @@ router.post('/', auth, multer, imageCtrl.addStorie);
 /* Ajouter un commentaire à une storie */
 router.post('/comment', auth, imageCtrl.addComment);
 
-/* afficher une storie */
+/* Afficher une storie */
 router.get('/:id', auth, imageCtrl.getOneStorie);
 
 /* Ajouter toutes les stories */
 router.get('/', auth, imageCtrl.getAllStorie);
+
+/* Afficher tous les commentaires d'une Storie */
+router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
 
 /* Supprimer une storie */
 router.delete('/:id',  auth, imageCtrl.deleteStorie);
