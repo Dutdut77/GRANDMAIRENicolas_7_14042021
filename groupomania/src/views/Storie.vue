@@ -19,7 +19,7 @@
 
 <script>
 import { mapState } from "vuex";
-import Card from "@/components/Card.vue";
+import Card from "@/components/Card2.vue";
 
 export default {
   name: "Storie",
@@ -38,16 +38,16 @@ export default {
 };
 </script>
 
-<style>
-* {
-  color: black;
-}
+<style lang="scss">
+
+
 section {
   padding-top: 160px;
   display : flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
 
 }
 section h1 {

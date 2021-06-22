@@ -22,11 +22,6 @@ import Card from "@/components/Card.vue";
 export default {
   name: "Home",
   components: { Card },
-  computed: {
-    afficheMessage() {
-      return this.$store.state.messageFromVuex;
-    },
-  },
   methods: {
     storie() {
       this.$router.push("/storie");

@@ -3,18 +3,14 @@
     <div class="image">
       <div class="titre">
         <div class="pseudo">
-          <h2>{{ storie.userId }}</h2>
+          <h2>Ronaldo</h2>
         </div>
-
-        <div class="btn" :id="'icon'+storie.id" @click="ShowDiag(storie.id)">
-          <p>V</p>
-        </div>
-        <div class="date">{{ storie.date }}</div>
+        <div class="date">21-06-2021</div>
       </div>
     </div>
 
-    <div class="dialogue" :id="'diag'+storie.id">
-      <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
+    <div class="dialogue">
+      <div class="group">
         <div class="group--avatar">
           <img
             class="group--image"
@@ -23,11 +19,12 @@
           />
         </div>
         <div class="group--desc">
-          <div class="group--pseudo">{{ commentaire.userId }}</div>
-          <div class="group--date">{{ commentaire.date }}</div>
-          <div class="group--text">{{ commentaire.content }}</div>
-        </div>
+          <div class="group--pseudo">Neymar</div>
+          <div class="group--date">26-06-2021</div>
+          <div class="group--text">ca donne faim ton histoire...</div>
+        </div>        
       </div>
+      
     </div>
 
    
@@ -35,27 +32,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "Card",
-  props: {
-    storie: {
-      default: "Valeur par défaut",
-    },
-  },
-  computed: {
-    ...mapState(["commentaires"]),
-  },
-  methods: {
-    ShowDiag(id) {
-      let diag = 'diag'+id; 
-      let icon = 'icon'+id;     
-      this.$store.dispatch("getAllCommentaires", id);
-      document.getElementById(icon).classList.toggle("rotate");      
-      document.getElementById(diag).classList.toggle("show");          
-    },
-  },
 };
 </script>
 
@@ -94,69 +72,37 @@ $secondary: #d1515a;
 }
 .titre {
   width: 100%;
-  background: linear-gradient(0deg, $secondary 30%, transparent 100%);
-  height: 80px;
+  background: rgba(0, 0, 0, .5);
+  height: 40px;
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-end;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
 }
 .pseudo {
   width: 40%;
   margin-right: auto;
-  padding: 0 10px;
+  padding: 5px 10px;
   text-align: start;
 }
 .pseudo h2 {
-  color: $primary;
+  color: white;
 }
 .date {
   margin-left: auto;
-  padding: 0 10px 5px 0;
+  padding: 0 10px 10px 0;
   text-align: end;
   width: 40%;
-  color: $primary;
-  font-style: italic;
-  font-size: 0.9rem;
-}
-.btn {
-  cursor: pointer;
-  position: relative;
-  top: 10px;
-  background: $primary;
-  padding: 5px 10px;
-  border-radius: 30px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  transition: 0.3s ease-in-out;
-}
-.dialogue {
-  height: 0;
-  visibility: hidden;
-  transition: 0.3s ease-in-out;
-  overflow: hidden;
-}
-
-.new {
-  height: 300px;
-  visibility: visible;
-  transition: 0.3s ease-in-out;
-}
-
-.show {
-  height: 300px;
-  visibility: visible;
-  transition: 0.3s ease-in-out;
-  overflow-y: auto;
-}
-
-.btn p {
-  font-size: 1.3rem;
   color: white;
+  font-style: italic;
+  font-size: 1rem;
 }
 
-.rotate {
-  transform: rotate(180deg);
+.dialogue {
+  height: 300px;  
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .group {
