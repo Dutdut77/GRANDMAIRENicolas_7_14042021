@@ -3,7 +3,7 @@
     <div class="image">
       <div class="titre">
         <div class="pseudo">
-          <h2>Ronaldo</h2>
+          <h2>Messi</h2>
         </div>
         <div class="date">21-06-2021</div>
       </div>
@@ -22,6 +22,34 @@
           <div class="group--pseudo">Neymar</div>
           <div class="group--date">26-06-2021</div>
           <div class="group--text">ca donne faim ton histoire...</div>
+        </div>        
+      </div>
+            <div class="group">
+        <div class="group--avatar">
+          <img
+            class="group--image"
+            src="../assets/avatar.svg"
+            alt="user photo"
+          />
+        </div>
+        <div class="group--desc">
+          <div class="group--pseudo">Mbappé</div>
+          <div class="group--date">28-06-2021</div>
+          <div class="group--text">Avec ça dans le ventre, c'est sûr je vais courrir moins vite.</div>
+        </div>        
+      </div>
+            <div class="group">
+        <div class="group--avatar">
+          <img
+            class="group--image"
+            src="../assets/avatar.svg"
+            alt="user photo"
+          />
+        </div>
+        <div class="group--desc">
+          <div class="group--pseudo">Ronaldo</div>
+          <div class="group--date">29-06-2021</div>
+          <div class="group--text">C'est vraiment pas bon pour la santé. Rien ne vaut une bonne salade de crudité.</div>
         </div>        
       </div>
       

@@ -47,7 +47,7 @@ async function addComment(req) {
  */
 async function getOneStorie(id) {
     try {
-        const res = await database.FindOne("SELECT * FROM images WHERE id = ?", [id]);
+        const res = await database.FindOne("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.nom, b.prenom FROM images AS a INNER JOIN users AS b ON a.userId = b.id WHERE a.id = ?", [id]);
         return res;
     }
     catch (error) {
@@ -65,7 +65,7 @@ async function getOneStorie(id) {
  */
 async function getAllStorie() {
     try {
-        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a INNER JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ?", [0]);
+        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ?", [0]);
         return res;
     }
     catch (error) {
@@ -84,8 +84,9 @@ async function getAllStorie() {
  * @return  {Object}      Info de la storie
  */
  async function getAllCommentaires(id) {
+     console.log(id);
     try {
-        const res = await database.Image("SELECT * FROM images WHERE id_parent = ?", [id]);
+        const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ?", [id]);
         return res;
     }
     catch (error) {

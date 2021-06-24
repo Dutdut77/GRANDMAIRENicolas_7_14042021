@@ -104,7 +104,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 160px; 
+  margin-top: 100px; 
   width: 100%;
 }
 .signup{

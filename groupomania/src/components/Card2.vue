@@ -1,10 +1,10 @@
 <template>
-  <div class="card">
+  <div class="card"  @click="OneStorie(storie.id)">
   <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt="" />
   <p class="title">{{ storie.pseudo }}</p>
   <p class="date">{{ storie.date }}</p>
   <div class="overlay"></div>
-  <div class="button" @click="OneStorie(storie.id)"><a href="#"> + </a></div>
+  <div class="button"><img src="../assets/plus.png" class="plus" /></div>
 </div>
 </template>
 
@@ -61,8 +61,7 @@ $secondary: #d1515a;
 
 img {
   position: absolute;
-  width: 100%;
-  height: 300px;
+ height: 100%;
   left: 0;
   border-radius : 4px;
 }
@@ -108,7 +107,7 @@ img {
 .button {
   position: absolute;
   width: 100%;
-  
+  cursor: pointer;
   top: 130px;
   text-align: center;
   opacity: 0;
@@ -130,7 +129,11 @@ outline: none;
   border-radius : 100%;
   z-index: 1;
 }
-
+.plus {
+  position: relative;
+  width:36px;
+  height: 36px;
+}
 .card:hover .button {
   opacity: 1;
 }

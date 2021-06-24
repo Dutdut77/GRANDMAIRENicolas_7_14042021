@@ -182,7 +182,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 160px;
+  margin-top: 60px;
   width: 100%;
 
 }

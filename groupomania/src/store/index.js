@@ -134,11 +134,24 @@ export default createStore({
       };
     },
     getAllCommentaires: async ({ commit }, id) => {
-      const route = '/image/comment/'.concat('', id);
+      const route = '/image/comment/'.concat('', id.id);
       try {
         const response = await instance.get(route);
         commit("commentaires", response.data.Commentaires);
         return response.data.Commentaires;
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
+    delete: async ({ commit }, id) => {
+      const route = '/image/'.concat('', id.id);
+      try {
+        const response = await instance.delete(route);
+        commit("stories", {});
+        commit("commentaires", {});        
+        return response.data.Storie;
       }
       catch (error) {
         console.error(error);
