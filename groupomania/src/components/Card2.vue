@@ -43,7 +43,7 @@ $secondary: #d1515a;
   overflow: hidden;
   cursor: pointer;
   @media (min-width: 768px) {
-    width: 30%;
+    width: 20%;
   }
 }
 

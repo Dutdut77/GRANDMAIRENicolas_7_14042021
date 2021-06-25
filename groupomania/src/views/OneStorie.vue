@@ -34,7 +34,7 @@
 </div>
 
 <div class="action">
-      <button class="btn-add" @click="storie()">
+      <button class="btn-add" @click="showAlert()">
           <span>AJOUTER COMMENTAIRE</span>
         </button>
                 <button class="btn-supp" @click="Delete()">
@@ -54,6 +54,7 @@
 <script>
 import { mapState } from "vuex";
 
+
 export default {
   
   name: "OneStorie",
@@ -71,7 +72,7 @@ export default {
     },
     Delete() {
       this.$store.dispatch("delete", { id: this.id });
-    }
+    },
   }
   
 };

@@ -3,9 +3,7 @@
     <h1>Album photos GROUPOMANIA</h1>
     <Card  v-for="storie in stories" :key="storie.id" :storie="storie"/>
 
-
-
-
+    
     <!-- <div class="card" v-for="storie in stories" :key="storie.id">
       Url photo : {{ storie.content }}<br />
       Nom utilisateur : {{ storie.userId }}<br />
@@ -34,6 +32,7 @@ export default {
     OneStorie(id) {
       this.$router.push({ name: "OneStorie", params: { id: id } });
     },
+    
   },
 };
 </script>
@@ -53,6 +52,7 @@ section {
 section h1 {
   width: 100%;
   padding: 30px;
+  font-size: 1.9rem;
 }
 
 .card {
