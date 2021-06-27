@@ -15,6 +15,7 @@ name : "input",
 props : {
   modelValue :  {
     type : String,
+    defaut : "",
   },
   title : {
     type : String,  

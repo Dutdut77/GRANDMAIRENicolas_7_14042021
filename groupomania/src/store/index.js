@@ -68,6 +68,10 @@ export default createStore({
         token: "",
       }
     },
+    addComment(comment) {
+      
+      console.log("comment :" + comment);
+    },
 
   },
   actions: {
@@ -134,7 +138,8 @@ export default createStore({
       };
     },
     getAllCommentaires: async ({ commit }, id) => {
-      const route = '/image/comment/'.concat('', id.id);
+      const route = '/image/comment/'.concat('', id);
+      console.log(route);
       try {
         const response = await instance.get(route);
         commit("commentaires", response.data.Commentaires);
@@ -146,7 +151,7 @@ export default createStore({
       };
     },
     delete: async ({ commit }, id) => {
-      const route = '/image/'.concat('', id.id);
+      const route = '/image/'.concat('', id);
       try {
         const response = await instance.delete(route);
         commit("stories", {});
@@ -157,6 +162,17 @@ export default createStore({
         console.error(error);
         throw (error);
       };
+    },
+    addComment: async ({ dispatch }, comment) => { 
+      try {       
+        const response = await instance.post("/image/comment/", comment);            
+        return dispatch("getAllCommentaires", response.data.id_parent);
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+
     },
     getProfil: async ({ commit }) => {
       try {

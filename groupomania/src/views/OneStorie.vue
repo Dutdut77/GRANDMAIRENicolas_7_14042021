@@ -53,21 +53,17 @@
       </template>
       <template v-slot:body>      
         
-    <Input v-model="commentaire"/>   
-    <Input v-model="email" />
-
-
-
+      <Input v-model="content" :title="Commentaire"/>    
       </template>
       <template v-slot:footer>    
         <button class="modal-save-btn" @click="SaveComment()">ENREGISTRER</button>
         <button class="modal-close-btn" @click="showModal = false">FERMER</button>
       </template>
       
-        </Modal>
+    </Modal>
     </transition>  
-  {{commentaire}}
-{{email}}
+
+
   </section>
 </template>
 
@@ -82,13 +78,12 @@ export default {
   data() {
     return {
       showModal: false,   
-      commentaire: null,
-      email : null,   
+      content: null,     
     };
   },
   mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
-    this.$store.dispatch("getAllCommentaires", { id: this.id });
+    this.$store.dispatch("getAllCommentaires", this.id );
   },
   components: { Modal, Input },
   computed: {
@@ -102,7 +97,12 @@ export default {
       this.$store.dispatch("delete", { id: this.id });
     },
     SaveComment() {
-      console.log("commentaire :" + this.commentaire + "Email :" + this.email);
+      this.showModal = false;
+      this.$store.dispatch("addComment", { 
+        content: this.content,
+        id_parent : this.id,
+        userId : this.user.userId
+        });
     }
   },
 };
