@@ -2,105 +2,130 @@
   <section>
     <h1>PHOTO</h1>
     <div class="auteur">
-      <p class="name">{{stories.nom}} {{stories.prenom}} </p> allias
-      <p class="pseudo"> {{stories.pseudo}} </p>  a posté le 
-      <p class="date"> {{stories.date}} </p> :
+      <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>
+      allias
+      <p class="pseudo">{{ stories.pseudo }}</p>
+      a posté le
+      <p class="date">{{ stories.date }}</p>
+      :
     </div>
 
-
-<div class="content">
-    <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt="" />
-    <div class="card">
-      <h2>Vos Commentaires :</h2>
-      <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
-        <div class="group--avatar">
-          <img
-            class="group--image"
-            src="../assets/avatar.svg"
-            alt="user photo"
-          />
-        </div>
-        <div class="group--desc">
-          <div class="group--pseudo">{{commentaire.pseudo}}</div>
-          <div class="group--date">{{commentaire.date}}</div>
-          <div class="group--text">{{commentaire.content}}</div>
-            <a href="#" class="group--trash" v-if="user.userId === commentaire.userId">
+    <div class="content">
+      <img
+        src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
+        alt=""
+      />
+      <div class="card">
+        <h2>Vos Commentaires :</h2>
+        <div
+          class="group"
+          v-for="commentaire in commentaires"
+          :key="commentaire.id"
+        >
+          <div class="group--avatar">
+            <img
+              class="group--image"
+              src="../assets/avatar.svg"
+              alt="user photo"
+            />
+          </div>
+          <div class="group--desc">
+            <div class="group--pseudo">{{ commentaire.pseudo }}</div>
+            <div class="group--date">{{ commentaire.date }}</div>
+            <div class="group--text">{{ commentaire.content }}</div>
+            <a
+              href="#"
+              class="group--trash"
+              v-if="user.userId === commentaire.userId"
+            >
               <fa :icon="['fas', 'trash-alt']" />
             </a>
-        </div>        
+          </div>
+        </div>
+        <br />
       </div>
-      <br />
     </div>
-</div>
 
-<div class="action">
-      <button class="btn-add" @click="showAlert()">
-          <span>AJOUTER COMMENTAIRE</span>
-        </button>
-                <button class="btn-supp" @click="Delete()">
-          <span>SUPPRIMER PHOTO</span>
-        </button>
-                <button class="btn-retour" @click="Storie()">
-          <span>RETOUR</span>
-        </button>
+    <div class="action">
+      <button class="btn-add" id="show-modal" @click="showModal = true">
+        <span>AJOUTER COMMENTAIRE</span>
+      </button>
+      <button class="btn-supp" @click="Delete()">
+        <span>SUPPRIMER PHOTO</span>
+      </button>
+      <button class="btn-retour" @click="Storie()">
+        <span>RETOUR</span>
+      </button>
+    </div>
 
-</div>
-  
-
-    
+ <transition name="modal" mode="out-in">
+    <Modal v-if="showModal" @close="showModal = false">
+      <template v-slot:header>
+        <h3>AJOUTER UN COMMENTAIRE</h3>
+      </template>
+      <template v-slot:body>
+        <h3>custom header</h3>
+      </template>
+      <template v-slot:footer>
+        <button class="modal-close-btn" @click="showModal = false">FERMER</button>
+      </template>
+      
+        </Modal>
+    </transition>
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
-
+import Modal from "@/components/Modal.vue";
 
 export default {
-  
   name: "OneStorie",
-  props : ["id"],
-  mounted () {
+  props: ["id"],
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
     this.$store.dispatch("getAllCommentaires", { id: this.id });
   },
+  components: { Modal },
   computed: {
-    ...mapState(["stories", "commentaires", "user"])
+    ...mapState(["stories", "commentaires", "user"]),
   },
-  methods : {
+  methods: {
     Storie() {
-      this.$router.push({ path: '/storie' })
+      this.$router.push({ path: "/storie" });
     },
     Delete() {
       this.$store.dispatch("delete", { id: this.id });
     },
-  }
-  
+  },
 };
-
-
 </script>
 
 <style scoped lang="scss">
-
 $primary: #091f43;
 $secondary: #d1515a;
 
 a {
-  color : $primary;
+  color: $primary;
 }
 a:hover {
-  color : $secondary;
+  color: $secondary;
 }
 
 section {
   display: flex;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 .auteur {
-  display : flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -111,33 +136,32 @@ section {
 }
 .name {
   font-weight: 600;
-  color : $primary;
+  color: $primary;
 }
 .pseudo {
   font-weight: 600;
-  color : $secondary;
+  color: $secondary;
 }
 .date {
-   font-weight: 400;
+  font-weight: 600;
   font-style: italic;
 }
 .content {
   display: flex;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
   height: 100%;
 }
 img {
-  
   width: 100%;
-  margin : 40px;
+  margin: 40px;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
 
-    @media (min-width: 768px) {
-    width: 40%; 
-     border-radius : 4px;
+  @media (min-width: 768px) {
+    width: 40%;
+    border-radius: 4px;
   }
 }
 .card {
@@ -148,17 +172,17 @@ img {
   width: 100%;
   height: 100%;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
-  border-radius : 4px;
-  margin : 20px;
-    @media (min-width: 768px) {
+  border-radius: 4px;
+  margin: 20px;
+  @media (min-width: 768px) {
     width: 40%;
-     margin : 40px;
+    margin: 40px;
   }
 }
 .card h2 {
   padding: 15px;
   text-decoration-line: underline;
-  color : $primary;
+  color: $primary;
 }
 .group {
   display: flex;
@@ -167,11 +191,11 @@ img {
   align-items: center;
   border-bottom: 1px solid grey;
   padding-bottom: 10px;
-  margin : 10px 20px;
+  margin: 10px 20px;
   &--avatar {
     width: 15%;
   }
-    &--avatar  img{
+  &--avatar img {
     margin: 0;
   }
   &--desc {
@@ -202,19 +226,21 @@ img {
     text-align: justify;
     color: $primary;
   }
-    &--trash {
-    margin-left : auto;
+  &--trash {
+    margin-left: auto;
     color: $primary;
   }
 }
 .action {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-.btn-add, .btn-supp, .btn-retour {
+.btn-add,
+.btn-supp,
+.btn-retour {
   color: $primary;
   width: auto;
   height: 40px;
@@ -225,13 +251,14 @@ img {
   background: transparent;
   cursor: pointer;
   transition: all 0.5s ease;
-  display: block;  
+  display: block;
   overflow: hidden;
+  border-radius : 4px;
 }
 
 .btn-add:hover {
   background: $primary;
-  color : white;
+  color: white;
 }
 
 .btn-supp:hover {
@@ -240,6 +267,46 @@ img {
 }
 .btn-retour:hover {
   background: gray;
-   border-color: gray;
+  border-color: gray;
 }
+
+.modal-header h3 {
+  margin-top: 0;
+  color: $secondary;
+}
+
+.modal-close-btn {
+ color: $primary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid $primary;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-close-btn:hover {
+  background: $primary;
+  color: white;
+}
+
+
+
+.modal-enter-active, .modal-leave-active {
+  transition: all 0.5s ease;
+
+}
+
+.modal-enter-from, .modal-leave-to {
+  opacity: 0;
+}
+
+
 </style>
