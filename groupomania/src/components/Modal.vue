@@ -61,6 +61,10 @@ $secondary: #d1515a;
 }
 
 .modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; 
   width: 40%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -70,12 +74,18 @@ $secondary: #d1515a;
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+.modal-header {
+    margin-bottom: 20px;
+    width: 100%;
 }
 
+
 .modal-body {
+  width: 100%;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   margin: 20px 0;
 }
 
@@ -85,9 +95,11 @@ $secondary: #d1515a;
 }
 
 .modal-footer {
+    margin-top : 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    width: 100%;
 }
 
 

@@ -11,33 +11,18 @@
     </div>
 
     <div class="content">
-      <img
-        src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
-        alt=""
-      />
+      <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt=""/>
       <div class="card">
         <h2>Vos Commentaires :</h2>
-        <div
-          class="group"
-          v-for="commentaire in commentaires"
-          :key="commentaire.id"
-        >
+        <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
           <div class="group--avatar">
-            <img
-              class="group--image"
-              src="../assets/avatar.svg"
-              alt="user photo"
-            />
+            <img class="group--image" src="../assets/avatar.svg" alt="user photo"/>
           </div>
           <div class="group--desc">
             <div class="group--pseudo">{{ commentaire.pseudo }}</div>
             <div class="group--date">{{ commentaire.date }}</div>
             <div class="group--text">{{ commentaire.content }}</div>
-            <a
-              href="#"
-              class="group--trash"
-              v-if="user.userId === commentaire.userId"
-            >
+            <a href="#" class="group--trash" v-if="user.userId === commentaire.userId">
               <fa :icon="['fas', 'trash-alt']" />
             </a>
           </div>
@@ -45,6 +30,8 @@
         <br />
       </div>
     </div>
+
+
 
     <div class="action">
       <button class="btn-add" id="show-modal" @click="showModal = true">
@@ -58,40 +45,52 @@
       </button>
     </div>
 
- <transition name="modal" mode="out-in">
+
+ <transition name="modal">
     <Modal v-if="showModal" @close="showModal = false">
       <template v-slot:header>
         <h3>AJOUTER UN COMMENTAIRE</h3>
       </template>
-      <template v-slot:body>
-        <h3>custom header</h3>
+      <template v-slot:body>      
+        
+    <Input v-model="commentaire"/>   
+    <Input v-model="email" />
+
+
+
       </template>
-      <template v-slot:footer>
+      <template v-slot:footer>    
+        <button class="modal-save-btn" @click="SaveComment()">ENREGISTRER</button>
         <button class="modal-close-btn" @click="showModal = false">FERMER</button>
       </template>
       
         </Modal>
-    </transition>
+    </transition>  
+  {{commentaire}}
+{{email}}
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Modal from "@/components/Modal.vue";
+import Input from "@/components/Input.vue";
 
 export default {
   name: "OneStorie",
   props: ["id"],
   data() {
     return {
-      showModal: false,
+      showModal: false,   
+      commentaire: null,
+      email : null,   
     };
   },
   mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
     this.$store.dispatch("getAllCommentaires", { id: this.id });
   },
-  components: { Modal },
+  components: { Modal, Input },
   computed: {
     ...mapState(["stories", "commentaires", "user"]),
   },
@@ -102,6 +101,9 @@ export default {
     Delete() {
       this.$store.dispatch("delete", { id: this.id });
     },
+    SaveComment() {
+      console.log("commentaire :" + this.commentaire + "Email :" + this.email);
+    }
   },
 };
 </script>
@@ -294,6 +296,27 @@ img {
 
 .modal-close-btn:hover {
   background: $primary;
+  color: white;
+}
+.modal-save-btn {
+ color: $primary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid green;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-save-btn:hover {
+  background: green;
   color: white;
 }
 
