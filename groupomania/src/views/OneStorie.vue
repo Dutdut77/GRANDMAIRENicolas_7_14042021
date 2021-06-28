@@ -53,16 +53,15 @@
       </template>
       <template v-slot:body>      
         
-      <Input v-model="content" :title="Commentaire"/>    
+      <Input v-model="content" :title="title"/>    
       </template>
       <template v-slot:footer>    
         <button class="modal-save-btn" @click="SaveComment()">ENREGISTRER</button>
-        <button class="modal-close-btn" @click="showModal = false">FERMER</button>
+        <button class="modal-close-btn" @click="showModal = false, content = null">FERMER</button>
       </template>
       
     </Modal>
     </transition>  
-
 
   </section>
 </template>
@@ -78,7 +77,8 @@ export default {
   data() {
     return {
       showModal: false,   
-      content: null,     
+      content: null, 
+      title : "Commentaire :",    
     };
   },
   mounted() {
@@ -103,6 +103,7 @@ export default {
         id_parent : this.id,
         userId : this.user.userId
         });
+        this.content = ""; 
     }
   },
 };
