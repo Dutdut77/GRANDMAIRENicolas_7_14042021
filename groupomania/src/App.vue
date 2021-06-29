@@ -1,7 +1,10 @@
 <template>
+
     <body>
     <header>
+
       <Navbar />
+      
     <div class="custom-shape-divider-top-1623269035">
       <svg
         data-name="Layer 1"
@@ -68,9 +71,22 @@ $secondary: #d1515a;
   
 
 }
+header {
+  position: fixed;
+  z-index: 99;
+  background-color: $secondary ;
+  width: 100%;
+  height: 90px;
+        @media (min-width: 768px) {
+ height: 60px;
+  }
+  
+}
+
+
 
 .custom-shape-divider-top-1623269035 {
-  padding-top: 60px;
+  padding-top: 90px;
   position: fixed;
   top: 0;
   left: 0;
@@ -78,6 +94,9 @@ $secondary: #d1515a;
   overflow: hidden;
   line-height: 0;
   z-index: 1;
+      @media (min-width: 768px) {
+ padding-top: 60px;
+  }
 }
 
 .custom-shape-divider-top-1623269035 svg {

@@ -119,3 +119,19 @@ exports.deleteStorie = async (req, res, next) => {
     }
 }
 
+/**
+ * Effacer une storie
+ *
+ * @param   {Number}  req.parmas.id  Champs du formulaire
+ *
+ *
+ */
+ exports.deleteCommentaire = async (req, res, next) => {
+    try {
+        await Image.deleteCommentaire(req.params.id);
+        res.status(201).json({ message: "Commentaire supprimée !" });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+}

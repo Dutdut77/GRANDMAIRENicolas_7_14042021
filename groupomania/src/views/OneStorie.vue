@@ -22,7 +22,7 @@
             <div class="group--pseudo">{{ commentaire.pseudo }}</div>
             <div class="group--date">{{ commentaire.date }}</div>
             <div class="group--text">{{ commentaire.content }}</div>
-            <a href="#" class="group--trash" v-if="user.userId === commentaire.userId">
+            <a href="#" class="group--trash" v-if="user.userId === commentaire.userId" @click="DeleteComment(commentaire.id, )">
               <fa :icon="['fas', 'trash-alt']" />
             </a>
           </div>
@@ -53,10 +53,10 @@
       </template>
       <template v-slot:body>      
         
-      <Input v-model="content" :title="title"/>    
+      <Input v-model="content" :inputInfo="inputInfo"/>    
       </template>
       <template v-slot:footer>    
-        <button class="modal-save-btn" @click="SaveComment()">ENREGISTRER</button>
+        <button class="modal-save-btn" @click="SaveComment()">AJOUTER</button>
         <button class="modal-close-btn" @click="showModal = false, content = null">FERMER</button>
       </template>
       
@@ -78,8 +78,10 @@ export default {
     return {
       showModal: false,   
       content: null, 
-      title : "Commentaire :",    
-    };
+      inputInfo : {
+        title : "Commentaire :"    
+      }
+    }
   },
   mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
@@ -104,6 +106,9 @@ export default {
         userId : this.user.userId
         });
         this.content = ""; 
+    },
+    DeleteComment(id) {
+       this.$store.dispatch("DeleteComment", { id_parent : this.id, id : id });
     }
   },
 };

@@ -89,7 +89,7 @@ export default createStore({
         throw (error);
       };
     },
-    signup: async ({ commit }, userinfos) => { 
+    signup: async ({ commit, dispatch}, userinfos) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(userinfos)) {
         data.append(key, value);
@@ -104,9 +104,8 @@ export default createStore({
         commit("setStatus", "loading");
         const response = await instance.post("/auth/signup", data, headers);
         commit("setStatus", "");
-        commit("profil", response.data);
-        //this.dispatch("login", { email: this.email, password: this.password });
-        return response.data;
+        commit("profil", response.data);              
+        return dispatch("login", { email: userinfos.email, password: userinfos.password });
       }
       catch (error) {
         commit("setStatus", "error_login");
@@ -138,8 +137,7 @@ export default createStore({
       };
     },
     getAllCommentaires: async ({ commit }, id) => {
-      const route = '/image/comment/'.concat('', id);
-      console.log(route);
+      const route = '/image/comment/'.concat('', id);      
       try {
         const response = await instance.get(route);
         commit("commentaires", response.data.Commentaires);
@@ -157,6 +155,17 @@ export default createStore({
         commit("stories", {});
         commit("commentaires", {});        
         return response.data.Storie;
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
+    DeleteComment: async ({ dispatch }, comment) => {   
+        const route = '/image/comment/'.concat('', comment.id);
+      try {
+        await instance.delete(route);
+        return dispatch("getAllCommentaires", comment.id_parent);
       }
       catch (error) {
         console.error(error);

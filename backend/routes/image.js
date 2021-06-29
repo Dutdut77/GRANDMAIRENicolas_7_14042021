@@ -22,4 +22,9 @@ router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
 /* Supprimer une storie */
 router.delete('/:id',  auth, imageCtrl.deleteStorie);
 
+/* Supprimer un commentaire d'une Storie */
+router.delete('/comment/:id', auth, imageCtrl.deleteCommentaire);
+
+
+
 module.exports = router;

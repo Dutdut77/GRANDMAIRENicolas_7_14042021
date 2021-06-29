@@ -1,6 +1,8 @@
 <template>
 
   <div class="navbar">
+
+          <div class="mobile"></div>
     <img
       class="logo"
       src="../assets/logo-blue.png"
@@ -58,7 +60,7 @@ export default {
 
 .navbar {
   transition: 0.6s ease;
-  background-color: #d1515a;
+  background-color: $secondary;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -71,6 +73,14 @@ export default {
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.mobile{  
+  height: 30px;
+  width: 100%;
+    @media (min-width: 768px) {
+display: none;
   }
 }
 .logo {

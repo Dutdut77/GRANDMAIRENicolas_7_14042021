@@ -8,7 +8,7 @@
     />
     <div class="underline"></div>
 
-    <label>{{ title }}</label>
+    <label>{{ inputInfo.title }}</label>
   </div>
 </template>
 
@@ -19,9 +19,8 @@ export default {
     modelValue: {
       type: String,      
     },
-    title: {
-      type: String,
-      default: "test",
+    inputInfo: {
+      type: Object,     
     },
   },
 };

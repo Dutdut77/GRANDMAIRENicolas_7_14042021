@@ -40,7 +40,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top : 160px;
+  padding-top : 130px;
   min-height: 100vh;
 
 }
@@ -89,6 +89,7 @@ p {
   border: 2px solid $primary;
   font-size: 1.3rem;
   background: transparent;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.5s ease;
   display: block;  

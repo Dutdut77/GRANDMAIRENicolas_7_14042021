@@ -84,7 +84,6 @@ async function getAllStorie() {
  * @return  {Object}      Info de la storie
  */
  async function getAllCommentaires(id) {
-     console.log(id);
     try {
         const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ?", [id]);
         return res;
@@ -115,7 +114,28 @@ async function deleteStorie(id) {
             msg: error
         });
     }
+};
+
+/**
+ * Effacer une storie dans la Bdd
+ *
+ * @param   {Number}  id  Id de la storie
+ *
+ * @return  {Void}     
+ */
+ async function deleteCommentaire(id) {
+    try {
+        const res = await database.Image("DELETE FROM images WHERE id = ?", [id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
 }
+
 
 module.exports.addStorie = addStorie;
 module.exports.addComment = addComment;
@@ -123,3 +143,4 @@ module.exports.getOneStorie = getOneStorie;
 module.exports.getAllStorie = getAllStorie;
 module.exports.getAllCommentaires = getAllCommentaires;
 module.exports.deleteStorie = deleteStorie;
+module.exports.deleteCommentaire = deleteCommentaire;

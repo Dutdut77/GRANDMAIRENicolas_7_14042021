@@ -182,7 +182,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 40px;
   width: 100%;
 
 }
@@ -233,8 +233,7 @@ section {
 }
 .titre {
   width: 100%;
-  margin: 10px;
-  h1 {
+   h1 {
     font-size: 1.3rem;
     color: $primary;
     @media (min-width: 768px) {
