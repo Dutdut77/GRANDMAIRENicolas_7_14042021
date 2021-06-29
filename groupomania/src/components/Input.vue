@@ -1,20 +1,23 @@
 <template>
   <div class="input-data">
     <input
-      type="text"
-      :value="modelValue"      
+      :type="inputInfo.type"
+      :value="modelValue"  
+      :class="inputInfo.class" 
+      :id="inputInfo.name"     
       @input="$emit('update:modelValue', $event.target.value)"
       required
     />
     <div class="underline"></div>
 
-    <label>{{ inputInfo.title }}</label>
+    <label :for="inputInfo.name">{{ inputInfo.title }}</label>
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: "input",
+  name: "Input",
   props: {
     modelValue: {
       type: String,      
@@ -36,6 +39,8 @@ $secondary: #d1515a;
   outline: none;
   box-sizing: border-box;
 }
+
+
 .input-data {
   height: 40px;
   width: 100%;

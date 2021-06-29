@@ -1,89 +1,37 @@
 <template>
   <section>
-
     <div class="content">
-
       <div class="login">
         <div class="form">
-        <img src="../assets/avatar.svg" class="avatar" />
-        <div class="titre"><h1>INSCRIPTION</h1></div>
-.
-        <div class="form__group">
-          <input
-            type="text"
-            class="form__field"
-            placeholder="Nom"
-            name="Nom"
-            id="nom"
-            autocomplete="off"
-            v-model="nom"
-          />
-          
+          <img src="../assets/avatar.svg" class="avatar" />
+          <div class="titre"><h1>INSCRIPTION</h1></div>
+          <div class="form__group">
+            <Input v-model="contentNom" :inputInfo="inputNom" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentPrenom" :inputInfo="inputPrenom" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentPseudo" :inputInfo="inputPseudo" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentEmail" :inputInfo="inputEmail" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentPassword" :inputInfo="inputPassword" />
+          </div>
+          <div class="form__group">
+            <InputFile v-model="contentImageUrl" :inputInfo="inputImageUrl" />
+          </div>
         </div>
-
-        <div class="form__group">
-          <input
-            type="text"
-            class="form__field"
-            placeholder="Prenom"
-            name="Prenom"
-            id="prenom"
-            autocomplete="off"
-            v-model="prenom"
-          />
-          
-        </div>
-
-        <div class="form__group">
-          <input
-            type="text"
-            class="form__field"
-            placeholder="Pseudo"
-            name="Pseudo"
-            id="pseudo"
-            autocomplete="off"
-            v-model="pseudo"
-          />
-          
-        </div>
-
-        <div class="form__group">
-          <input
-            type="email"
-            class="form__field"
-            placeholder="Email"
-            name="Email"
-            id="email"
-            autocomplete="off"
-            v-model="email"
-          />
-          
-        </div>
-
-        <div class="form__group">
-          <input
-            type="password"
-            class="form__field"
-            placeholder="Mot de passe"
-            name="Password"
-            id="password"
-            v-model="password"
-          />
-         
-        </div>
-
-        <div class="form__group form__file">
-          <input type="file" id="file" class="custom-file-input" @change="previewFile" />
-         </div>
-</div>
         <button
-          class="custom-btn btn-10"
-          :class="{ 'button-disabled': !validatedFields }"
+          class="custom-btn btn-10"          
           @click="signup()"
         >
           <span v-if="status == 'loading'">Connexion en cours</span>
           <span v-else>ENREGISTRER</span>
         </button>
+{{contentImageUrl}}
 
         <div class="error" v-if="status == 'error_login'">
           Erreur lors de l'enregistrement
@@ -93,10 +41,10 @@
       <div class="signup">
         <img src="../assets/profil.svg" class="profil" />
         <div class="profil--titre">
-          Déjà inscrit ? Connectez-vous <router-link to="/login">Par ici </router-link>
+          Déjà inscrit ? Connectez-vous
+          <router-link to="/login">Par ici </router-link>
         </div>
       </div>
-
     </div>
   </section>
 </template>
@@ -104,30 +52,58 @@
 <script>
 // @ is an alias to /src
 import { mapState } from "vuex";
+import Input from "@/components/Input.vue";
+import InputFile from "@/components/InputFile.vue";
 
 export default {
   name: "Signup",
-  components: {},
+  components: { Input, InputFile },
   data() {
     return {
-      nom: null,
-      prenom: null,
-      pseudo: null,
-      email: null,
-      password: null,
-      image_url: null,
+
+      contentNom: null,
+      contentPrenom: null,
+      contentPseudo: null,
+      contentEmail: null,
+      contentPassword: null,
+      contentImageUrl: null,
+
+      inputEmail: {
+        name : "email",
+        title: "Votre Email :",
+        type: "text",
+        class: ""
+      },
+      inputPassword: {
+        name : "password",
+        title: "Votre Password :",
+        type: "password",
+        class: ""
+      },
+      inputNom: {
+        name : "nom",
+        title: "Votre nom :",
+        type: "text",
+        class: ""
+      },
+      inputPrenom: {
+        name : "prenom",
+        title: "Votre Prenom :",
+        type: "text",
+        class: ""
+      },
+      inputPseudo: {
+        name : "pseudo",
+        title: "Votre Pseudo :",
+        type: "text",
+        class: ""
+      },
+      inputImageUrl: {
+         title: "Choisissez votre photo",
+      },
     };
   },
   computed: {
-    validatedFields() {
-      return this.email != "" &&
-        this.password != "" &&
-        this.pseudo != "" &&
-        this.nom != "" &&
-        this.prenom != ""
-        ? true
-        : false;
-    },
     ...mapState(["status"]),
   },
   methods: {
@@ -135,13 +111,13 @@ export default {
       const self = this;
       this.$store
         .dispatch("signup", {
-          email: this.email,
-          password: this.password,
-          nom: this.nom,
-          prenom: this.prenom,
-          pseudo: this.pseudo,
+          email: this.contentEmail,
+          password: this.contentPassword,
+          nom: this.contentNom,
+          prenom: this.contentPrenom,
+          pseudo: this.contentPseudo,
           role: 1,
-          image_url: this.image_url,
+          image_url: this.contentImageUrl,
         })
         .then(
           function () {
@@ -152,11 +128,13 @@ export default {
           }
         );
     },
-    previewFile() {
-      this.image_url = event.target.files[0];
+    previewFile() {  
+      console.log(this.contentImageUrl.name)   
+      this.contentImageUrl = event.target.files[0];
     },
   },
 };
+
 </script>
 
 <style scoped lang="scss">
@@ -182,9 +160,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
   width: 100%;
-
 }
 .signup {
   width: 50%;
@@ -226,14 +202,13 @@ section {
 }
 .avatar {
   width: 25%;
-  margin: 15px;
   @media (min-width: 768px) {
     width: 15%;
   }
 }
 .titre {
   width: 100%;
-   h1 {
+  h1 {
     font-size: 1.3rem;
     color: $primary;
     @media (min-width: 768px) {
@@ -247,40 +222,15 @@ section {
   justify-content: center;
   align-items: center;
 }
-.form__group {  
-  padding: 15px 0 0;
-  margin: 10px;
+.form__group {
+  margin: 15px;
   width: 80%;
-      @media (min-width: 768px) {
-       width: 40%;
-    }
-}
-
-.form__field {
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid $primary;
-  outline: 0;
-  font-size: 1.3rem;
-  color: $primary;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-
-
-  &:placeholder-shown ~ .form__label {
-    font-size: 1.1rem;
-    cursor: text;
-    top: 20px;
-    @media (min-width: 768px) {
-      font-size: 1.3rem;
-    }
+  @media (min-width: 768px) {
+    width: 40%;
   }
 }
-.form__file {
-  width: 90%;
-  margin : 15px;
-}
+
+
 
 
 .custom-btn {
@@ -306,5 +256,4 @@ section {
   border: 2px solid $secondary;
   background: $secondary;
 }
-
 </style>

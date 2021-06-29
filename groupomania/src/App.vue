@@ -68,9 +68,16 @@ $secondary: #d1515a;
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-  
+  }
 
-}
+  a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+  color : $secondary;
+  }
+
+
 header {
   position: fixed;
   z-index: 99;

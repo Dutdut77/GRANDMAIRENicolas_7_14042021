@@ -13,13 +13,11 @@
         <div class="titre"><h1>SE CONNECTER</h1></div>
 
 <div class="form__group">
-  <input type="input" class="form__field" placeholder="Email" name="Email" id='email' autocomplete="off" v-model="email"/>
-  
+   <Input v-model="contentEmail" :inputInfo="inputEmail"/>    
 </div>
 
 <div class="form__group">
-  <input type="password" class="form__field" placeholder="Mot de passe" name="Password" id='password' v-model="password"/>
-
+   <Input v-model="contentPassword" :inputInfo="inputPassword"/> 
 </div>
 
 
@@ -42,14 +40,25 @@
 // @ is an alias to /src
 
 import { mapState } from "vuex";
+import Input from "@/components/Input.vue";
 
 export default {
   name: "Login",
-  components: {},
+  components: { Input },
   data() {
     return {
       email: null,
       password: null,
+      contentEmail : null,
+      contentPassword : null, 
+      inputEmail : {
+        title : "Email :",
+        type : "text",   
+      },
+            inputPassword : {
+        title : "Password :",
+        type : "password",    
+      }
     };
   },
   computed: {
@@ -62,7 +71,7 @@ export default {
     login() {
       const self = this;
       this.$store
-        .dispatch("login", { email: this.email, password: this.password })
+        .dispatch("login", { email: this.contentEmail, password: this.contentPassword })
         .then(
           function () {
             self.$router.push("/storie");
@@ -153,7 +162,7 @@ section {
 }
 .titre {
   width: 100%;
-   margin: 10px;
+   margin: 0 10px;
   h1 {
     font-size: 1.3rem;
     color: $primary;
@@ -166,47 +175,24 @@ section {
 
 
 .form__group {  
-  padding: 15px 0 0;
-  margin: 10px;
+  margin: 5px;
   width: 80%;
       @media (min-width: 768px) {
        width: 40%;
     }
 }
 
-.form__field {
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid $primary;
-  outline: 0;
-  font-size: 1.3rem;
-  color: $primary;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-  
-
-  
-
-  &:placeholder-shown ~ .form__label {
-    font-size: 1.1rem;
-    cursor: text;
-    top: 20px;
-                @media (min-width: 768px) {
-    font-size: 1.3rem;
-  }
-  }
-}
 
 .custom-btn {
   color : $primary;
   width: 40%;
   height: 50px;
-  margin: 50px 20% 10px 20%;
+  margin: 30px 20% 10px 20%;
   padding: 0 15px;
   border: 2px solid $primary; 
   font-size: 1.3rem; 
   background: transparent;
+  border-radius : 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   // position: relative;
@@ -218,25 +204,10 @@ section {
   transition: all 0.3s ease;
   overflow: hidden;
 }
-// .btn-10:after {
-//   position: relative;
-//   content: " ";
-//   // top: 0;
-//   // left: 0;
-//   // z-index: -1;
-//   width: 0;
-//   height: 0;
-//   transition: all 0.3s ease;
-//   // -webkit-transform: scale(.1);
-//   // transform: scale(.1);
-//   display: block;
-// }
+
 .btn-10:hover {
    border: 2px solid $secondary; 
   background: $secondary;
-  // -webkit-transform: scale(1);
-  // transform: scale(1);
-
 }
 
 
