@@ -85,7 +85,7 @@ async function getAllStorie() {
  */
  async function getAllCommentaires(id) {
     try {
-        const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ?", [id]);
+        const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [id]);
         return res;
     }
     catch (error) {

@@ -6,12 +6,13 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import 'sweetalert2/dist/sweetalert2.min.css';
+import VueApexCharts from "vue3-apexcharts";
 
 library.add(fas, fab);
 
 createApp(App)
   .use(store)
   .use(router)
+  .use(VueApexCharts)
   .component("fa", FontAwesomeIcon)
   .mount("#app");

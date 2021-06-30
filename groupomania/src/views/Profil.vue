@@ -1,32 +1,286 @@
 <template>
-  <div class="container">
+  <section>
     <h1>Mon Profil</h1>
-    <div class="card">
-        Nom : {{profil.nom}} <br />
-        Prénom : {{profil.prenom}}<br />
-         Pseudo : {{profil.pseudo}} <br />
-         Email : {{profil.email}}<br />
-         Avatar : {{profil.avatar}}<br />
-         Niveau : {{profil.titre}}<br />
-         </div>
-  </div>
+    <div class="card-profil">
+      <div class="card-top">
+        <img
+          src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
+          alt=""
+        />
+        <div class="custom-shape-divider-bottom-1625087656">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M1200 0L0 0 598.97 114.72 1200 0z"
+              class="shape-fill"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2>{{ profil.nom }} {{ profil.prenom }}</h2>
+        <span>{{ profil.pseudo }}</span>
+        <span>{{ profil.email }}</span>
+        <span>{{ profil.titre }}</span>
+      </div>
+
+      <div class="card-stat"> 
+        <div class="radar">
+          <apexchart type="radialBar" height="150" :options="chartOptions" :series="series" ></apexchart>
+          </div>      
+            <div class="radar">
+
+               <apexchart type="radialBar" height="150" :options="chartOptions2" :series="series" ></apexchart>
+            </div>
+           
+       
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
-
 export default {
-    
   name: "Profil",
+  data() {
+    return {
+          series: [75],          
+          chartOptions: {
+            chart: {
+              height: 250,
+              type: 'radialBar',
+              toolbar: {
+                show: false
+              }
+            },
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: 5,
+                    show: true,
+                    color: '#111',
+                    fontSize: '24px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: false,
+                  }
+                }
+              }
+            },
+            fill: {
+              colors : ['#d1515a'],                
+              
+            },
+            stroke: {
+              lineCap: 'round'
+            },
+            labels: ['2'],
+               
+          },
+                    chartOptions2: {
+            chart: {
+              height: 250,
+              type: 'radialBar',
+              toolbar: {
+                show: false
+              }
+            },
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: 5,
+                    show: true,
+                    color: '#111',
+                    fontSize: '24px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: false,
+                  }
+                }
+              }
+            },
+            fill: {
+              colors : ['#d1515a'],                
+              
+            },
+            stroke: {
+              lineCap: 'round'
+            },
+            labels: ['5'],
+               
+          },
+
+
+
+
+    }
+  },
   mounted() {
     this.$store.dispatch("getProfil");
   },
-    computed: {
+  computed: {
     ...mapState(["profil"]),
-  },
+  }, 
+   
+
+
+
+
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+$primary: #091f43;
+$secondary: #d1515a;
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+section h1 {
+  padding: 10px 0 0 20px 0;
+}
+
+.card-profil {
+  width: 400px;
+  height: 500px;
+  box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
+  border-radius: 4px;
+}
+.card-top {
+  position: relative;
+}
+img {
+  width: 100%;
+}
+.custom-shape-divider-bottom-1625087656 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1625087656 svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
+.custom-shape-divider-bottom-1625087656 .shape-fill {
+  fill: #ffffff;
+}
+.card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+h2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+span {
+  width: 100%;
+  padding-top: 5px;
+}
+.card-stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+
+}
+.radar {
+  width: 50%;
+}
 </style>

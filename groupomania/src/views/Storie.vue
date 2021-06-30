@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Album photos GROUPOMANIA</h1>
+    <h1>Album photo GROUPOMANIA</h1>
     <Card  v-for="storie in stories" :key="storie.id" :storie="storie"/>
 
     

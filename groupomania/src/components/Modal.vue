@@ -65,13 +65,17 @@ $secondary: #d1515a;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap; 
-  width: 40%;
-  margin: 0px auto;
-  padding: 20px 30px;
+  width: 100%;
+  margin: 0px 20px;
+  padding: 20px 20px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   font-family: Helvetica, Arial, sans-serif;
+    @media (min-width: 768px) {
+    width: 40%;
+    
+    }
 }
 
 .modal-header {

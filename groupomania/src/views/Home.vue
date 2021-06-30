@@ -8,7 +8,10 @@
           Postez ici vos photos afin de favoriser les échanges entre collègues.
         </p>
         <button class="btn" @click="storie()">
-          <span>COMMENCER</span>
+          <span>ALBUM PHOTO</span>
+        </button>
+        <button class="btn-ajout" @click="ajout()">
+          <span>AJOUTER PHOTO</span>
         </button>
       </div>
     </div>
@@ -99,4 +102,24 @@ p {
 .btn:hover {
   background: $secondary;
 }
+.btn-ajout {
+  color: white;
+  min-width: 30%;
+  height: 50px;
+  margin: 40px 20% 0 20%;
+  padding: 0 15px;
+  border: 2px solid $primary;
+  font-size: 1.3rem;
+  background: $primary;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;  
+  overflow: hidden;
+}
+
+.btn-ajout:hover {
+  background: $secondary;
+  color: $primary;
+  }
 </style>

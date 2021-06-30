@@ -132,17 +132,27 @@ section {
   align-items: center;
   width: 100%;
 }
+section h1 {
+  padding : 10px 0 0 20px 0 ;
+}
 .auteur {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-wrap: wrap;
+  width: 100%; 
+
 }
 .auteur p {
   padding: 0 4px;
   font-size: 1.2rem;
+  width: 100%;
+   @media (min-width: 768px) {
+ width : auto;
+  }
 }
 .name {
+
   font-weight: 600;
   color: $primary;
 }
@@ -158,33 +168,34 @@ section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   width: 100%;
   height: 100%;
+  margin : 20px;
+    @media (min-width: 768px) {
+    justify-content: space-around;
+   
+  }
 }
 img {
   width: 100%;
-  margin: 40px;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
-
   @media (min-width: 768px) {
     width: 40%;
     border-radius: 4px;
   }
 }
 .card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 100%;
-  height: 100%;
+  max-height: 300px;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
-  margin: 20px;
+  margin : 20px 0;
+overflow-y: auto ;
   @media (min-width: 768px) {
     width: 40%;
-    margin: 40px;
+   margin : 0;
+    max-height: 500px;
   }
 }
 .card h2 {
@@ -245,14 +256,15 @@ img {
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 0 20px;
 }
 .btn-add,
 .btn-supp,
 .btn-retour {
   color: $primary;
-  width: auto;
+  width: 100%;
   height: 40px;
-  margin: 10px;
+  margin: 10px 0;
   padding: 0 15px;
   border: 2px solid $primary;
   font-size: 1.3rem;
@@ -262,6 +274,10 @@ img {
   display: block;
   overflow: hidden;
   border-radius : 4px;
+    @media (min-width: 768px) {
+    width: 40%;
+    margin: 10px;
+    }
 }
 
 .btn-add:hover {
