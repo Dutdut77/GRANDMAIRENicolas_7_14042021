@@ -35,9 +35,20 @@
             <div class="radar">
 
                <apexchart type="radialBar" height="150" :options="chartOptions2" :series="series" ></apexchart>
-            </div>
-           
-       
+            </div>       
+      </div>
+
+
+      <div class="card-footer">
+              <button class="btn-add" id="show-modal" @click="showModal = true">
+        <span>Modifier Profil</span>
+      </button>
+      <button class="btn-add" @click="Delete()">
+        <span>Modifier Photo</span>
+      </button>
+            <button class="btn-supp" @click="Delete()">
+        <span>Supprimer Profil</span>
+      </button>
       </div>
     </div>
   </section>
@@ -228,9 +239,10 @@ section h1 {
 
 .card-profil {
   width: 400px;
-  height: 500px;
+  height: auto;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
+  margin: 0 20px 40px 20px;
 }
 .card-top {
   position: relative;
@@ -272,7 +284,7 @@ span {
   width: 100%;
   padding-top: 5px;
 }
-.card-stat {
+.card-stat  {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -282,5 +294,48 @@ span {
 }
 .radar {
   width: 50%;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  border-top : 1px solid #888;
+  margin : 10px 0 ;
+  padding-top : 10px;
+}
+
+.btn-add,
+.btn-supp {
+  color: $primary;
+  width: 100%;
+  height: 40px;
+  margin: 10px 40px;
+  padding: 0 5px;
+  border: 2px solid $primary;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+    @media (min-width: 768px) {
+    width: 40%;
+    margin: 10px;
+    }
+}
+
+.btn-add:hover {
+  background: $primary;
+  color: white;
+}
+
+.btn-supp:hover {
+  background: $secondary;
+  border-color: $secondary;
 }
 </style>
