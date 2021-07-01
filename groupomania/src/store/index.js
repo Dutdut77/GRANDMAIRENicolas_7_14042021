@@ -32,6 +32,8 @@ export default createStore({
     stories: {},    
     profil: {},
     commentaires: {},
+    nbPhoto : "",
+    nbComment : "",
 
   },
   getters: {},
@@ -46,7 +48,14 @@ export default createStore({
     },
     stories(state, stories) {
       state.stories = stories;
-    }, 
+    },
+    nbPhoto(state, nbPhoto) {
+      state.nbPhoto = nbPhoto;      
+    },
+    nbComment(state, nbComment) {
+      state.nbComment = nbComment;
+    },
+
     commentaires(state, commentaires) {
       
       if (commentaires.length > 0) {
@@ -136,6 +145,19 @@ export default createStore({
         throw (error);
       };
     },
+    countUserPhoto: async ({ commit }) => {
+      const route = '/image/user/'.concat('', user.userId);
+      try {
+        const response = await instance.get(route);
+        commit("nbPhoto", response.data.NbPhoto);          
+        return response.data.NbPhoto;
+
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
     getAllCommentaires: async ({ commit }, id) => {
       const route = '/image/comment/'.concat('', id);      
       try {
@@ -184,8 +206,9 @@ export default createStore({
 
     },
     getProfil: async ({ commit }) => {
+      const route = '/auth/'.concat('', user.userId);
       try {
-        const response = await instance.get("/auth/94");
+        const response = await instance.get(route);
         commit("profil", response.data.user);
         return response.data.user;
       }

@@ -1,47 +1,48 @@
 <template>
   <section>
-    <h1>Mon Profil</h1>
+  
     <div class="card-profil">
+
       <div class="card-top">
-        <img
-          src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
-          alt=""
-        />
+        <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt="" />
         <div class="custom-shape-divider-bottom-1625087656">
-          <svg
-            data-name="Layer 1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M1200 0L0 0 598.97 114.72 1200 0z"
-              class="shape-fill"
-            ></path>
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" >
+            <path  d="M1200 0L0 0 598.97 114.72 1200 0z"  class="shape-fill" ></path>
           </svg>
         </div>
       </div>
+
       <div class="card-content">
-        <h2>{{ profil.nom }} {{ profil.prenom }}</h2>
-        <span>{{ profil.pseudo }}</span>
-        <span>{{ profil.email }}</span>
-        <span>{{ profil.titre }}</span>
+        <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
+        <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
+        <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
+        <span>Niveau :{{ profil.titre }}</span>
       </div>
 
       <div class="card-stat"> 
-        <div class="radar">
-          <apexchart type="radialBar" height="150" :options="chartOptions" :series="series" ></apexchart>
-          </div>      
-            <div class="radar">
+        <div class="radar-group">
+          <div class="radar">
+              <apexchart type="radialBar" height="150" :options="chartOptions" :series="series" ></apexchart>
+          </div>
+          <div class="radar-titre">
+            <h2>Nb Photos</h2>
+          </div>
+        </div>
+     
 
-               <apexchart type="radialBar" height="150" :options="chartOptions2" :series="series" ></apexchart>
-            </div>       
+        <div class="radar-group">
+          <div class="radar">
+              <apexchart type="radialBar" height="150" :options="chartOptions2" :series="series" ></apexchart>
+          </div>
+          <div class="radar-titre">
+            <h2>Nb Commentaires</h2>
+          </div>
+        </div>
       </div>
-
 
       <div class="card-footer">
               <button class="btn-add" id="show-modal" @click="showModal = true">
-        <span>Modifier Profil</span>
+        <span>Modifier Profil </span>
       </button>
       <button class="btn-add" @click="Delete()">
         <span>Modifier Photo</span>
@@ -50,7 +51,14 @@
         <span>Supprimer Profil</span>
       </button>
       </div>
+
     </div>
+     
+    {{ nbPhoto }}
+
+
+
+
   </section>
 </template>
 
@@ -58,9 +66,10 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "Profil",
+  name: "Profil",  
   data() {
-    return {
+    return {  
+          nbPhoto : 3,      
           series: [75],          
           chartOptions: {
             chart: {
@@ -129,10 +138,10 @@ export default {
             stroke: {
               lineCap: 'round'
             },
-            labels: ['2'],
+            labels: ["3"],
                
           },
-                    chartOptions2: {
+          chartOptions2: {
             chart: {
               height: 250,
               type: 'radialBar',
@@ -202,17 +211,15 @@ export default {
             labels: ['5'],
                
           },
-
-
-
-
     }
   },
   mounted() {
     this.$store.dispatch("getProfil");
+    this.$store.dispatch("countUserPhoto");
   },
+  
   computed: {
-    ...mapState(["profil"]),
+    ...mapState(["profil", "nbPhoto", "nbComment"]),
   }, 
    
 
@@ -232,9 +239,7 @@ section {
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-section h1 {
-  padding: 10px 0 0 20px 0;
+  min-height: 100vh;
 }
 
 .card-profil {
@@ -242,13 +247,14 @@ section h1 {
   height: auto;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
-  margin: 0 20px 40px 20px;
+  margin: 20px 20px 40px 20px;
 }
 .card-top {
   position: relative;
 }
 img {
   width: 100%;
+  border-radius : 4px;
 }
 .custom-shape-divider-bottom-1625087656 {
   position: absolute;
@@ -276,14 +282,17 @@ img {
   align-items: center;
   flex-wrap: wrap;
 }
-h2 {
+h1 {
   font-weight: 600;
   font-size: 1.2rem;
+  padding: 0;
 }
 span {
   width: 100%;
   padding-top: 5px;
-}
+ }
+
+
 .card-stat  {
   display: flex;
   justify-content: center;
@@ -292,8 +301,23 @@ span {
   width: 100%;
 
 }
+
+.radar-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width : 50%
+}
 .radar {
-  width: 50%;
+  width: 100%;
+}
+.radar-titre {
+width : 100%;
+text-align: center;
+color : #888;
+font-size : 0.6rem;
+margin-top : -10px;
 }
 
 .card-footer {

@@ -50,8 +50,8 @@ const routes = [
     name: "Profil",
     component: Profil,
     meta: {
-      title: "Mon profil Groupomania",
-      requiresAuth: true
+    title: "Mon profil Groupomania",
+    requiresAuth: true
     },
   },
   {

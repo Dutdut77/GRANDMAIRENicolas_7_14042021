@@ -13,11 +13,14 @@ router.post('/comment', auth, imageCtrl.addComment);
 /* Afficher une storie */
 router.get('/:id', auth, imageCtrl.getOneStorie);
 
-/* Ajouter toutes les stories */
+/* Afficher toutes les stories */
 router.get('/', auth, imageCtrl.getAllStorie);
 
 /* Afficher tous les commentaires d'une Storie */
 router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
+
+/* Compter le nombre de photos posté par un utilisateur */
+router.get('/user/:id', auth, imageCtrl.countUserPhoto);
 
 /* Supprimer une storie */
 router.delete('/:id',  auth, imageCtrl.deleteStorie);

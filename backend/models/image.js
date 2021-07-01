@@ -59,6 +59,26 @@ async function getOneStorie(id) {
 }
 
 /**
+ * Compte le nombre de photo d'un user
+ *
+ * @param   {Number}  id  Id du user
+ *
+ * @return  {Object}      Nombre de photo
+ */
+ async function countUserPhoto(id) {
+    try {
+        const res = await database.FindOne("SELECT COUNT(*) AS nbPhoto FROM images WHERE id_parent = 0 AND userId = ?", [id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
+
+/**
  * Rechercher toutes les stories dans la Bdd
  *
  * @return  {Object}  Info de toutes les stories
@@ -144,3 +164,4 @@ module.exports.getAllStorie = getAllStorie;
 module.exports.getAllCommentaires = getAllCommentaires;
 module.exports.deleteStorie = deleteStorie;
 module.exports.deleteCommentaire = deleteCommentaire;
+module.exports.countUserPhoto = countUserPhoto;
