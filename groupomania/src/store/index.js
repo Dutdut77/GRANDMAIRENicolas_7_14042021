@@ -158,6 +158,20 @@ export default createStore({
         throw (error);
       };
     },
+    countUserComment: async ({ commit }) => {
+      const route = '/image/user/comment/'.concat('', user.userId);
+        try {
+        const response = await instance.get(route);
+        commit("nbComment", response.data.NbComment);        
+        console.log(response)  
+        return response.data.NbComment;
+
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
     getAllCommentaires: async ({ commit }, id) => {
       const route = '/image/comment/'.concat('', id);      
       try {

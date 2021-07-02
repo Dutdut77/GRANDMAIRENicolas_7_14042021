@@ -1,5 +1,7 @@
 <template>
   <section>
+  <div class="card">
+
   
     <div class="card-profil">
 
@@ -16,7 +18,7 @@
         <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
         <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
         <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
-        <span>Niveau :{{ profil.titre }}</span>
+        <span>Niveau : {{ profil.titre }}</span>
       </div>
 
       <div class="card-stat"> 
@@ -41,7 +43,7 @@
       </div>
 
       <div class="card-footer">
-              <button class="btn-add" id="show-modal" @click="showModal = true">
+              <button class="btn-add" @click="showProfil = true">
         <span>Modifier Profil </span>
       </button>
       <button class="btn-add" @click="Delete()">
@@ -53,25 +55,58 @@
       </div>
 
     </div>
-     
+ </div>    
+
+<transition name="profil">
+  <div class="profil" v-if="showProfil">
+      <div class="form">
+                <div class="titre"><h1>MODIFIER MON PROFIL</h1></div>
+                <div class="form__group">
+                  <Input v-model="contentNom" :inputInfo="inputNom" />
+                </div>
+                <div class="form__group">
+                  <Input v-model="contentPrenom" :inputInfo="inputPrenom" />
+                </div>
+                <div class="form__group">
+                  <Input v-model="contentPseudo" :inputInfo="inputPseudo" />
+                </div>
+                <div class="form__group">
+                  <Input v-model="contentEmail" :inputInfo="inputEmail" />
+                </div>  
+                        <button class="btn-supp" @click="UpdateProfil()">
+          <span>VALIDER</span>
+        </button>   
+        </div>
+  </div>
+</transition>      
+
+
+
+
+
+
+
  
-{{nbPhoto}} <br>
+<!-- photo : {{nbPhoto}} <br>
+commentaire : {{nbComment}} <br>
 {{chartOptions}} <br>
-{{chartOptions2}}
+{{chartOptions2}} -->
 
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
-
+import Input from "@/components/Input.vue";
+//import InputFile from "@/components/InputFile.vue";
 
 export default {
   name: "Profil",  
+  components: { Input },
   data() {
     return {   
 
-          toto : {},
+          showProfil : false,
           series: [75],          
           radar: {
             chart: {
@@ -211,13 +246,53 @@ export default {
             },
 
           },
+                inputEmail: {
+        name : "email",
+        title: "Votre Email :",
+        type: "text",
+        class: ""
+      },
+      inputPassword: {
+        name : "password",
+        title: "Votre Password :",
+        type: "password",
+        class: ""
+      },
+      inputNom: {
+        name : "nom",
+        title: "Votre nom :",
+        type: "text",
+        class: ""
+      },
+      inputPrenom: {
+        name : "prenom",
+        title: "Votre Prenom :",
+        type: "text",
+        class: ""
+      },
+      inputPseudo: {
+        name : "pseudo",
+        title: "Votre Pseudo :",
+        type: "text",
+        class: ""
+      },
+      inputImageUrl: {
+         title: "Choisissez votre photo",
+      },
           
     }
   },
+
  
   mounted() {
     this.$store.dispatch("getProfil"); 
-     this.$store.dispatch("countUserPhoto"); 
+    this.$store.dispatch("countUserPhoto"); 
+    this.$store.dispatch("countUserComment");
+  },
+  methods : {
+    UpdateProfil () {
+      this.showProfil = false;
+    }
   },
 
   computed: 
@@ -230,20 +305,12 @@ export default {
       return Object.assign(this.radar, { labels : [state.nbPhoto]})      
     },
     chartOptions2 (state) {
-      return Object.assign(this.radar2, { labels : [state.nbPhoto + 5]})      
+      return Object.assign(this.radar2, { labels : [state.nbComment]})      
     },
  
-    }),
-
- 
- 
-  
-  
-   
-
-
-
-
+    }), 
+    
+    
 };
 </script>
 
@@ -256,12 +323,20 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex-wrap : wrap;
   width: 100%;
   min-height: 100vh;
 }
-
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  order : 1;
+  margin : 0;  
+}
 .card-profil {
-  width: 400px;
+ width: 400px;
   height: auto;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
@@ -272,7 +347,7 @@ section {
 }
 img {
   width: 100%;
-  border-radius : 4px;
+  border-radius : 4px 4px 0 0 ;
 }
 .custom-shape-divider-bottom-1625087656 {
   position: absolute;
@@ -380,4 +455,43 @@ margin-top : -10px;
   background: $secondary;
   border-color: $secondary;
 }
+
+.profil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  order : 0;
+  margin-top : 30px;
+     @media (min-width: 768px) {
+    width: 40%;
+    order : 2;
+  }
+}
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+.form__group {
+  margin: 15px;
+  width: 80%;
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+}
+
+.profil-enter-active, .profil-leave-active {
+  transition: all 0.3s ease;
+
+}
+
+.profil-enter-from, .profil-leave-to {
+  opacity: 0;
+}
+
+
 </style>

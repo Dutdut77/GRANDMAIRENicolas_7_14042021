@@ -22,6 +22,9 @@ router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
 /* Compter le nombre de photos posté par un utilisateur */
 router.get('/user/:id', auth, imageCtrl.countUserPhoto);
 
+/* Compter le nombre de commentaire posté par un utilisateur */
+router.get('/user/comment/:id', auth, imageCtrl.countUserCommentPhoto);
+
 /* Supprimer une storie */
 router.delete('/:id',  auth, imageCtrl.deleteStorie);
 

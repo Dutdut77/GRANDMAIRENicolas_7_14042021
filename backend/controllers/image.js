@@ -119,6 +119,24 @@ exports.getAllStorie = async (req, res, next) => {
 }
 
 /**
+ * Compter le nombre de commentaires posté par un utilisateur
+ *
+ * @param   {Number}  req.params.id   Id du user souhaitée
+ *
+ * @return  {JSON}                    Nombre de photos
+ */
+ exports.countUserCommentPhoto = async (req, res, next) => {
+    try {        
+        const NbComment = await Image.countUserCommentPhoto(req.params.id);
+        res.status(201).json({ NbComment : NbComment.nbComment });
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
+}
+
+/**
  * Effacer une storie
  *
  * @param   {Number}  req.parmas.id  Champs du formulaire
