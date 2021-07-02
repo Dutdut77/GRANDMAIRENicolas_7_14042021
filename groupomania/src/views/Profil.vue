@@ -54,10 +54,10 @@
 
     </div>
      
-    {{ nbPhoto }}
-
-
-
+ 
+{{nbPhoto}} <br>
+{{chartOptions}} <br>
+{{chartOptions2}}
 
   </section>
 </template>
@@ -65,13 +65,84 @@
 <script>
 import { mapState } from "vuex";
 
+
 export default {
   name: "Profil",  
   data() {
-    return {  
-          nbPhoto : 3,      
+    return {   
+
+          toto : {},
           series: [75],          
-          chartOptions: {
+          radar: {
+            chart: {
+              height: 250,            
+              type: 'radialBar',
+              toolbar: {
+                show: false
+              }
+            },
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: 5,
+                    show: true,
+                    color: '#111',
+                    fontSize: '24px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: false,
+                  }
+                }
+              }
+            },
+            fill: {
+              colors : ['#d1515a'],                
+              
+            },
+            stroke: {
+              lineCap: 'round'
+            },
+
+          },
+          radar2: {
             chart: {
               height: 250,
               type: 'radialBar',
@@ -138,89 +209,36 @@ export default {
             stroke: {
               lineCap: 'round'
             },
-            labels: ["3"],
-               
+
           },
-          chartOptions2: {
-            chart: {
-              height: 250,
-              type: 'radialBar',
-              toolbar: {
-                show: false
-              }
-            },
-            plotOptions: {
-              radialBar: {
-                startAngle: -135,
-                endAngle: 225,
-                 hollow: {
-                  margin: 0,
-                  size: '70%',
-                  background: '#fff',
-                  image: undefined,
-                  imageOffsetX: 0,
-                  imageOffsetY: 0,
-                  position: 'front',
-                  dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                  }
-                },
-                track: {
-                  background: '#fff',
-                  strokeWidth: '67%',
-                  margin: 0, // margin is in pixels
-                  dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                  }
-                },
-            
-                dataLabels: {
-                  show: true,
-                  name: {
-                    offsetY: 5,
-                    show: true,
-                    color: '#111',
-                    fontSize: '24px'
-                  },
-                  value: {
-                    formatter: function(val) {
-                      return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: false,
-                  }
-                }
-              }
-            },
-            fill: {
-              colors : ['#d1515a'],                
-              
-            },
-            stroke: {
-              lineCap: 'round'
-            },
-            labels: ['5'],
-               
-          },
+          
     }
   },
+ 
   mounted() {
-    this.$store.dispatch("getProfil");
-    this.$store.dispatch("countUserPhoto");
+    this.$store.dispatch("getProfil"); 
+     this.$store.dispatch("countUserPhoto"); 
   },
+
+  computed: 
+    mapState ({
+    profil : "profil",
+    nbPhoto : "nbPhoto",
+    nbComment : "nbComment",
+
+    chartOptions (state) {
+      return Object.assign(this.radar, { labels : [state.nbPhoto]})      
+    },
+    chartOptions2 (state) {
+      return Object.assign(this.radar2, { labels : [state.nbPhoto + 5]})      
+    },
+ 
+    }),
+
+ 
+ 
   
-  computed: {
-    ...mapState(["profil", "nbPhoto", "nbComment"]),
-  }, 
+  
    
 
 
