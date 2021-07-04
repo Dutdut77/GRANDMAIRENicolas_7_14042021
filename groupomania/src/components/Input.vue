@@ -1,13 +1,6 @@
 <template>
   <div class="input-data">
-    <input
-      :type="inputInfo.type"
-      :value="modelValue"  
-      :class="inputInfo.class" 
-      :id="inputInfo.name"     
-      @input="$emit('update:modelValue', $event.target.value)"
-      required
-    />
+    <input :type="inputInfo.type" :value="modelValue"  :class="inputInfo.class" :id="inputInfo.name" @input="$emit('update:modelValue', $event.target.value)" required />
     <div class="underline"></div>
 
     <label :for="inputInfo.name">{{ inputInfo.title }}</label>

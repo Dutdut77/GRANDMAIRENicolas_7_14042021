@@ -70,28 +70,16 @@
                 <div class="form__group">
                   <Input v-model="contentPseudo" :inputInfo="inputPseudo" />
                 </div>
-                <div class="form__group">
-                  <Input v-model="contentEmail" :inputInfo="inputEmail" />
-                </div>  
-                        <button class="btn-supp" @click="UpdateProfil()">
+          
+        <button class="btn-supp" @click="UpdateProfil()">
           <span>VALIDER</span>
         </button>   
+          <button class="btn-retour" @click="showProfil = false">
+          <span>RETOUR</span>
+        </button> 
         </div>
   </div>
 </transition>      
-
-
-
-
-
-
-
- 
-<!-- photo : {{nbPhoto}} <br>
-commentaire : {{nbComment}} <br>
-{{chartOptions}} <br>
-{{chartOptions2}} -->
-
   </section>
 </template>
 
@@ -105,10 +93,12 @@ export default {
   components: { Input },
   data() {
     return {   
-
+          contentNom : this.$store.state.profil.nom,
+          contentPrenom : this.$store.state.profil.prenom,
+          contentPseudo : this.$store.state.profil.pseudo,
           showProfil : false,
           series: [75],          
-          radar: {
+          chartOptions: {
             chart: {
               height: 250,            
               type: 'radialBar',
@@ -175,9 +165,10 @@ export default {
             stroke: {
               lineCap: 'round'
             },
+            labels : [this.$store.state.nbPhoto], 
 
           },
-          radar2: {
+         chartOptions2: {
             chart: {
               height: 250,
               type: 'radialBar',
@@ -244,20 +235,11 @@ export default {
             stroke: {
               lineCap: 'round'
             },
+            labels : [this.$store.state.nbComment], 
 
           },
-                inputEmail: {
-        name : "email",
-        title: "Votre Email :",
-        type: "text",
-        class: ""
-      },
-      inputPassword: {
-        name : "password",
-        title: "Votre Password :",
-        type: "password",
-        class: ""
-      },
+        
+
       inputNom: {
         name : "nom",
         title: "Votre nom :",
@@ -290,25 +272,23 @@ export default {
     this.$store.dispatch("countUserComment");
   },
   methods : {
-    UpdateProfil () {
-      this.showProfil = false;
-    }
+    UpdateProfil () {    
+          this.$store.dispatch("updateUser", {     
+          nom: this.contentNom,
+          prenom: this.contentPrenom,
+          pseudo: this.contentPseudo,        
+          })                
+        .then(
+          this.$store.dispatch("getProfil"),
+          this.showProfil = false,
+        )
+    },
+         
+    
   },
-
-  computed: 
-    mapState ({
-    profil : "profil",
-    nbPhoto : "nbPhoto",
-    nbComment : "nbComment",
-
-    chartOptions (state) {
-      return Object.assign(this.radar, { labels : [state.nbPhoto]})      
-    },
-    chartOptions2 (state) {
-      return Object.assign(this.radar2, { labels : [state.nbComment]})      
-    },
- 
-    }), 
+ computed: {
+    ...mapState(["profil", "nbPhoto", "nbComment"]),
+  },
     
     
 };
@@ -425,7 +405,7 @@ margin-top : -10px;
 }
 
 .btn-add,
-.btn-supp {
+.btn-supp, .btn-retour {
   color: $primary;
   width: 100%;
   height: 40px;
@@ -446,7 +426,7 @@ margin-top : -10px;
     }
 }
 
-.btn-add:hover {
+.btn-add:hover, .btn-retour:hover {
   background: $primary;
   color: white;
 }
@@ -454,6 +434,12 @@ margin-top : -10px;
 .btn-supp:hover {
   background: $secondary;
   border-color: $secondary;
+}
+
+
+
+.titre {
+  margin : 20px;
 }
 
 .profil {

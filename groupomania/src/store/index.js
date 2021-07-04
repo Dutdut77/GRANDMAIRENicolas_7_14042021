@@ -77,10 +77,6 @@ export default createStore({
         token: "",
       }
     },
-    addComment(comment) {
-      
-      console.log("comment :" + comment);
-    },
 
   },
   actions: {
@@ -118,6 +114,19 @@ export default createStore({
       }
       catch (error) {
         commit("setStatus", "error_login");
+        console.error(error);
+        throw (error);
+      };
+    },
+    updateUser: async ({ commit}, userinfos) => {      
+      const route = '/auth/'.concat('', user.userId);   
+       try {
+        commit("setStatus", "loading");
+        const response = await instance.put(route, userinfos);
+        commit("setStatus", "");
+        commit("profil", response.data);  
+      }
+      catch (error) {        
         console.error(error);
         throw (error);
       };
@@ -163,7 +172,6 @@ export default createStore({
         try {
         const response = await instance.get(route);
         commit("nbComment", response.data.NbComment);        
-        console.log(response)  
         return response.data.NbComment;
 
       }
@@ -236,6 +244,16 @@ export default createStore({
         const response = await instance.get("/auth");
         commit("profil", response.data.user);
         return response.data.user;
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
+    verifToken : async () => {
+      try {
+        const response = await instance.get("/auth/token");
+        return response.data;
       }
       catch (error) {
         console.error(error);

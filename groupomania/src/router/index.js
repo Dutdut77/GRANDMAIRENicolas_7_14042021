@@ -8,6 +8,8 @@ import NotFound from "../views/NotFound.vue";
 import Profil from "../views/Profil.vue";
 import Admin from "../views/Admin.vue";
 
+
+
 const routes = [
   {
     path: "/",
@@ -91,8 +93,11 @@ const router = createRouter({
   routes,
 });
 
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+  
+    
     let user = localStorage.getItem('user');
     if (!user) {
        next({ path: "/login" })
@@ -105,6 +110,7 @@ router.beforeEach((to, from, next) => {
   next(); //{ name: "Login", path: "/login" }
   }
  });
+
 
 router.afterEach((to) => {
   document.title = to.meta.title;

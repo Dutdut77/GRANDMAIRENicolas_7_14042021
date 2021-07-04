@@ -68,7 +68,6 @@ exports.login = async (req, res, next) => {
         });
     }
     catch (receivedError) {
-        console.log("erreur 2");
         error(receivedError, res);
     }
 
@@ -85,14 +84,13 @@ exports.login = async (req, res, next) => {
  * @param   {String}  req.body.email     Email de l'utilisateur
  *
  */
-exports.update = async (req, res, next) => {
+exports.update = async (req, res, next) => {    
     try {
         await User.updateUser(req.body, req.params.id);
         res.status(201).json({
             prenom: req.body.prenom,
             nom: req.body.nom,
-            pseudo: req.body.pseudo,
-            email: req.body.email
+            pseudo: req.body.pseudo            
         });
     }
     catch (receivedError) {

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const verifToken = require('../middleware/verifToken');
 const multer = require('../middleware/multer-user');
 const userCtrl = require('../controllers/user');
 
@@ -9,6 +10,9 @@ router.post('/signup', multer, userCtrl.signup);
 
 /* Route pour se loguer */
 router.post('/login', userCtrl.login);
+
+/* Route pour vérifier le token */
+router.post('/token', verifToken);
 
 /* Route pour modifier l'avatar du profil */
 router.put('/avatar/:id', auth, multer, userCtrl.avatar);

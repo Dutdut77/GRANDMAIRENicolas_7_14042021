@@ -79,8 +79,7 @@ async function emailExists(email) {
  */
 async function updateUser(user, id) {
     try {
-        const pass = await bcrypt.hash(user.password, 10);
-        const res = await database.User("UPDATE users SET prenom=?, nom=?, pseudo=?, password=?, email=? WHERE id=?", [user.prenom, user.nom, user.pseudo, pass, user.email, id]);
+        const res = await database.User("UPDATE users SET prenom=?, nom=?, pseudo=? WHERE id=?", [user.prenom, user.nom, user.pseudo, id]);
         return res;
     }
     catch (error) {
