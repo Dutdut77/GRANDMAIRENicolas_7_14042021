@@ -80,9 +80,6 @@
         </div>
   </div>
 </transition>     
-<p>Store  : {{ test }}</p>
- / 
-<p>Mapstate  : {{ nbComment }}</p>
   </section>
   
 </template>
@@ -99,148 +96,7 @@ export default {
     return {   
       test : this.$store.state.nbComment,
           showProfil : false,
-          series: [75],          
-          chartOptions: {
-            chart: {
-              height: 250,            
-              type: 'radialBar',
-              toolbar: {
-                show: false
-              }
-            },
-            plotOptions: {
-              radialBar: {
-                startAngle: -135,
-                endAngle: 225,
-                 hollow: {
-                  margin: 0,
-                  size: '70%',
-                  background: '#fff',
-                  image: undefined,
-                  imageOffsetX: 0,
-                  imageOffsetY: 0,
-                  position: 'front',
-                  dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                  }
-                },
-                track: {
-                  background: '#fff',
-                  strokeWidth: '67%',
-                  margin: 0, // margin is in pixels
-                  dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                  }
-                },
-            
-                dataLabels: {
-                  show: true,
-                  name: {
-                    offsetY: 5,
-                    show: true,
-                    color: '#111',
-                    fontSize: '24px'
-                  },
-                  value: {
-                    formatter: function(val) {
-                      return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: false,
-                  }
-                }
-              }
-            },
-            fill: {
-              colors : ['#d1515a'],                
-              
-            },
-            stroke: {
-              lineCap: 'round'
-            },
-            labels : [this.$store.state.nbPhoto], 
-
-          },
-         chartOptions2: {
-            chart: {
-              height: 250,
-              type: 'radialBar',
-              toolbar: {
-                show: false
-              }
-            },
-            plotOptions: {
-              radialBar: {
-                startAngle: -135,
-                endAngle: 225,
-                 hollow: {
-                  margin: 0,
-                  size: '70%',
-                  background: '#fff',
-                  image: undefined,
-                  imageOffsetX: 0,
-                  imageOffsetY: 0,
-                  position: 'front',
-                  dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                  }
-                },
-                track: {
-                  background: '#fff',
-                  strokeWidth: '67%',
-                  margin: 0, // margin is in pixels
-                  dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                  }
-                },
-            
-                dataLabels: {
-                  show: true,
-                  name: {
-                    offsetY: 5,
-                    show: true,
-                    color: '#111',
-                    fontSize: '24px'
-                  },
-                  value: {
-                    formatter: function(val) {
-                      return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: false,
-                  }
-                }
-              }
-            },
-            fill: {
-              colors : ['#d1515a'],                
-              
-            },
-            stroke: {
-              lineCap: 'round'
-            },
-            labels : [this.$store.state.nbComment], 
-
-          },
-        
+          series: [75], 
 
       inputNom: {
         name : "nom",
@@ -287,7 +143,148 @@ export default {
   },
  computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
-
+  chartOptions() {
+    return {
+     chart: {
+              height: 150,            
+              type: 'radialBar',
+              toolbar: {
+                show: false
+              }
+            },
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: 5,
+                    show: true,
+                    color: '#111',
+                    fontSize: '24px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: false,
+                  }
+                }
+              }
+            },
+            fill: {
+              colors : ['#d1515a'],                
+              
+            },
+            stroke: {
+              lineCap: 'round'
+            },
+            labels : [this.nbPhoto], 
+    }
+  },
+    chartOptions2() {
+    return {
+     chart: {
+              height: 150,            
+              type: 'radialBar',
+              toolbar: {
+                show: false
+              }
+            },
+            plotOptions: {
+              radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                 hollow: {
+                  margin: 0,
+                  size: '70%',
+                  background: '#fff',
+                  image: undefined,
+                  imageOffsetX: 0,
+                  imageOffsetY: 0,
+                  position: 'front',
+                  dropShadow: {
+                    enabled: true,
+                    top: 3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.24
+                  }
+                },
+                track: {
+                  background: '#fff',
+                  strokeWidth: '67%',
+                  margin: 0, // margin is in pixels
+                  dropShadow: {
+                    enabled: true,
+                    top: -3,
+                    left: 0,
+                    blur: 4,
+                    opacity: 0.35
+                  }
+                },
+            
+                dataLabels: {
+                  show: true,
+                  name: {
+                    offsetY: 5,
+                    show: true,
+                    color: '#111',
+                    fontSize: '24px'
+                  },
+                  value: {
+                    formatter: function(val) {
+                      return parseInt(val);
+                    },
+                    color: '#111',
+                    fontSize: '36px',
+                    show: false,
+                  }
+                }
+              }
+            },
+            fill: {
+              colors : ['#d1515a'],                
+              
+            },
+            stroke: {
+              lineCap: 'round'
+            },
+            labels : [this.nbComment], 
+    }
+  }
   },
     
     
