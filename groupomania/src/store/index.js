@@ -34,6 +34,7 @@ export default createStore({
     commentaires: {},
     nbPhoto : "",
     nbComment : "",
+    test : "test"
 
   },
   getters: {},
@@ -72,6 +73,8 @@ export default createStore({
     deleteStore(state) {
       state.stories = {};
       state.profil = {};
+      state.nbComment = 0;
+      state.nbPhoto = 0;
       state.user = {
         userId: -1,
         token: "",
@@ -97,7 +100,7 @@ export default createStore({
     signup: async ({ commit, dispatch}, userinfos) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(userinfos)) {
-        data.append(key, value);
+          data.append(key, value);
       }
       // data.append("file", file);
       const headers = {
@@ -154,8 +157,8 @@ export default createStore({
         throw (error);
       };
     },
-    countUserPhoto: async ({ commit }) => {
-      const route = '/image/user/'.concat('', user.userId);
+    countUserPhoto: async ({ commit, state }) => {
+      const route = '/image/user/'.concat('', state.user.userId);
       try {
         const response = await instance.get(route);
         commit("nbPhoto", response.data.NbPhoto);          
@@ -167,11 +170,12 @@ export default createStore({
         throw (error);
       };
     },
-    countUserComment: async ({ commit }) => {
-      const route = '/image/user/comment/'.concat('', user.userId);
+    countUserComment: async ({ commit, state }) => {
+      const route = '/image/user/comment/'.concat('', state.user.userId);
         try {
         const response = await instance.get(route);
-        commit("nbComment", response.data.NbComment);        
+        commit("nbComment", response.data.NbComment); 
+         
         return response.data.NbComment;
 
       }
@@ -227,8 +231,8 @@ export default createStore({
       };
 
     },
-    getProfil: async ({ commit }) => {
-      const route = '/auth/'.concat('', user.userId);
+    getProfil: async ({ commit, state }) => {
+      const route = '/auth/'.concat('', state.user.userId);      
       try {
         const response = await instance.get(route);
         commit("profil", response.data.user);

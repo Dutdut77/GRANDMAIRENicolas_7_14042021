@@ -24,7 +24,7 @@
       <div class="card-stat"> 
         <div class="radar-group">
           <div class="radar">
-              <apexchart type="radialBar" height="150" :options="chartOptions" :series="series" ></apexchart>
+              <VueApexCharts id="chart" type="radialBar" height="150" :options="chartOptions" :series="series" ></VueApexCharts>
           </div>
           <div class="radar-titre">
             <h2>Nb Photos</h2>
@@ -34,7 +34,7 @@
 
         <div class="radar-group">
           <div class="radar">
-              <apexchart type="radialBar" height="150" :options="chartOptions2" :series="series" ></apexchart>
+              <VueApexCharts type="radialBar" height="150" :options="chartOptions2" :series="series" ></VueApexCharts>
           </div>
           <div class="radar-titre">
             <h2>Nb Commentaires</h2>
@@ -79,23 +79,25 @@
         </button> 
         </div>
   </div>
-</transition>      
+</transition>     
+<p>Store  : {{ test }}</p>
+ / 
+<p>Mapstate  : {{ nbComment }}</p>
   </section>
+  
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Input from "@/components/Input.vue";
-//import InputFile from "@/components/InputFile.vue";
+import VueApexCharts from "vue3-apexcharts";
 
 export default {
   name: "Profil",  
-  components: { Input },
+  components: { Input, VueApexCharts, },
   data() {
     return {   
-          contentNom : this.$store.state.profil.nom,
-          contentPrenom : this.$store.state.profil.prenom,
-          contentPseudo : this.$store.state.profil.pseudo,
+      test : this.$store.state.nbComment,
           showProfil : false,
           series: [75],          
           chartOptions: {
@@ -258,18 +260,15 @@ export default {
         type: "text",
         class: ""
       },
-      inputImageUrl: {
-         title: "Choisissez votre photo",
-      },
-          
+       
     }
-  },
-
- 
-  mounted() {
+  }, 
+  
+ mounted() {
     this.$store.dispatch("getProfil"); 
     this.$store.dispatch("countUserPhoto"); 
-    this.$store.dispatch("countUserComment");
+    this.$store.dispatch("countUserComment");    
+    
   },
   methods : {
     UpdateProfil () {    
@@ -288,6 +287,7 @@ export default {
   },
  computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
+
   },
     
     

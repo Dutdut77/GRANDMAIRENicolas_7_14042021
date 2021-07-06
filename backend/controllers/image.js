@@ -108,9 +108,11 @@ exports.getAllStorie = async (req, res, next) => {
  * @return  {JSON}                    Nombre de photos
  */
  exports.countUserPhoto = async (req, res, next) => {
+    
     try {
         const NbPhoto = await Image.countUserPhoto(req.params.id);
         res.status(201).json({ NbPhoto : NbPhoto.nbPhoto });
+
     }
     catch (receivedError) {
         errorManager(receivedError, res);

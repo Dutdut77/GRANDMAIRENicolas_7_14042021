@@ -49,7 +49,7 @@ const routes = [
   },
   {
     path: "/profil",
-    name: "Profil",
+    name: "Profil", 
     component: Profil,
     meta: {
     title: "Mon profil Groupomania",

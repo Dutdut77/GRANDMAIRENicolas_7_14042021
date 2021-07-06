@@ -1,14 +1,6 @@
 <template>
 <div class="file-input">
-      <input
-        type="file"
-        :value="modelValue"
-        name="file-input"
-        id="file-input"
-        class="file-input__input"
-        @input="$emit('update:modelValue', $event.target.value)"       
-        
-      />
+      <input type="file" :value="modelValue" name="file-input" id="file-input" class="file-input__input" @change="previewFile"   />
       <label class="file-input__label" for="file-input">
         <svg
           aria-hidden="true"
@@ -40,14 +32,15 @@
 
 export default {
   name: "InputFile",
-  props: {
-    modelValue: {
-      type: String,
+  emits: ['update:modelValue'],
+  props: ['modelValue', 'inputInfo'],
+    methods : {
+      previewFile() {   
+      this.contentImageUrl = event.target.files[0];      
+      this.$emit('update:modelValue', this.contentImageUrl)      
     },
-    inputInfo: {
-      type: Object,
-    },
-  },
+    }
+
 };
 </script>
 
