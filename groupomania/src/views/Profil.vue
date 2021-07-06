@@ -94,7 +94,9 @@ export default {
   components: { Input, VueApexCharts, },
   data() {
     return {   
-      test : this.$store.state.nbComment,
+      contentNom : null,
+      contentPrenom : null,
+      contentPseudo : null,
           showProfil : false,
           series: [75], 
 
@@ -473,6 +475,7 @@ margin-top : -10px;
 }
 
 .profil-enter-from, .profil-leave-to {
+  transform: translateX(400px);
   opacity: 0;
 }
 
