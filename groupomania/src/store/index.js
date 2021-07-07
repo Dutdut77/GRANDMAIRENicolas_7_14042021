@@ -121,6 +121,24 @@ export default createStore({
         throw (error);
       };
     },
+    updatePhoto: async ({ commit}, userPhoto) => { 
+      const data = new FormData();
+      for (const [key, value] of Object.entries(userPhoto)) {
+          data.append(key, value);
+      }
+      const route = '/auth/avatar/'.concat('', user.userId);       
+       try {
+        commit("setStatus", "loading");
+        const response = await instance.put(route, data);
+        commit("setStatus", "");
+        commit("profil", response.data);  
+      }
+      catch (error) {        
+        console.error(error);
+        throw (error);
+      };
+     
+    },
     updateUser: async ({ commit}, userinfos) => {      
       const route = '/auth/'.concat('', user.userId);   
        try {

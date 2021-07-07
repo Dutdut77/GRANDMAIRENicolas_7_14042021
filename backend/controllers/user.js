@@ -163,6 +163,8 @@ exports.deleteUser = async (req, res, next) => {
  * @return  {void}                 
  */
 exports.avatar = async (req, res, next) => {
+    console.log("Back Avatar : "  + req.file.filename)
+    console.log("Params.id : "  + req.params.id)
     try {
         const answer = await User.getOneUser(req.params.id);
         if (answer) {

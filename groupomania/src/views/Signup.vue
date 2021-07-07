@@ -119,9 +119,7 @@ export default {
   methods: {
     signup() {
       const self = this;
-      //this.previewFile();
-      console.log("test" +this.contentImageUrl);
-      this.$store
+       this.$store
         .dispatch("signup", {
           email: this.contentEmail,
           password: this.contentPassword,
@@ -140,10 +138,8 @@ export default {
           }
         );
     },
-    previewFile() {  
-  
-      this.contentImageUrl = event.target.files[0];    
-      console.log(this.contentImageUrl.name)   
+    previewFile() {    
+      this.contentImageUrl = event.target.files[0];         
     },
   },
 };
