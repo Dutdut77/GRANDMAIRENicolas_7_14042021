@@ -170,7 +170,7 @@ section h1 {
   align-items: stretch;
   width: 100%;
   height: 100%;
-  margin : 20px;
+  margin : 40px;
     @media (min-width: 768px) {
     justify-content: space-around;
    
@@ -266,7 +266,8 @@ overflow-y: auto ;
   margin: 10px 0;
   padding: 0 15px;
   border: 2px solid $primary;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
   background: transparent;
   cursor: pointer;
   transition: all 0.5s ease;
@@ -274,7 +275,7 @@ overflow-y: auto ;
   overflow: hidden;
   border-radius : 4px;
     @media (min-width: 768px) {
-    width: 40%;
+    width: 25%;
     margin: 10px;
     }
 }

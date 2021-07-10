@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const Image = require('../models/image');
 const Delete = require('../middleware/delete');
 
 /**
@@ -147,6 +148,7 @@ exports.deleteUser = async (req, res, next) => {
         const user = await User.getOneUser(req.params.id);
         await Delete.imageUser(user.avatar);
         await User.deleteUser(req.params.id);
+        await Image.deleteUser(req.params.id);
         res.status(201).json({ message: "Utilisateur supprimé !" });
     }
     catch (receivedError) {

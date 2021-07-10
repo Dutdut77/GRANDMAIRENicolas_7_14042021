@@ -1,6 +1,8 @@
 <template>
+<section>
+
   <div class="container">
-      <h1>Administation</h1>
+      <h1>ADMINISTRATION</h1>
 <div class="user" >
    
    <p v-for="(user, index) in profil" :key="index"> avatar : {{user.avatar}} | Email : {{user.email}} | Pseudo : {{user.pseudo}}</p>
@@ -11,6 +13,11 @@
 </div>
 
   </div>
+
+
+
+</section>
+
 </template>
 
 <script>

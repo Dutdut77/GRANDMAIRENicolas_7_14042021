@@ -134,7 +134,7 @@ async function getAllStorie() {
             msg: error
         });
     }
-}
+};
 
 /**
  * Effacer une storie dans la Bdd
@@ -174,8 +174,28 @@ async function deleteStorie(id) {
             msg: error
         });
     }
-}
+};
 
+
+/**
+ * Effacer photos et commentaires d'un utilisateur
+ *
+ * @param   {Number}  id  id de l'utilisateur
+ *
+ * @return  {void}      
+ */
+ async function deleteUser(id) {
+    try {
+        const res = await database.User("DELETE FROM images WHERE userId = ?", [id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
 
 module.exports.addStorie = addStorie;
 module.exports.addComment = addComment;
@@ -186,3 +206,4 @@ module.exports.deleteStorie = deleteStorie;
 module.exports.deleteCommentaire = deleteCommentaire;
 module.exports.countUserPhoto = countUserPhoto;
 module.exports.countUserCommentPhoto = countUserCommentPhoto;
+module.exports.deleteUser = deleteUser;

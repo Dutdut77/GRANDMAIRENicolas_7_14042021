@@ -61,16 +61,16 @@
         </div>
 
         <div class="card-footer">
-          <button class="btn-add" @click="showProfil = true">
+          <button class="btn-add" @click="showProfil = true, showPhoto = false">
             <span>Modifier Profil </span>
           </button>
-          <button class="btn-add" @click="showPhoto = true">
+          <button class="btn-add" @click="showPhoto = true, showProfil = false">
             <span>Modifier Photo</span>
           </button>
-          <button class="btn-supp" @click="Delete()">
+          <button class="btn-supp" @click="showModal = true">
             <span>Supprimer Profil</span>
           </button>
-         </div>
+        </div>
       </div>
     </div>
 
@@ -91,7 +91,7 @@
           <button class="btn-supp" @click="UpdateProfil()">
             <span>VALIDER</span>
           </button>
-          <button class="btn-retour" @click="CancelUpdateProfil()">
+          <button class="btn-retour" @click="CancelUpdate()">
             <span>RETOUR</span>
           </button>
         </div>
@@ -138,25 +138,47 @@
           <button class="btn-supp" @click="UpdatePhoto()">
             <span>VALIDER</span>
           </button>
-          <button class="btn-retour" @click="showPhoto = false">
+          <button class="btn-retour" @click="CancelUpdate()">
             <span>RETOUR</span>
           </button>
         </div>
       </div>
     </transition>
+
+   <transition name="modal">
+    <Modal v-if="showModal" @close="showModal = false">
+      <template v-slot:header>
+        <h3>SUPPRESSION DE VOTRE COMPTE</h3>
+      </template>
+      <template v-slot:body>      
+       Attention vous êtes sur le point de supprimer votre compte.
+       Etes-vous sur ?   
+      </template>
+      <template v-slot:footer>    
+        <button class="modal-save-btn" @click="Delete()">SUPPRIMER</button>
+        <button class="modal-close-btn" @click="showModal = false">ANNULER</button>
+      </template>
+      
+    </Modal>
+    </transition> 
+
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Input from "@/components/Input.vue";
+import Modal from "@/components/Modal.vue";
 import VueApexCharts from "vue3-apexcharts";
 
 export default {
   name: "Profil",
-  components: { Input, VueApexCharts },
+  components: { Input, VueApexCharts, Modal },
   data() {
     return {
+
+      showModal : false,
+
       valueNom: null,
       valuePrenom: null,
       valuePseudo: null,
@@ -191,28 +213,33 @@ export default {
     this.$store.dispatch("getProfil");
     this.$store.dispatch("countUserPhoto");
     this.$store.dispatch("countUserComment");
-    
   },
   methods: {
     UpdateProfil() {
-      if (!this.valueNom) { this.valueNom =this.$store.state.profil.nom}
-      if (!this.valuePrenom) { this.valuePrenom =this.$store.state.profil.prenom}
-      if (!this.valuePseudo) { this.valuePseudo =this.$store.state.profil.pseudo}
+      if (!this.valueNom) {
+        this.valueNom = this.$store.state.profil.nom;
+      }
+      if (!this.valuePrenom) {
+        this.valuePrenom = this.$store.state.profil.prenom;
+      }
+      if (!this.valuePseudo) {
+        this.valuePseudo = this.$store.state.profil.pseudo;
+      }
       this.$store.dispatch("updateUser", {
-        nom : this.valueNom,
-        prenom : this.valuePrenom,
-        pseudo : this.valuePseudo,
-      });
-      this.$store.dispatch("getProfil");
+        nom: this.valueNom,
+        prenom: this.valuePrenom,
+        pseudo: this.valuePseudo,
+      });      
       this.showProfil = false;
     },
 
-
-    CancelUpdateProfil() {
+    CancelUpdate() {     
       this.valueNom = this.$store.state.profil.nom;
       this.valuePrenom = this.$store.state.profil.prenom;
       this.valuePseudo = this.$store.state.profil.pseudo;
       this.showProfil = false;
+      this.showPhoto = false;
+      this.contentImageUrl = null;
     },
     PreviewFile() {
       this.contentImageUrl = event.target.files[0];
@@ -220,8 +247,12 @@ export default {
     UpdatePhoto() {
       this.$store
         .dispatch("updatePhoto", { image_url: this.contentImageUrl })
-        .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));
+        .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));      
     },
+    Delete() {
+      this.$store.dispatch("deleteUser");
+      this.$router.push({ name: "Home"});    
+    }
   },
   computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
@@ -372,7 +403,7 @@ export default {
         return this.$store.state.profil.nom;
       },
       set(value) {
-        this.valueNom = value;      
+        this.valueNom = value;
       },
     },
     contentPrenom: {
@@ -380,7 +411,7 @@ export default {
         return this.$store.state.profil.prenom;
       },
       set(value) {
-        this.valuePrenom = value;       
+        this.valuePrenom = value;
       },
     },
     contentPseudo: {
@@ -388,7 +419,7 @@ export default {
         return this.$store.state.profil.pseudo;
       },
       set(value) {
-        this.valuePseudo = value;       
+        this.valuePseudo = value;
       },
     },
   },
@@ -605,5 +636,64 @@ span {
 .file-input__label svg {
   height: 16px;
   margin-right: 4px;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: $secondary;
+}
+
+.modal-close-btn {
+ color: $primary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid $primary;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-close-btn:hover {
+  background: $primary;
+  color: white;
+}
+.modal-save-btn {
+ color: $primary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid $secondary;
+  font-size: 1rem;
+  font-weight: 600;
+  background : transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-save-btn:hover {
+  background-color : $secondary;
+  color: white;
+}
+
+
+
+.modal-enter-active, .modal-leave-active {
+  transition: all 0.5 ease;
+
+}
+
+.modal-enter-from, .modal-leave-to {
+  opacity: 0;
 }
 </style>
