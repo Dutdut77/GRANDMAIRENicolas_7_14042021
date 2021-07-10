@@ -70,8 +70,7 @@
           <button class="btn-supp" @click="Delete()">
             <span>Supprimer Profil</span>
           </button>
-          {{ valuePseudo }}
-        </div>
+         </div>
       </div>
     </div>
 
@@ -192,16 +191,23 @@ export default {
     this.$store.dispatch("getProfil");
     this.$store.dispatch("countUserPhoto");
     this.$store.dispatch("countUserComment");
+    
   },
   methods: {
     UpdateProfil() {
+      if (!this.valueNom) { this.valueNom =this.$store.state.profil.nom}
+      if (!this.valuePrenom) { this.valuePrenom =this.$store.state.profil.prenom}
+      if (!this.valuePseudo) { this.valuePseudo =this.$store.state.profil.pseudo}
       this.$store.dispatch("updateUser", {
-        nom: this.valueNom,
-        prenom: this.valuePrenom,
-        pseudo: this.valuePseudo,
+        nom : this.valueNom,
+        prenom : this.valuePrenom,
+        pseudo : this.valuePseudo,
       });
+      this.$store.dispatch("getProfil");
       this.showProfil = false;
     },
+
+
     CancelUpdateProfil() {
       this.valueNom = this.$store.state.profil.nom;
       this.valuePrenom = this.$store.state.profil.prenom;
@@ -366,8 +372,7 @@ export default {
         return this.$store.state.profil.nom;
       },
       set(value) {
-        this.valueNom = value;
-        return this.valueNom;
+        this.valueNom = value;      
       },
     },
     contentPrenom: {
@@ -375,8 +380,7 @@ export default {
         return this.$store.state.profil.prenom;
       },
       set(value) {
-        this.valuePrenom = value;
-        return this.valuePrenom;
+        this.valuePrenom = value;       
       },
     },
     contentPseudo: {
@@ -384,8 +388,7 @@ export default {
         return this.$store.state.profil.pseudo;
       },
       set(value) {
-        this.valuePseudo = value;
-        return this.valuePseudo;
+        this.valuePseudo = value;       
       },
     },
   },

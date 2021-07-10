@@ -6,6 +6,7 @@
       :value="modelValue"
       :class="inputInfo.class"
       :id="inputInfo.name"
+      autocomplete="off"
       @input="$emit('update:modelValue', $event.target.value)"
       required
     />
