@@ -1,119 +1,151 @@
 <template>
   <section>
-  <div class="card">
-
-  
-    <div class="card-profil">
-
-      <div class="card-top">
-        <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt="" />
-        <div class="custom-shape-divider-bottom-1625087656">
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" >
-            <path  d="M1200 0L0 0 598.97 114.72 1200 0z"  class="shape-fill" ></path>
-          </svg>
-        </div>
-      </div>
-
-      <div class="card-content">
-        <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
-        <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
-        <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
-        <span>Niveau : {{ profil.titre }}</span>
-      </div>
-
-      <div class="card-stat"> 
-        <div class="radar-group">
-          <div class="radar">
-              <VueApexCharts id="chart" type="radialBar" height="150" :options="chartOptions" :series="series" ></VueApexCharts>
-          </div>
-          <div class="radar-titre">
-            <h2>Nb Photos</h2>
+    <div class="card">
+      <div class="card-profil">
+        <div class="card-top">
+          <img
+            src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
+            alt=""
+          />
+          <div class="custom-shape-divider-bottom-1625087656">
+            <svg
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M1200 0L0 0 598.97 114.72 1200 0z"
+                class="shape-fill"
+              ></path>
+            </svg>
           </div>
         </div>
-     
 
-        <div class="radar-group">
-          <div class="radar">
-              <VueApexCharts type="radialBar" height="150" :options="chartOptions2" :series="series" ></VueApexCharts>
+        <div class="card-content">
+          <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
+          <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
+          <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
+          <span>Niveau : {{ profil.titre }}</span>
+        </div>
+
+        <div class="card-stat">
+          <div class="radar-group">
+            <div class="radar">
+              <VueApexCharts
+                id="chart"
+                type="radialBar"
+                height="150"
+                :options="chartOptions"
+                :series="series"
+              ></VueApexCharts>
+            </div>
+            <div class="radar-titre">
+              <h2>Nb Photos</h2>
+            </div>
           </div>
-          <div class="radar-titre">
-            <h2>Nb Commentaires</h2>
+
+          <div class="radar-group">
+            <div class="radar">
+              <VueApexCharts
+                type="radialBar"
+                height="150"
+                :options="chartOptions2"
+                :series="series"
+              ></VueApexCharts>
+            </div>
+            <div class="radar-titre">
+              <h2>Nb Commentaires</h2>
+            </div>
           </div>
         </div>
+
+        <div class="card-footer">
+          <button class="btn-add" @click="showProfil = true">
+            <span>Modifier Profil </span>
+          </button>
+          <button class="btn-add" @click="showPhoto = true">
+            <span>Modifier Photo</span>
+          </button>
+          <button class="btn-supp" @click="Delete()">
+            <span>Supprimer Profil</span>
+          </button>
+          {{ valuePseudo }}
+        </div>
       </div>
-
-      <div class="card-footer">
-              <button class="btn-add" @click="showProfil = true">
-        <span>Modifier Profil </span>
-      </button>
-      <button class="btn-add" @click="showPhoto = true">
-        <span>Modifier Photo</span>
-      </button>
-            <button class="btn-supp" @click="Delete()">
-        <span>Supprimer Profil</span>
-      </button>
-
-      <span>this.$state.store.nbComment = {{test}}</span>
-      <span>...mapstate (["nbComment"]) = {{nbComment}}</span>
-      </div>
-
     </div>
- </div>    
 
-<transition name="profil">
-  <div class="profil" v-if="showProfil">
-      <div class="form">
-                <div class="titre"><h1>MODIFIER MON PROFIL</h1></div>
-                <div class="form__group">
-                  <Input v-model="contentNom" :inputInfo="inputNom" />
-                </div>
-                <div class="form__group">
-                  <Input v-model="contentPrenom" :inputInfo="inputPrenom" />
-                </div>
-                <div class="form__group">
-                  <Input v-model="contentPseudo" :inputInfo="inputPseudo" />
-                </div>
-          
-        <button class="btn-supp" @click="UpdateProfil()">
-          <span>VALIDER</span>
-        </button>   
-          <button class="btn-retour" @click="showProfil = false">
-          <span>RETOUR</span>
-        </button> 
+    <transition name="profil">
+      <div class="profil" v-if="showProfil">
+        <div class="form">
+          <div class="titre"><h1>MODIFIER MON PROFIL</h1></div>
+          <div class="form__group">
+            <Input v-model="contentNom" :inputInfo="inputNom" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentPrenom" :inputInfo="inputPrenom" />
+          </div>
+          <div class="form__group">
+            <Input v-model="contentPseudo" :inputInfo="inputPseudo" />
+          </div>
+
+          <button class="btn-supp" @click="UpdateProfil()">
+            <span>VALIDER</span>
+          </button>
+          <button class="btn-retour" @click="CancelUpdateProfil()">
+            <span>RETOUR</span>
+          </button>
         </div>
-  </div>
-</transition>   
+      </div>
+    </transition>
 
-<transition name="profil">
-  <div class="profil" v-if="showPhoto">
-      <div class="form">
-        <div class="titre"><h1>CHANGER MA PHOTO</h1></div>
-              <div class="form__group">
-                <div class="file-input">
-                    <input type="file" name="file-input" id="file-input" class="file-input__input" @change="PreviewFile" />
-                    <label class="file-input__label" for="file-input">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload"  class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512" >
-                        <path fill="currentColor" d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z" ></path>
-                      </svg>
-                      <span v-if="contentImageUrl === null">Choissisez votre Photo</span>
-                      <span v-else>{{contentImageUrl.name}}</span>
-                    </label>
-                </div>
-              </div>
-              
-          
-        <button class="btn-supp" @click="UpdatePhoto()">
-          <span>VALIDER</span>
-        </button>   
+    <transition name="profil">
+      <div class="profil" v-if="showPhoto">
+        <div class="form">
+          <div class="titre"><h1>CHANGER MA PHOTO</h1></div>
+          <div class="form__group">
+            <div class="file-input">
+              <input
+                type="file"
+                name="file-input"
+                id="file-input"
+                class="file-input__input"
+                @change="PreviewFile"
+              />
+              <label class="file-input__label" for="file-input">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  data-prefix="fas"
+                  data-icon="upload"
+                  class="svg-inline--fa fa-upload fa-w-16"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                  ></path>
+                </svg>
+                <span v-if="contentImageUrl === null"
+                  >Choissisez votre Photo</span
+                >
+                <span v-else>{{ contentImageUrl.name }}</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn-supp" @click="UpdatePhoto()">
+            <span>VALIDER</span>
+          </button>
           <button class="btn-retour" @click="showPhoto = false">
-          <span>RETOUR</span>
-        </button> 
+            <span>RETOUR</span>
+          </button>
         </div>
-  </div>
-</transition> 
-
+      </div>
+    </transition>
   </section>
-  
 </template>
 
 <script>
@@ -122,229 +154,242 @@ import Input from "@/components/Input.vue";
 import VueApexCharts from "vue3-apexcharts";
 
 export default {
-  name: "Profil",  
-  components: { Input, VueApexCharts, },
+  name: "Profil",
+  components: { Input, VueApexCharts },
   data() {
-    return { 
-test : this.$store.state.nbComment,
+    return {
+      valueNom: null,
+      valuePrenom: null,
+      valuePseudo: null,
 
-    contentNom : this.$store.state.profil.nom,
-    contentPrenom : this.$store.state.profil.prenom,
-    contentPseudo : this.$store.state.profil.pseudo,
-      contentImageUrl : null,  
-          showProfil : false,
-          showPhoto : false,
-          series: [75], 
+      contentImageUrl: null,
+      showProfil: false,
+      showPhoto: false,
+      series: [75],
 
       inputNom: {
-        name : "nom",
+        name: "nom",
         title: "Votre nom :",
         type: "text",
-        class: ""
+        class: "",
       },
       inputPrenom: {
-        name : "prenom",
+        name: "prenom",
         title: "Votre Prenom :",
         type: "text",
-        class: ""
+        class: "",
       },
       inputPseudo: {
-        name : "pseudo",
+        name: "pseudo",
         title: "Votre Pseudo :",
         type: "text",
-        class: ""
+        class: "",
       },
-       
-    }
-  }, 
-  
- mounted() {
-    this.$store.dispatch("getProfil"); 
-    this.$store.dispatch("countUserPhoto"); 
-    this.$store.dispatch("countUserComment");    
-    
+    };
   },
-  methods : {
-    UpdateProfil () {    
-          this.$store.dispatch("updateUserPhoto", {     
-          nom: this.contentNom,
-          prenom: this.contentPrenom,
-          pseudo: this.contentPseudo,        
-          })                
-        .then(
-          this.$store.dispatch("getProfil"),
-          this.showProfil = false,
-        )
+
+  mounted() {
+    this.$store.dispatch("getProfil");
+    this.$store.dispatch("countUserPhoto");
+    this.$store.dispatch("countUserComment");
+  },
+  methods: {
+    UpdateProfil() {
+      this.$store.dispatch("updateUser", {
+        nom: this.valueNom,
+        prenom: this.valuePrenom,
+        pseudo: this.valuePseudo,
+      });
+      this.showProfil = false;
     },
-    PreviewFile() {    
-      this.contentImageUrl = event.target.files[0];         
+    CancelUpdateProfil() {
+      this.valueNom = this.$store.state.profil.nom;
+      this.valuePrenom = this.$store.state.profil.prenom;
+      this.valuePseudo = this.$store.state.profil.pseudo;
+      this.showProfil = false;
+    },
+    PreviewFile() {
+      this.contentImageUrl = event.target.files[0];
     },
     UpdatePhoto() {
-          this.$store.dispatch("updatePhoto", { image_url: this.contentImageUrl})
-        .then(
-          this.$store.dispatch("getProfil"),
-          this.showPhoto = false,
-        )
+      this.$store
+        .dispatch("updatePhoto", { image_url: this.contentImageUrl })
+        .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));
     },
-         
-    
   },
- computed: {
-  ...mapState(["profil", "nbPhoto", "nbComment"]),
-  chartOptions() {
-    return {
-     chart: {
-              height: 150,            
-              type: 'radialBar',
-              toolbar: {
-                show: false
-              }
+  computed: {
+    ...mapState(["profil", "nbPhoto", "nbComment"]),
+
+    chartOptions() {
+      return {
+        chart: {
+          height: 150,
+          type: "radialBar",
+          toolbar: {
+            show: false,
+          },
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -135,
+            endAngle: 225,
+            hollow: {
+              margin: 0,
+              size: "70%",
+              background: "#fff",
+              image: undefined,
+              imageOffsetX: 0,
+              imageOffsetY: 0,
+              position: "front",
+              dropShadow: {
+                enabled: true,
+                top: 3,
+                left: 0,
+                blur: 4,
+                opacity: 0.24,
+              },
             },
-            plotOptions: {
-              radialBar: {
-                startAngle: -135,
-                endAngle: 225,
-                 hollow: {
-                  margin: 0,
-                  size: '70%',
-                  background: '#fff',
-                  image: undefined,
-                  imageOffsetX: 0,
-                  imageOffsetY: 0,
-                  position: 'front',
-                  dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                  }
+            track: {
+              background: "#fff",
+              strokeWidth: "67%",
+              margin: 0, // margin is in pixels
+              dropShadow: {
+                enabled: true,
+                top: -3,
+                left: 0,
+                blur: 4,
+                opacity: 0.35,
+              },
+            },
+
+            dataLabels: {
+              show: true,
+              name: {
+                offsetY: 5,
+                show: true,
+                color: "#111",
+                fontSize: "24px",
+              },
+              value: {
+                formatter: function (val) {
+                  return parseInt(val);
                 },
-                track: {
-                  background: '#fff',
-                  strokeWidth: '67%',
-                  margin: 0, // margin is in pixels
-                  dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                  }
+                color: "#111",
+                fontSize: "36px",
+                show: false,
+              },
+            },
+          },
+        },
+        fill: {
+          colors: ["#d1515a"],
+        },
+        stroke: {
+          lineCap: "round",
+        },
+        labels: [this.nbPhoto],
+      };
+    },
+    chartOptions2() {
+      return {
+        chart: {
+          height: 150,
+          type: "radialBar",
+          toolbar: {
+            show: false,
+          },
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -135,
+            endAngle: 225,
+            hollow: {
+              margin: 0,
+              size: "70%",
+              background: "#fff",
+              image: undefined,
+              imageOffsetX: 0,
+              imageOffsetY: 0,
+              position: "front",
+              dropShadow: {
+                enabled: true,
+                top: 3,
+                left: 0,
+                blur: 4,
+                opacity: 0.24,
+              },
+            },
+            track: {
+              background: "#fff",
+              strokeWidth: "67%",
+              margin: 0, // margin is in pixels
+              dropShadow: {
+                enabled: true,
+                top: -3,
+                left: 0,
+                blur: 4,
+                opacity: 0.35,
+              },
+            },
+
+            dataLabels: {
+              show: true,
+              name: {
+                offsetY: 5,
+                show: true,
+                color: "#111",
+                fontSize: "24px",
+              },
+              value: {
+                formatter: function (val) {
+                  return parseInt(val);
                 },
-            
-                dataLabels: {
-                  show: true,
-                  name: {
-                    offsetY: 5,
-                    show: true,
-                    color: '#111',
-                    fontSize: '24px'
-                  },
-                  value: {
-                    formatter: function(val) {
-                      return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: false,
-                  }
-                }
-              }
+                color: "#111",
+                fontSize: "36px",
+                show: false,
+              },
             },
-            fill: {
-              colors : ['#d1515a'],                
-              
-            },
-            stroke: {
-              lineCap: 'round'
-            },
-            labels : [this.nbPhoto], 
-    }
+          },
+        },
+        fill: {
+          colors: ["#d1515a"],
+        },
+        stroke: {
+          lineCap: "round",
+        },
+        labels: [this.nbComment],
+      };
+    },
+
+    contentNom: {
+      get() {
+        return this.$store.state.profil.nom;
+      },
+      set(value) {
+        this.valueNom = value;
+        return this.valueNom;
+      },
+    },
+    contentPrenom: {
+      get() {
+        return this.$store.state.profil.prenom;
+      },
+      set(value) {
+        this.valuePrenom = value;
+        return this.valuePrenom;
+      },
+    },
+    contentPseudo: {
+      get() {
+        return this.$store.state.profil.pseudo;
+      },
+      set(value) {
+        this.valuePseudo = value;
+        return this.valuePseudo;
+      },
+    },
   },
-  chartOptions2() {
-    return {
-     chart: {
-              height: 150,            
-              type: 'radialBar',
-              toolbar: {
-                show: false
-              }
-            },
-            plotOptions: {
-              radialBar: {
-                startAngle: -135,
-                endAngle: 225,
-                 hollow: {
-                  margin: 0,
-                  size: '70%',
-                  background: '#fff',
-                  image: undefined,
-                  imageOffsetX: 0,
-                  imageOffsetY: 0,
-                  position: 'front',
-                  dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                  }
-                },
-                track: {
-                  background: '#fff',
-                  strokeWidth: '67%',
-                  margin: 0, // margin is in pixels
-                  dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                  }
-                },
-            
-                dataLabels: {
-                  show: true,
-                  name: {
-                    offsetY: 5,
-                    show: true,
-                    color: '#111',
-                    fontSize: '24px'
-                  },
-                  value: {
-                    formatter: function(val) {
-                      return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: false,
-                  }
-                }
-              }
-            },
-            fill: {
-              colors : ['#d1515a'],                
-              
-            },
-            stroke: {
-              lineCap: 'round'
-            },
-            labels : [this.nbComment], 
-    }
-  },  
-  // contentNom () {
-  //   return this.profil.nom
-  // },
-  // contentPrenom () {
-  //   return this.profil.prenom
-  // },
-  // contentPseudo () {
-  //   return this.profil.pseudo
-  // }, 
- }
-    
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -356,7 +401,7 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   width: 100%;
   min-height: 100vh;
 }
@@ -365,11 +410,11 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  order : 1;
-  margin : 0;  
+  order: 1;
+  margin: 0;
 }
 .card-profil {
- width: 400px;
+  width: 400px;
   height: auto;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
@@ -380,7 +425,7 @@ section {
 }
 img {
   width: 100%;
-  border-radius : 4px 4px 0 0 ;
+  border-radius: 4px 4px 0 0;
 }
 .custom-shape-divider-bottom-1625087656 {
   position: absolute;
@@ -416,16 +461,14 @@ h1 {
 span {
   width: 100%;
   padding-top: 5px;
- }
+}
 
-
-.card-stat  {
+.card-stat {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
   width: 100%;
-
 }
 
 .radar-group {
@@ -433,17 +476,17 @@ span {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width : 50%
+  width: 50%;
 }
 .radar {
   width: 100%;
 }
 .radar-titre {
-width : 100%;
-text-align: center;
-color : #888;
-font-size : 0.6rem;
-margin-top : -10px;
+  width: 100%;
+  text-align: center;
+  color: #888;
+  font-size: 0.6rem;
+  margin-top: -10px;
 }
 
 .card-footer {
@@ -452,13 +495,14 @@ margin-top : -10px;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  border-top : 1px solid #888;
-  margin : 10px 0 ;
-  padding-top : 10px;
+  border-top: 1px solid #888;
+  margin: 10px 0;
+  padding-top: 10px;
 }
 
 .btn-add,
-.btn-supp, .btn-retour {
+.btn-supp,
+.btn-retour {
   color: $primary;
   width: 100%;
   height: 40px;
@@ -472,14 +516,15 @@ margin-top : -10px;
   transition: all 0.5s ease;
   display: block;
   overflow: hidden;
-  border-radius : 4px;
-    @media (min-width: 768px) {
+  border-radius: 4px;
+  @media (min-width: 768px) {
     width: 40%;
     margin: 10px;
-    }
+  }
 }
 
-.btn-add:hover, .btn-retour:hover {
+.btn-add:hover,
+.btn-retour:hover {
   background: $primary;
   color: white;
 }
@@ -489,10 +534,8 @@ margin-top : -10px;
   border-color: $secondary;
 }
 
-
-
 .titre {
-  margin : 20px;
+  margin: 20px;
 }
 
 .profil {
@@ -501,11 +544,11 @@ margin-top : -10px;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  order : 0;
-  margin-top : 30px;
-     @media (min-width: 768px) {
+  order: 0;
+  margin-top: 30px;
+  @media (min-width: 768px) {
     width: 40%;
-    order : 2;
+    order: 2;
   }
 }
 .form {
@@ -523,12 +566,13 @@ margin-top : -10px;
   }
 }
 
-.profil-enter-active, .profil-leave-active {
+.profil-enter-active,
+.profil-leave-active {
   transition: all 0.3s ease;
-
 }
 
-.profil-enter-from, .profil-leave-to {
+.profil-enter-from,
+.profil-leave-to {
   transform: translateX(400px);
   opacity: 0;
 }

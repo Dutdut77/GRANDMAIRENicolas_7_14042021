@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createStore } from "vuex";
 const axios = require("axios");
 const instance = axios.create({
@@ -121,12 +122,12 @@ export default createStore({
         throw (error);
       };
     },
-    updatePhoto: async ({ commit}, userPhoto) => { 
+    updatePhoto: async ({ commit, state}, userPhoto) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(userPhoto)) {
           data.append(key, value);
       }
-      const route = '/auth/avatar/'.concat('', user.userId);       
+      const route = '/auth/avatar/'.concat('', state.user.userId);       
        try {
         commit("setStatus", "loading");
         const response = await instance.put(route, data);
@@ -139,11 +140,13 @@ export default createStore({
       };
      
     },
-    updateUser: async ({ commit}, userinfos) => {      
-      const route = '/auth/'.concat('', user.userId);   
+    updateUser: async ({ commit, state}, userinfos) => {      
+      const route = '/auth/'.concat('', state.user.userId);
+      console.log(userinfos);   
        try {
         commit("setStatus", "loading");
         const response = await instance.put(route, userinfos);
+        console.log(response.data);
         commit("setStatus", "");
         commit("profil", response.data);  
       }
