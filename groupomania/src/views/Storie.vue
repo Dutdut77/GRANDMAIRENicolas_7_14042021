@@ -1,16 +1,15 @@
 <template>
   <section>
-    <h1>Album photo GROUPOMANIA</h1>
-    <Card  v-for="storie in stories" :key="storie.id" :storie="storie"/>
 
-    
-    <!-- <div class="card" v-for="storie in stories" :key="storie.id">
-      Url photo : {{ storie.content }}<br />
-      Nom utilisateur : {{ storie.userId }}<br />
-      Date : {{ storie.date}}<br />
-      <button @click="OneStorie(storie.id)">En savoir plus</button>
-    </div> -->
+<div class="album-title">
+ <h1>Album photo GROUPOMANIA</h1>
+    <button type="button" class="btn btn-secondary text-white" @click="ajout()">
+      AJOUTER PHOTO
+    </button>
+</div>
+   
 
+    <Card v-for="storie in stories" :key="storie.id" :storie="storie" />
 
   </section>
 </template>
@@ -32,30 +31,30 @@ export default {
     OneStorie(id) {
       this.$router.push({ name: "OneStorie", params: { id: id } });
     },
-    
   },
 };
 </script>
 
-<style lang="scss">
-
+<style scoped lang="scss">
+@import "bootstrap/scss/bootstrap.scss";
 
 section {
   padding-top: 160px;
-  display : flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
-
-}
-section h1 {
-  width: 100%;
-  padding: 30px;
-  font-size: 1.9rem;
 }
 
-.card {
-  margin: 20px;
+.album-title {
+  width : 100%;
+  display: flex;
+ flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;  
 }
+
+
+
 </style>
