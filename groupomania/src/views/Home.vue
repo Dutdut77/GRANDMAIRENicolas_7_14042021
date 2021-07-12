@@ -1,18 +1,31 @@
 <template>
   <section>
-    <div class="content">
-      <Card />
-      <div class="titre">
-        <h1>Bienvenue sur le réseau social interne GROUPOMANIA</h1>
-        <p>
-          Postez ici vos photos afin de favoriser les échanges entre collègues.
-        </p>
-        <button class="btn" @click="storie()">
-          <span>ALBUM PHOTO</span>
-        </button>
-        <button class="btn-ajout" @click="ajout()">
-          <span>AJOUTER PHOTO</span>
-        </button>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <Card />
+        </div>
+        <div class="col">
+          
+         <div class="row">
+            <h1>Bienvenue sur le réseau social interne GROUPOMANIA</h1>
+        </div>
+<div class="row">
+            <p>
+              Postez ici vos photos afin de favoriser les échanges entre
+              collègues.
+            </p>
+            </div>
+            <div class="row">
+              <div class="col">
+            <button type="button" class="btn btn-outline-secondary" @click="storie()">ALBUM PHOTO</button>
+            </div>
+            <div class="col">
+            <button type="button" class="btn btn-outline-primary" @click="ajout()">AJOUTER PHOTO</button>
+       </div>
+       </div>
+         
+        </div>
       </div>
     </div>
   </section>
@@ -34,18 +47,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
-$white: #fff;
-$gray: #091f43;
+@import "bootstrap/scss/bootstrap.scss";
+
+
 
 section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top : 130px;
+  padding-top: 130px;
   min-height: 100vh;
-
 }
 
 .content {
@@ -65,10 +76,7 @@ section {
   width: 100%;
   padding: 40px 0;
   order: -1;
-  @media (min-width: 768px) {
-    width: 50%;
-    order: 2;
-  }
+
 }
 .titre h1,
 p {
@@ -83,43 +91,6 @@ p {
   font-size: 1.4rem;
 }
 
-.btn {
-  color: $primary;
-  min-width: 30%;
-  height: 50px;
-  margin: 40px 20% 0 20%;
-  padding: 0 15px;
-  border: 2px solid $primary;
-  font-size: 1.3rem;
-  background: transparent;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  display: block;  
-  overflow: hidden;
-}
 
-.btn:hover {
-  background: $secondary;
-}
-.btn-ajout {
-  color: white;
-  min-width: 30%;
-  height: 50px;
-  margin: 40px 20% 0 20%;
-  padding: 0 15px;
-  border: 2px solid $primary;
-  font-size: 1.3rem;
-  background: $primary;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  display: block;  
-  overflow: hidden;
-}
 
-.btn-ajout:hover {
-  background: $secondary;
-  color: $primary;
-  }
 </style>

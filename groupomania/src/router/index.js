@@ -7,7 +7,7 @@ import OneStorie from "../views/OneStorie.vue";
 import NotFound from "../views/NotFound.vue";
 import Profil from "../views/Profil.vue";
 import Admin from "../views/Admin.vue";
-
+import store from "../store";
 
 
 const routes = [
@@ -95,11 +95,12 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-  
-    
-    let user = localStorage.getItem('user');
-    if (!user) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {     
+    let start = store.state.user.start;
+    let now = Date.now();
+    let diff = now - start;
+    // Vérification si le Token à été crée il y a plus de 24H.
+    if (diff >= 86400000) { 
        next({ path: "/login" })
     }
     else {     
@@ -107,7 +108,7 @@ router.beforeEach((to, from, next) => {
     }
   }
   else {  
-  next(); //{ name: "Login", path: "/login" }
+  next(); //requiresAuth = false
   }
  });
 

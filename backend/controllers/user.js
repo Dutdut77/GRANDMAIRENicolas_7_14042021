@@ -50,6 +50,7 @@ exports.signup = async (req, res, next) => {
  * @return  {Objet}                      Objet comprenant UserId + Token
  */
 exports.login = async (req, res, next) => {
+   
     try {
         const answer = await User.findByEmail(req.body.email);
         if (!answer) {
@@ -61,6 +62,7 @@ exports.login = async (req, res, next) => {
         }
         res.status(200).json({
             userId: answer.id,
+            start : Date.now(),
             token: jwt.sign(
                 { userId: answer.id },
                 process.env.SECRET_TOKEN,

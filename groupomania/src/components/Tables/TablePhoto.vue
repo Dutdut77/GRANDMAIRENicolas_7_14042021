@@ -121,7 +121,7 @@ $secondary: #d1515a;
 
 .trash {
   color : $secondary;
-
+  cursor: pointer;
 }
 .modal-close-btn {
  color: $primary;

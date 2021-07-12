@@ -65,12 +65,12 @@ export default {
   },
   components : {Modal},
   mounted() {
-    this.$store.dispatch("getAllProfil"); 
+    this.$store.dispatch("getAllProfil");
+    this.getTableUser(); 
   },
-  updated() {
-    this.getTableUser();
-   
-  },
+  // beforeUpdate() {
+  //   this.getTableUser();   
+  // },
   computed: {
     ...mapState(["profil", "stories"]),
   },
@@ -128,7 +128,7 @@ $secondary: #d1515a;
 
 .trash {
   color : $secondary;
-
+  cursor: pointer;
 }
 .modal-close-btn {
  color: $primary;
