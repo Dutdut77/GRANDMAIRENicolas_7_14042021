@@ -14,13 +14,13 @@
       <span class="bar"></span>
     </div>
     <ul class="nav" id="nav">
-      <li><a href="#" @click="ShowMenu()"><router-link to="/">Accueil</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">Connexion</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">Inscription</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">Album</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">Mon profil</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="Logout()">Logout</a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/Admin">Admin</router-link></a></li>
+      <li><a href="#" @click="ShowMenu()"><router-link to="/">ACCUEIL</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">CONNEXION</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
+      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="Logout()">LOGOUT</a></li>
     </ul>
 
   </div> 
@@ -54,8 +54,7 @@ export default {
 
 <style scoped lang="scss">
 
-   $primary: #091f43;
-   $secondary: #d1515a;
+@import "bootstrap/scss/bootstrap.scss";
 
 
 .navbar {

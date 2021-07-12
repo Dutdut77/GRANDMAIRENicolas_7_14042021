@@ -5,7 +5,7 @@
       <img src="../assets/img_home.png" class="card-img" alt="Hamburger" />
       <div class="titre">
         <div class="pseudo">
-          <h2>Messi</h2>
+          <p class="h2">Messi</p>
         </div>
         <div class="date">21-06-2021</div>
       </div>

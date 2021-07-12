@@ -52,19 +52,19 @@ export default {
 
 
 <style lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
+@import "bootstrap/scss/bootstrap.scss";
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
   text-align: center;
-  color: #2c3e50;
+  color: $primary;
 
 }
 
 *{
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -110,7 +110,7 @@ header {
   position: relative;
   display: block;
   width: calc(168% + 1.3px);
-  height: 100px;
+  height: 80px;
   transform: rotateY(180deg);
 }
 
