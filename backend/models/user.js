@@ -100,7 +100,7 @@ async function updateUser(user, id) {
  */
 async function getOneUser(id) {
     try {
-        const res = await database.FindOne("SELECT a.prenom, a.nom, a.email, a.pseudo, a.avatar, b.titre FROM users AS a INNER JOIN roles AS b ON a.id_roles = B.id WHERE a.id = ?", [id]);
+        const res = await database.FindOne("SELECT a.id, a.prenom, a.nom, a.email, a.pseudo, a.avatar, b.titre FROM users AS a INNER JOIN roles AS b ON a.id_roles = B.id WHERE a.id = ?", [id]);
         return res;
     }
     catch (error) {
@@ -118,7 +118,7 @@ async function getOneUser(id) {
  */
 async function getAllUser() {
     try {
-        const res = await database.User("SELECT a.prenom, a.nom, a.email, a.pseudo, a.avatar, b.titre FROM users AS a INNER JOIN roles AS b ON a.id_roles = B.id");
+        const res = await database.User("SELECT a.id, a.prenom, a.nom, a.email, a.pseudo, a.avatar, b.titre FROM users AS a INNER JOIN roles AS b ON a.id_roles = B.id");
         return res;
     }
     catch (error) {

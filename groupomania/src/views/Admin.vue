@@ -1,9 +1,13 @@
 <template>
   <section>
-    
-<TableUser />
-<br>
-<TablePhoto />
+    <div class="adminTable">
+      <TableUser />
+    </div>
+
+<div class="adminTable">
+  <TablePhoto />
+</div>
+
 
   </section>
 </template>
@@ -20,22 +24,15 @@ export default {
 </script>
 
 <style scoped lang="scss" >
-.container {
+section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
+  padding-top : 160px;
 }
-.tableAdmin {
+.adminTable {
   width: 100%;
-  padding: 40px;
-}
-.tableAdmin p {
-  text-align: center;
-  font-weight: 600;
-  @media (min-width: 768px) {
-    text-align: left;
-    margin-top: -35px;
-  }
 }
 </style>>
 

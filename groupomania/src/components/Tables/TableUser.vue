@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <div class="tableAdmin">
+<div>
+    <div class="tableUser">
       <h2 class="text-center">Liste des membres :</h2>
       <table class="table table-hover table-bordered mt-3" id="tableUser">
         <thead>
@@ -10,6 +10,7 @@
             <th>Pseudo</th>
             <th>Email</th>
             <th>Niveau</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -19,14 +20,31 @@
             <td>{{ user.pseudo }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.titre }}</td>
+            <td class="trash" @click="Modal(user)"><fa :icon="['fas', 'trash-alt']" /></td>
           </tr>
         </tbody>
       </table>
       <p>Nombre de membres inscrit : {{ profil.length }}</p>
     </div>
 
+    <transition name="modal">
+      <Modal v-if="showModal" @close="showModal = false">
+        <template v-slot:header>
+          <h3>SUPPRESSION DU COMPTE {{user.email}}</h3>
+        </template>
+        <template v-slot:body>      
+        Attention vous êtes sur le point de supprimer le compte de {{user.nom}} {{user.prenom}} alias {{user.pseudo}}.
+        Etes-vous sur ?   
+        </template>
+        <template v-slot:footer>    
+          <button class="modal-save-btn" @click="Delete(user.id)">SUPPRIMER</button>
+          <button class="modal-close-btn" @click="showModal = false">ANNULER</button>
+        </template>      
+      </Modal>
+    </transition> 
+    
+</div>
 
-  </section>
 </template>
 
 <script>
@@ -34,11 +52,18 @@ import { mapState } from "vuex";
 import "datatables.net-bs5";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 import "datatables.net";
-
+import Modal from "@/components/Modal.vue";
 import $ from "jquery";
 
 export default {
   name: "Admin",
+  data() {
+    return {
+      showModal : false,
+      user : {},
+    }
+  },
+  components : {Modal},
   mounted() {
     this.$store.dispatch("getAllProfil"); 
   },
@@ -67,27 +92,85 @@ export default {
         paging: true,
       });
     },
+    Modal(user) {
+      this.user = user;
+      this.showModal = true;
+     
+    },
+    Delete(id) {
+      //this.$store.dispatch("deleteUser");
+      
+      console.log("UserID : " + id);
+    }
   },
 };
 </script>
 
 <style scoped lang="scss" >
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.tableAdmin {
+
+$primary: #091f43;
+$secondary: #d1515a;
+
+
+
+.tableUser {
   width: 100%;
   padding: 40px;
 }
-.tableAdmin p {
+.tableUser p {
   text-align: center;
   font-weight: 600;
   @media (min-width: 768px) {
     text-align: left;
     margin-top: -35px;
   }
+}
+
+.trash {
+  color : $secondary;
+
+}
+.modal-close-btn {
+ color: $primary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid $primary;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-close-btn:hover {
+  background: $primary;
+  color: white;
+}
+.modal-save-btn {
+ color: $secondary;
+  width: auto;
+  height: 40px;
+  margin: 5px;
+  padding: 0 10px;
+  border: 2px solid $secondary;
+  font-size: 1rem;
+  font-weight: 600;
+  background : transparent;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: block;
+  overflow: hidden;
+  border-radius : 4px;
+}
+
+.modal-save-btn:hover {
+  background-color : $secondary;
+  color: white;
 }
 </style>>
 
