@@ -12,7 +12,7 @@
               collègues.
             </p>
           </div>
-          <div class="row my-4">
+          <div class="row justify-content-md-center my-4">
             <div class="col-6 d-grid">
               <button
                 type="button"
@@ -20,15 +20,6 @@
                 @click="storie()"
               >
                 ALBUM PHOTO
-              </button>
-            </div>
-            <div class="col-6 d-grid">
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="ajout()"
-              >
-                AJOUTER PHOTO
               </button>
             </div>
           </div>

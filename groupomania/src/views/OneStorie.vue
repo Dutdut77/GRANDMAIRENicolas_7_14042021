@@ -1,17 +1,32 @@
 <template>
   <section>
-    <h1>PHOTO</h1>
-    <div class="auteur">
-      <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>
-      allias
-      <p class="pseudo">{{ stories.pseudo }}</p>
-      a posté le
-      <p class="date">{{ stories.date }}</p>
-      :
+    
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>PHOTO</h1>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 d-flex  flex-wrap justify-content-center">  
+          <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>          
+          &nbsp; allias &nbsp;            
+          <p class="pseudo">{{ stories.pseudo }}</p>
+          &nbsp; a posté le &nbsp; 
+          <p class="date">{{ stories.date }} </p>&nbsp; :       
+      </div>
     </div>
 
-    <div class="content">
-      <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" alt=""/>
+
+
+<div class="row">
+<div class="col-xs-12 col-lg-8 my-2">
+      <img class="img-fluid"
+        src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
+        alt=""
+      />
+</div>
+<div class="col-xs-12 col-lg-4 my-2">
       <div class="card">
         <h2>Vos Commentaires :</h2>
         <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
@@ -22,45 +37,65 @@
             <div class="group--pseudo">{{ commentaire.pseudo }}</div>
             <div class="group--date">{{ commentaire.date }}</div>
             <div class="group--text">{{ commentaire.content }}</div>
-            <a href="#" class="group--trash" v-if="user.userId === commentaire.userId" @click="DeleteComment(commentaire.id, )">
+            <a
+              href="#"
+              class="group--trash"
+              v-if="user.userId === commentaire.userId"
+              @click="DeleteComment(commentaire.id)"
+            >
               <fa :icon="['fas', 'trash-alt']" />
             </a>
           </div>
         </div>
         <br />
       </div>
-    </div>
 
+</div>
 
-    <div class="action">
-      <button class="btn-add" id="show-modal" @click="showModal = true">
+</div>
+
+   <div class="row justify-content-center my-2">
+     <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+      <button type="button" class="btn btn-primary text-white" id="show-modal" @click="showModal = true">
         <span>AJOUTER COMMENTAIRE</span>
       </button>
-      <button class="btn-supp" @click="Delete()">
+      </div>
+      <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+      <button type="button" class="btn btn-secondary text-white" @click="Delete()">
         <span>SUPPRIMER PHOTO</span>
       </button>
-      <button class="btn-retour" @click="Storie()">
+            </div>
+      <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+      <button type="button" class="btn btn-outline-primary" @click="Storie()">
         <span>RETOUR</span>
       </button>
+      </div>
     </div>
 
+  </div>
 
- <transition name="modal">
-    <Modal v-if="showModal" @close="showModal = false">
-      <template v-slot:header>
-        <h3>AJOUTER UN COMMENTAIRE</h3>
-      </template>
-      <template v-slot:body>      
-        
-      <Input v-model="content" :inputInfo="inputInfo"/>    
-      </template>
-      <template v-slot:footer>    
-        <button class="modal-save-btn" @click="SaveComment()">AJOUTER</button>
-        <button class="modal-close-btn" @click="showModal = false, content = null">FERMER</button>
-      </template>
-      
-    </Modal>
-    </transition>  
+
+
+    <transition name="modal">
+      <Modal v-if="showModal" @close="showModal = false">
+        <template v-slot:header>
+          <h3>AJOUTER UN COMMENTAIRE</h3>
+        </template>
+        <template v-slot:body>
+          <Input v-model="content" :inputInfo="inputInfo" />
+        </template>
+        <template v-slot:footer>
+          <button class="modal-save-btn" @click="SaveComment()">AJOUTER</button>
+          <button
+            class="modal-close-btn"
+            @click="(showModal = false), (content = null)"
+          >
+            FERMER
+          </button>
+        </template>
+      </Modal>
+    </transition>
+
 
   </section>
 </template>
@@ -75,16 +110,16 @@ export default {
   props: ["id"],
   data() {
     return {
-      showModal: false,   
-      content: null, 
-      inputInfo : {
-        title : "Commentaire :"    
-      }
-    }
+      showModal: false,
+      content: null,
+      inputInfo: {
+        title: "Commentaire :",
+      },
+    };
   },
   mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
-    this.$store.dispatch("getAllCommentaires", this.id );
+    this.$store.dispatch("getAllCommentaires", this.id);
   },
   components: { Modal, Input },
   computed: {
@@ -99,23 +134,23 @@ export default {
     },
     SaveComment() {
       this.showModal = false;
-      this.$store.dispatch("addComment", { 
+      this.$store.dispatch("addComment", {
         content: this.content,
-        id_parent : this.id,
-        userId : this.user.userId
-        });
-        this.content = ""; 
+        id_parent: this.id,
+        userId: this.user.userId,
+      });
+      this.content = "";
     },
     DeleteComment(id) {
-       this.$store.dispatch("DeleteComment", { id_parent : this.id, id : id });
-    }
+      this.$store.dispatch("DeleteComment", { id_parent: this.id, id: id });
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
+@import "bootstrap/scss/bootstrap.scss";
+
 
 a {
   color: $primary;
@@ -125,83 +160,28 @@ a:hover {
 }
 
 section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  padding-top: 160px;
 }
-section h1 {
-  padding : 10px 0 0 20px 0 ;
-}
-.auteur {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%; 
 
-}
-.auteur p {
-  padding: 0 4px;
-  font-size: 1.2rem;
-  width: 100%;
-   @media (min-width: 768px) {
- width : auto;
-  }
-}
-.name {
-
+.name, .pseudo {
   font-weight: 600;
-  color: $primary;
-}
-.pseudo {
-  font-weight: 600;
-  color: $secondary;
+  color : $secondary;
 }
 .date {
-  font-weight: 600;
-  font-style: italic;
-}
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  width: 100%;
-  height: 100%;
-  margin : 40px;
-    @media (min-width: 768px) {
-    justify-content: space-around;
-   
-  }
+  font-weight: bold;
 }
 img {
-  width: 100%;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
-  @media (min-width: 768px) {
-    width: 40%;
-    border-radius: 4px;
-  }
+  border-radius: 4px;
 }
 .card {
   width: 100%;
-  max-height: 300px;
+  max-height: 100%;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
-  margin : 20px 0;
-overflow-y: auto ;
-  @media (min-width: 768px) {
-    width: 40%;
-   margin : 0;
-    max-height: 500px;
-  }
+  overflow-y: auto;
 }
-.card h2 {
-  padding: 15px;
-  text-decoration-line: underline;
-  color: $primary;
-}
+
 .group {
   display: flex;
   flex-wrap: wrap;
@@ -249,109 +229,14 @@ overflow-y: auto ;
     color: $primary;
   }
 }
-.action {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0 20px;
-}
-.btn-add,
-.btn-supp,
-.btn-retour {
-  color: $primary;
-  width: 100%;
-  height: 40px;
-  margin: 10px 0;
-  padding: 0 15px;
-  border: 2px solid $primary;
-  font-size: 1rem;
-  font-weight: 600;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  display: block;
-  overflow: hidden;
-  border-radius : 4px;
-    @media (min-width: 768px) {
-    width: 25%;
-    margin: 10px;
-    }
-}
 
-.btn-add:hover {
-  background: $primary;
-  color: white;
-}
-
-.btn-supp:hover {
-  background: $secondary;
-  border-color: $secondary;
-}
-.btn-retour:hover {
-  background: gray;
-  border-color: gray;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: $secondary;
-}
-
-.modal-close-btn {
- color: $primary;
-  width: auto;
-  height: 40px;
-  margin: 5px;
-  padding: 0 10px;
-  border: 2px solid $primary;
-  font-size: 1rem;
-  font-weight: 600;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  display: block;
-  overflow: hidden;
-  border-radius : 4px;
-}
-
-.modal-close-btn:hover {
-  background: $primary;
-  color: white;
-}
-.modal-save-btn {
- color: $primary;
-  width: auto;
-  height: 40px;
-  margin: 5px;
-  padding: 0 10px;
-  border: 2px solid green;
-  font-size: 1rem;
-  font-weight: 600;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  display: block;
-  overflow: hidden;
-  border-radius : 4px;
-}
-
-.modal-save-btn:hover {
-  background: green;
-  color: white;
-}
-
-
-
-.modal-enter-active, .modal-leave-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: all 0.5 ease;
-
 }
 
-.modal-enter-from, .modal-leave-to {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
 }
-
-
 </style>

@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-image');
+const multer = require('../middleware/multer-photo');
 const imageCtrl = require('../controllers/image');
 
 /* Ajouter une storie */
-router.post('/', auth, multer, imageCtrl.addStorie);
+router.post('/', auth, multer,imageCtrl.addStorie);
 
 /* Ajouter un commentaire à une storie */
 router.post('/comment', auth, imageCtrl.addComment);

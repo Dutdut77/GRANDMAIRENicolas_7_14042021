@@ -122,12 +122,28 @@ export default createStore({
         throw (error);
       };
     },
+    AddPhoto: async ({ dispatch }, Image) => { 
+      const data = new FormData();
+      for (const [key, value] of Object.entries(Image)) {
+          data.append(key, value);
+      }
+      console.log(Image);
+      try {
+        const response = await instance.post("/image", data);
+        return dispatch("getAllStories"); 
+      }
+      catch (error) {        
+        console.error(error);
+        throw (error);
+      };
+     
+    },
     updatePhoto: async ({ dispatch, commit, state}, userPhoto) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(userPhoto)) {
           data.append(key, value);
       }
-      const route = '/auth/avatar/'.concat('', state.user.userId);       
+       const route = '/auth/avatar/'.concat('', state.user.userId);       
        try {
         commit("setStatus", "loading");
         const response = await instance.put(route, data);
@@ -288,16 +304,7 @@ export default createStore({
         throw (error);
       };
     },
-    verifToken : async () => {
-      try {
-        const response = await instance.get("/auth/token");
-        return response.data;
-      }
-      catch (error) {
-        console.error(error);
-        throw (error);
-      };
-    }
+
   },
   modules: {},
 });

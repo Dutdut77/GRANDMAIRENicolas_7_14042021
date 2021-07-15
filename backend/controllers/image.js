@@ -1,6 +1,7 @@
 /*global error */
 const Image = require('../models/image');
 const Delete = require('../middleware/delete');
+const sharp = require('sharp');
 
 /**
  * Ajouter une storie
@@ -13,15 +14,22 @@ const Delete = require('../middleware/delete');
  *
  */
 exports.addStorie = async (req, res, next) => {
+
     try {
-        await Image.addStorie(req);
+        const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
+        //const newName = `${req.protocol}://${req.get('host')}/images/stories/${name}`
+        await sharp(req.file.buffer)
+        .resize(600)
+        .toFile("./images/stories/" + name);
+
+        await Image.addStorie({userId : req.body.userId, content : name});
         res.status(201).json({
             ...req.body,
-            content: `${req.protocol}://${req.get('host')}/images/stories/${req.file.filename}`,
+            content: `${req.protocol}://${req.get('host')}/images/stories/${name}`,
         });
     }
     catch (receivedError) {
-        error(receivedError, res);
+          error(receivedError, res);
     }
 }
 

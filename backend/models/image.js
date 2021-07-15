@@ -5,9 +5,9 @@
  *
  * @return  {void}         
  */
-async function addStorie(image) {
+async function addStorie(image) {    
     try {
-        const res = await database.Image("INSERT INTO images (id_parent, userId, content) VALUES (?,?,?)", [image.body.id_parent, image.body.userId, image.file.filename]);
+        const res = await database.Image("INSERT INTO images (id_parent, userId, content) VALUES (?,?,?)", [0, image.userId, image.content]);
         return res;
     }
     catch (error) {
