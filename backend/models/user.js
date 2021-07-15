@@ -16,10 +16,10 @@ const jwt = require('jsonwebtoken');
  *
  * @return  {[type]}        [return description]
  */
-async function addUser(user) {
+async function addUser(user) {   
     try {
-        const pass = await bcrypt.hash(user.body.password, 10);
-        const res = await database.User("INSERT INTO users(prenom, nom, pseudo, password, email, avatar, id_roles) VALUES (?,?,?,?,?,?,?)", [user.body.prenom, user.body.nom, user.body.pseudo, pass, user.body.email, user.file.filename, user.body.role]);
+        const pass = await bcrypt.hash(user.password, 10);
+        const res = await database.User("INSERT INTO users(prenom, nom, pseudo, password, email, avatar, id_roles) VALUES (?,?,?,?,?,?,?)", [user.prenom, user.nom, user.pseudo, pass, user.email, user.avatar, user.role]);
         return res;
     }
     catch (error) {

@@ -14,12 +14,12 @@
       <span class="bar"></span>
     </div>
     <ul class="nav" id="nav">
-      <li><a href="#" @click="ShowMenu()"><router-link to="/">ACCUEIL</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/login">CONNEXION</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="ShowMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
-      <li v-if="user.userId > 0" ><a href="#" @click="ShowMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
+      <li><a href="#" @click="HideMenu()"><router-link to="/">ACCUEIL</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/login">CONNEXION</router-link></a></li>
+      <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
+      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
+      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="Logout()">LOGOUT</a></li>
     </ul>
 
@@ -38,6 +38,10 @@ export default {
     ShowMenu() {
       document.getElementById("hamburger").classList.toggle("cross");
       document.getElementById("nav").classList.toggle("change");
+    }, 
+    HideMenu() {
+      document.getElementById("hamburger").classList.remove("cross");
+      document.getElementById("nav").classList.remove("change");
     }, 
     Logout() {
       localStorage.removeItem('user');

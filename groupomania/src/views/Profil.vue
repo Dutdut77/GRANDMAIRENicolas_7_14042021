@@ -1,76 +1,79 @@
 <template>
   <section>
-    <div class="card">
-      <div class="card-profil">
-        <div class="card-top">
-          <img
-            src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
-            alt=""
-          />
-          <div class="custom-shape-divider-bottom-1625087656">
-            <svg
-              data-name="Layer 1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1200 120"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M1200 0L0 0 598.97 114.72 1200 0z"
-                class="shape-fill"
-              ></path>
-            </svg>
+    <div class="card-profil">
+      <div class="card-top">
+        <img :src="url + profil.avatar" alt="" />
+        <div class="custom-shape-divider-bottom-1625087656">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M1200 0L0 0 598.97 114.72 1200 0z"
+              class="shape-fill"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
+        <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
+        <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
+        <span>Niveau : {{ profil.titre }}</span>
+      </div>
+
+      <div class="card-stat">
+        <div class="radar-group">
+          <div class="radar">
+            <VueApexCharts
+              id="chart"
+              type="radialBar"
+              height="150"
+              :options="chartOptions"
+              :series="series"
+            ></VueApexCharts>
+          </div>
+          <div class="radar-titre">
+            <p v-if="nbPhoto > 1">Nb Photos</p>
+            <p v-else>Nb Photo</p>
           </div>
         </div>
 
-        <div class="card-content">
-          <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
-          <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
-          <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
-          <span>Niveau : {{ profil.titre }}</span>
-        </div>
-
-        <div class="card-stat">
-          <div class="radar-group">
-            <div class="radar">
-              <VueApexCharts
-                id="chart"
-                type="radialBar"
-                height="150"
-                :options="chartOptions"
-                :series="series"
-              ></VueApexCharts>
-            </div>
-            <div class="radar-titre">
-              <h2>Nb Photos</h2>
-            </div>
+        <div class="radar-group">
+          <div class="radar">
+            <VueApexCharts
+              type="radialBar"
+              height="150"
+              :options="chartOptions2"
+              :series="series"
+            ></VueApexCharts>
           </div>
-
-          <div class="radar-group">
-            <div class="radar">
-              <VueApexCharts
-                type="radialBar"
-                height="150"
-                :options="chartOptions2"
-                :series="series"
-              ></VueApexCharts>
-            </div>
-            <div class="radar-titre">
-              <h2>Nb Commentaires</h2>
-            </div>
+          <div class="radar-titre">
+            <p v-if="nbComment > 1">Nb Commentaires</p>
+            <p v-else>Nb Commentaire</p>
           </div>
         </div>
+      </div>
 
-        <div class="card-footer">
-          <button class="btn-add" @click="showProfil = true, showPhoto = false">
-            <span>Modifier Profil </span>
-          </button>
-          <button class="btn-add" @click="showPhoto = true, showProfil = false">
-            <span>Modifier Photo</span>
-          </button>
-          <button class="btn-supp" @click="showModal = true">
-            <span>Supprimer Profil</span>
-          </button>
-        </div>
+      <div class="card-footer">
+        <button
+          class="btn-add"
+          @click="(showProfil = true), (showPhoto = false)"
+        >
+          <span>Modifier Profil </span>
+        </button>
+        <button
+          class="btn-add"
+          @click="(showPhoto = true), (showProfil = false)"
+        >
+          <span>Modifier Photo</span>
+        </button>
+        <button class="btn-supp" @click="showModal = true">
+          <span>Supprimer Profil</span>
+        </button>
       </div>
     </div>
 
@@ -145,23 +148,23 @@
       </div>
     </transition>
 
-   <transition name="modal">
-    <Modal v-if="showModal" @close="showModal = false">
-      <template v-slot:header>
-        <h3>SUPPRESSION DE VOTRE COMPTE</h3>
-      </template>
-      <template v-slot:body>      
-       Attention vous êtes sur le point de supprimer votre compte.
-       Etes-vous sur ?   
-      </template>
-      <template v-slot:footer>    
-        <button class="modal-save-btn" @click="Delete()">SUPPRIMER</button>
-        <button class="modal-close-btn" @click="showModal = false">ANNULER</button>
-      </template>
-      
-    </Modal>
-    </transition> 
-
+    <transition name="modal">
+      <Modal v-if="showModal" @close="showModal = false">
+        <template v-slot:header>
+          <h3>SUPPRESSION DE VOTRE COMPTE</h3>
+        </template>
+        <template v-slot:body>
+          Attention vous êtes sur le point de supprimer votre compte. Etes-vous
+          sur ?
+        </template>
+        <template v-slot:footer>
+          <button class="modal-save-btn" @click="Delete()">SUPPRIMER</button>
+          <button class="modal-close-btn" @click="showModal = false">
+            ANNULER
+          </button>
+        </template>
+      </Modal>
+    </transition>
   </section>
 </template>
 
@@ -176,8 +179,8 @@ export default {
   components: { Input, VueApexCharts, Modal },
   data() {
     return {
-
-      showModal : false,
+      url: "http://localhost:3000/images/users/",
+      showModal: false,
 
       valueNom: null,
       valuePrenom: null,
@@ -229,11 +232,11 @@ export default {
         nom: this.valueNom,
         prenom: this.valuePrenom,
         pseudo: this.valuePseudo,
-      });      
+      });
       this.showProfil = false;
     },
 
-    CancelUpdate() {     
+    CancelUpdate() {
       this.valueNom = this.$store.state.profil.nom;
       this.valuePrenom = this.$store.state.profil.prenom;
       this.valuePseudo = this.$store.state.profil.pseudo;
@@ -247,12 +250,12 @@ export default {
     UpdatePhoto() {
       this.$store
         .dispatch("updatePhoto", { image_url: this.contentImageUrl })
-        .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));      
+        .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));
     },
     Delete() {
       this.$store.dispatch("deleteUser");
-      this.$router.push({ name: "Home"});    
-    }
+      this.$router.push({ name: "Home" });
+    },
   },
   computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
@@ -427,10 +430,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
+@import "bootstrap/scss/bootstrap.scss";
 
 section {
+  padding-top: 160px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -482,10 +485,13 @@ img {
   fill: #ffffff;
 }
 .card-content {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: -20px;
+  z-index: 10;
 }
 h1 {
   font-weight: 600;
@@ -519,7 +525,7 @@ span {
   width: 100%;
   text-align: center;
   color: #888;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   margin-top: -10px;
 }
 
@@ -530,7 +536,6 @@ span {
   flex-wrap: wrap;
   width: 100%;
   border-top: 1px solid #888;
-  margin: 10px 0;
   padding-top: 10px;
 }
 
@@ -644,7 +649,7 @@ span {
 }
 
 .modal-close-btn {
- color: $primary;
+  color: $primary;
   width: auto;
   height: 40px;
   margin: 5px;
@@ -657,7 +662,7 @@ span {
   transition: all 0.5s ease;
   display: block;
   overflow: hidden;
-  border-radius : 4px;
+  border-radius: 4px;
 }
 
 .modal-close-btn:hover {
@@ -665,7 +670,7 @@ span {
   color: white;
 }
 .modal-save-btn {
- color: $primary;
+  color: $primary;
   width: auto;
   height: 40px;
   margin: 5px;
@@ -673,27 +678,26 @@ span {
   border: 2px solid $secondary;
   font-size: 1rem;
   font-weight: 600;
-  background : transparent;
+  background: transparent;
   cursor: pointer;
   transition: all 0.5s ease;
   display: block;
   overflow: hidden;
-  border-radius : 4px;
+  border-radius: 4px;
 }
 
 .modal-save-btn:hover {
-  background-color : $secondary;
+  background-color: $secondary;
   color: white;
 }
 
-
-
-.modal-enter-active, .modal-leave-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: all 0.5 ease;
-
 }
 
-.modal-enter-from, .modal-leave-to {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
 }
 </style>

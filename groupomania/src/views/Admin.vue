@@ -1,5 +1,7 @@
 <template>
   <section>
+    <div class="container">
+
     <div class="adminTable">
       <TableUser />
     </div>
@@ -7,6 +9,9 @@
 <div class="adminTable">
   <TablePhoto />
 </div>
+
+    </div>
+
 
 
   </section>

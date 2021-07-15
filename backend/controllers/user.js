@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Image = require('../models/image');
 const Delete = require('../middleware/delete');
+const sharp = require('sharp');
 
 /**
  * SIGNUP
@@ -25,13 +26,29 @@ exports.signup = async (req, res, next) => {
             await Delete.imageUser(req.file.filename);
             return res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
         }
-        await User.addUser(req);       
+
+        const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
+        await sharp(req.file.buffer)
+            .resize(400)
+            .toFile("./images/users/" + name);
+
+        const data = {
+            prenom: req.body.prenom,
+            nom: req.body.nom,
+            pseudo: req.body.pseudo,
+            email: req.body.email,
+            avatar: name,
+            role: req.body.role,
+            password : req.body.password
+        };
+     
+        await User.addUser(data);
         res.status(201).json({
             prenom: req.body.prenom,
             nom: req.body.nom,
             pseudo: req.body.pseudo,
             email: req.body.email,
-            avatar: req.file.filename,
+            avatar: name,
             role: req.body.role
         });
     }
@@ -50,7 +67,7 @@ exports.signup = async (req, res, next) => {
  * @return  {Objet}                      Objet comprenant UserId + Token
  */
 exports.login = async (req, res, next) => {
-   
+
     try {
         const answer = await User.findByEmail(req.body.email);
         if (!answer) {
@@ -62,7 +79,7 @@ exports.login = async (req, res, next) => {
         }
         res.status(200).json({
             userId: answer.id,
-            start : Date.now(),
+            start: Date.now(),
             token: jwt.sign(
                 { userId: answer.id },
                 process.env.SECRET_TOKEN,
@@ -87,13 +104,13 @@ exports.login = async (req, res, next) => {
  * @param   {String}  req.body.email     Email de l'utilisateur
  *
  */
-exports.update = async (req, res, next) => {      
+exports.update = async (req, res, next) => {
     try {
         await User.updateUser(req.body, req.params.id);
         res.status(201).json({
             prenom: req.body.prenom,
             nom: req.body.nom,
-            pseudo: req.body.pseudo            
+            pseudo: req.body.pseudo
         });
     }
     catch (receivedError) {
