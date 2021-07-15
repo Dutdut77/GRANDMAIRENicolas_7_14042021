@@ -97,8 +97,7 @@ export default {
     PreviewFile() {
       this.contentImageUrl = event.target.files[0];
     },
-    AddPicture() {
-      console.log(this.contentImageUrl)
+    AddPicture() {     
     this.$store.dispatch("AddPhoto", {
        content: this.contentImageUrl,
        userId : this.user.userId 

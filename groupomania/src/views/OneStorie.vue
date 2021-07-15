@@ -19,32 +19,35 @@
 
 
 
-<div class="row">
+<div class="row align-items-center">
 <div class="col-xs-12 col-lg-8 my-2">
       <img class="img-fluid"
-        src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg="
+        :src="url+stories.content"
         alt=""
       />
 </div>
 <div class="col-xs-12 col-lg-4 my-2">
       <div class="card">
-        <h2>Vos Commentaires :</h2>
+        <h2>Commentaires :</h2>
         <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
           <div class="group--avatar">
             <img class="group--image" src="../assets/avatar.svg" alt="user photo"/>
           </div>
           <div class="group--desc">
             <div class="group--pseudo">{{ commentaire.pseudo }}</div>
-            <div class="group--date">{{ commentaire.date }}</div>
-            <div class="group--text">{{ commentaire.content }}</div>
-            <a
+            <div class="group--date">
+              <div class="date">
+                {{ commentaire.date }}
+              </div><a
               href="#"
               class="group--trash"
               v-if="user.userId === commentaire.userId"
               @click="DeleteComment(commentaire.id)"
             >
               <fa :icon="['fas', 'trash-alt']" />
-            </a>
+            </a></div>
+            <div class="group--text">{{ commentaire.content }}</div>
+            
           </div>
         </div>
         <br />
@@ -54,14 +57,14 @@
 
 </div>
 
-   <div class="row justify-content-center my-2">
+   <div class="row justify-content-center my-4">
      <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
-      <button type="button" class="btn btn-primary text-white" id="show-modal" @click="showModal = true">
+      <button type="button" class="btn btn-primary text-white" id="show-modal" @click="showModal = true, showModalSupp = false">
         <span>AJOUTER COMMENTAIRE</span>
       </button>
       </div>
-      <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
-      <button type="button" class="btn btn-secondary text-white" @click="Delete()">
+      <div v-if="user.userId === stories.userId" class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+      <button  type="button" class="btn btn-secondary text-white" @click="showModalSupp = true, showModal = false">
         <span>SUPPRIMER PHOTO</span>
       </button>
             </div>
@@ -85,15 +88,27 @@
           <Input v-model="content" :inputInfo="inputInfo" />
         </template>
         <template v-slot:footer>
-          <button class="modal-save-btn" @click="SaveComment()">AJOUTER</button>
-          <button
-            class="modal-close-btn"
-            @click="(showModal = false), (content = null)"
-          >
-            FERMER
-          </button>
+          <button class="btn btn-primary" @click="SaveComment()">AJOUTER</button>
+          <button class="btn btn-outline-primary" @click="(showModal = false), (content = null)">FERMER</button>
         </template>
       </Modal>
+    </transition>
+
+   <transition name="modal">
+    <Modal v-if="showModalSupp" @close="showModalSupp = false">
+      <template v-slot:header>
+        <h3 class="text-secondary">SUPPRESSION DE VOTRE PHOTO</h3>
+      </template>
+      <template v-slot:body>      
+       Attention vous êtes sur le point de supprimer votre photo.
+       Etes-vous sur ?   
+      </template>
+      <template v-slot:footer>    
+        <button class="btn btn-secondary text-white" @click="Delete()">SUPPRIMER</button>
+        <button class="btn btn-outline-primary" @click="(showModalSupp = false)">FERMER</button>
+      </template>
+      
+    </Modal>
     </transition>
 
 
@@ -110,7 +125,9 @@ export default {
   props: ["id"],
   data() {
     return {
+      url : "http://localhost:3000/images/stories/",
       showModal: false,
+      showModalSupp : false,
       content: null,
       inputInfo: {
         title: "Commentaire :",
@@ -130,7 +147,9 @@ export default {
       this.$router.push({ path: "/storie" });
     },
     Delete() {
-      this.$store.dispatch("delete", { id: this.id });
+      this.$store.dispatch("delete", this.id );
+      this.showModalSupp = false;
+      this.$router.push("/storie");
     },
     SaveComment() {
       this.showModal = false;
@@ -175,8 +194,9 @@ img {
   border-radius: 4px;
 }
 .card {
+  padding: 10px;
   width: 100%;
-  max-height: 100%;
+  height: 500px;
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
   border-radius: 4px;
   overflow-y: auto;
@@ -186,10 +206,10 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid grey;
-  padding-bottom: 10px;
-  margin: 10px 20px;
+  padding-bottom: 5px;
+  margin: 10px 0;
   &--avatar {
     width: 15%;
   }
@@ -198,7 +218,7 @@ img {
   }
   &--desc {
     width: 85%;
-    padding: 5px;
+    padding-left:15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -215,6 +235,9 @@ img {
     color: $primary;
   }
   &--date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     width: 50%;
     text-align: end;
     color: $primary;
@@ -225,7 +248,8 @@ img {
     color: $primary;
   }
   &--trash {
-    margin-left: auto;
+    margin-top: -5px;
+    margin-left: 5px;
     color: $primary;
   }
 }

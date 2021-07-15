@@ -19,7 +19,7 @@ exports.addStorie = async (req, res, next) => {
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         //const newName = `${req.protocol}://${req.get('host')}/images/stories/${name}`
         await sharp(req.file.buffer)
-        .resize(600)
+        .resize(1000)
         .toFile("./images/stories/" + name);
 
         await Image.addStorie({userId : req.body.userId, content : name});

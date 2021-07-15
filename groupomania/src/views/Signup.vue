@@ -147,11 +147,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary: #091f43;
-$secondary: #d1515a;
-$white: #fff;
+@import "bootstrap/scss/bootstrap.scss";
 $gray: #091f43;
+
+
 section {
+   padding-top: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,6 +171,7 @@ section {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin : 20px 0;
 }
 .signup {
   width: 50%;
@@ -264,6 +266,7 @@ section {
 .btn-10:hover {
   border: 2px solid $secondary;
   background: $secondary;
+  color: white;;
 }
 
 .file-input__input {

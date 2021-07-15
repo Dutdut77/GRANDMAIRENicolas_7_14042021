@@ -88,13 +88,11 @@ export default {
 
 
 <style scoped lang="scss">
-
-$primary: #091f43;
-$secondary: #d1515a;
-$white: #fff;
+@import "bootstrap/scss/bootstrap.scss";
 $gray: #091f43;
 
 section {
+   padding-top: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,8 +204,9 @@ section {
 }
 
 .btn-10:hover {
-   border: 2px solid $secondary; 
+  border: 2px solid $secondary; 
   background: $secondary;
+  color : white;
 }
 
 

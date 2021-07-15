@@ -3,7 +3,7 @@
 
 
 <div class="storie m-2" >
-  <img src="https://images.unsplash.com/photo-1488628075628-e876f502d67a?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=" class="img-fluid" alt="Photo Groupomania">
+  <img :src="url+storie.content" class="img-fluid" alt="Photo Groupomania">
     <div class="title">{{ storie.pseudo }}</div>
     <div class="date">{{ storie.date }}</div>
     <div class="overlay"></div>
@@ -16,6 +16,11 @@
 <script>
 export default {
   name: "Card2",
+  data() {
+    return {
+      url : "http://localhost:3000/images/stories/"
+    }
+  },
   props: {
     storie: {
       default: "Valeur par défaut",

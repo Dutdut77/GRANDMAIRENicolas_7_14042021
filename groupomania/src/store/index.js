@@ -127,7 +127,6 @@ export default createStore({
       for (const [key, value] of Object.entries(Image)) {
           data.append(key, value);
       }
-      console.log(Image);
       try {
         const response = await instance.post("/image", data);
         return dispatch("getAllStories"); 
@@ -247,7 +246,7 @@ export default createStore({
       };
     },
     delete: async ({ commit }, id) => {
-      const route = '/image/'.concat('', id);
+      const route = '/image/'.concat('', id);      
       try {
         const response = await instance.delete(route);
         commit("stories", {});
