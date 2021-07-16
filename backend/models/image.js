@@ -45,7 +45,7 @@ async function addComment(req) {
  *
  * @return  {Object}      Info de la storie
  */
-async function getOneStorie(id) {
+async function getOneStorie(id) {    
     try {
         const res = await database.FindOne("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.nom, b.prenom FROM images AS a INNER JOIN users AS b ON a.userId = b.id WHERE a.id = ?", [id]);
         return res;
@@ -115,6 +115,23 @@ async function getAllStorie() {
         });
     }
 }
+/**
+ * Rechercher toutes les stories dans la Bdd d'un User
+ *
+ * @return  {Object}  Info de toutes les stories
+ */
+ async function getAllStorieUser(id) {
+    try {
+        const res = await database.Image("SELECT content FROM images WHERE id_parent = ? AND userId = ?", [0, id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+}
 
 /**
  * Rechercher une storie dans la Bdd
@@ -125,7 +142,7 @@ async function getAllStorie() {
  */
  async function getAllCommentaires(id) {
     try {
-        const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [id]);
+        const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.avatar FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [id]);
         return res;
     }
     catch (error) {
@@ -201,6 +218,7 @@ module.exports.addStorie = addStorie;
 module.exports.addComment = addComment;
 module.exports.getOneStorie = getOneStorie;
 module.exports.getAllStorie = getAllStorie;
+module.exports.getAllStorieUser = getAllStorieUser;
 module.exports.getAllCommentaires = getAllCommentaires;
 module.exports.deleteStorie = deleteStorie;
 module.exports.deleteCommentaire = deleteCommentaire;

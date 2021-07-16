@@ -60,7 +60,7 @@ exports.addComment = async (req, res, next) => {
  *
  * @return  {JSON}                    Json des info de la storie
  */
-exports.getOneStorie = async (req, res, next) => {
+exports.getOneStorie = async (req, res, next) => {   
     try {
         const Storie = await Image.getOneStorie(req.params.id);
         res.status(201).json({ Storie });

@@ -142,7 +142,7 @@ export default createStore({
       for (const [key, value] of Object.entries(userPhoto)) {
           data.append(key, value);
       }
-       const route = '/auth/avatar/'.concat('', state.user.userId);       
+       const route = '/auth/avatar/'.concat('', state.user.userId);   
        try {
         commit("setStatus", "loading");
         const response = await instance.put(route, data);
@@ -194,11 +194,12 @@ export default createStore({
         throw (error);
       };
     },
-    getOneStorie: async ({ commit }, id) => {
-      const route = '/image/'.concat('', id.id);
+    getOneStorie: async ({ commit }, id) => {      
+      const route = '/image/'.concat('', id.id);     
       try {
         const response = await instance.get(route);
-        commit("stories", response.data.Storie);        
+        commit("stories", response.data.Storie);   
+        
         return response.data.Storie;
       }
       catch (error) {

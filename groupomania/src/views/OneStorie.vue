@@ -31,7 +31,7 @@
         <h2>Commentaires :</h2>
         <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
           <div class="group--avatar">
-            <img class="group--image" src="../assets/avatar.svg" alt="user photo"/>
+            <img class="group--image" :src="url2 + commentaire.avatar" alt="user photo"/>
           </div>
           <div class="group--desc">
             <div class="group--pseudo">{{ commentaire.pseudo }}</div>
@@ -125,6 +125,7 @@ export default {
   props: ["id"],
   data() {
     return {
+      url2: "http://localhost:3000/images/users/",
       url : "http://localhost:3000/images/stories/",
       showModal: false,
       showModalSupp : false,
@@ -206,18 +207,22 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: 1px solid grey;
   padding-bottom: 5px;
   margin: 10px 0;
   &--avatar {
-    width: 15%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &--avatar img {
     margin: 0;
+    
   }
   &--desc {
-    width: 85%;
+    width: 80%;
     padding-left:15px;
     display: flex;
     flex-wrap: wrap;
@@ -225,8 +230,9 @@ img {
     align-items: center;
   }
   &--image {
+    height: auto;
     width: 100%;
-    height: 100%;
+    border-radius : 10px
   }
   &--pseudo {
     width: 50%;
@@ -241,6 +247,7 @@ img {
     width: 50%;
     text-align: end;
     color: $primary;
+    font-size: 0.9rem;
   }
   &--text {
     width: 100%;

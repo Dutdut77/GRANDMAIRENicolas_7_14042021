@@ -39,9 +39,9 @@ exports.signup = async (req, res, next) => {
             email: req.body.email,
             avatar: name,
             role: req.body.role,
-            password : req.body.password
+            password: req.body.password
         };
-     
+
         await User.addUser(data);
         res.status(201).json({
             prenom: req.body.prenom,
@@ -163,8 +163,13 @@ exports.getAllUser = async (req, res, next) => {
  * @return  {void}               
  */
 exports.deleteUser = async (req, res, next) => {
+
     try {
         const user = await User.getOneUser(req.params.id);
+        const image_user = await Image.getAllStorieUser(req.params.id);
+        for (let i = 0; i < image_user.length; i++) {
+            await Delete.imageStorie(image_user[i].content);            
+        }
         await Delete.imageUser(user.avatar);
         await User.deleteUser(req.params.id);
         await Image.deleteUser(req.params.id);
@@ -184,12 +189,20 @@ exports.deleteUser = async (req, res, next) => {
  * @return  {void}                 
  */
 exports.avatar = async (req, res, next) => {
+
+    const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
+    await sharp(req.file.buffer)
+        .resize(400)
+        .toFile("./images/users/" + name);
+
+
+
     try {
         const answer = await User.getOneUser(req.params.id);
         if (answer) {
             await Delete.imageUser(answer.avatar);
         }
-        await User.updateAvatar(req.file.filename, req.params.id);
+        await User.updateAvatar(name, req.params.id);
         res.status(201).json({
             avatar: req.file.filename
         });
