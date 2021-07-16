@@ -78,8 +78,9 @@ exports.login = async (req, res, next) => {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
         res.status(200).json({
-            userId: answer.id,
-            start: Date.now(),
+            userId : answer.id,
+            start : Date.now(),
+            role : answer.id_roles,
             token: jwt.sign(
                 { userId: answer.id },
                 process.env.SECRET_TOKEN,

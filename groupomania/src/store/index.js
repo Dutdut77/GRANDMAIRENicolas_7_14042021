@@ -11,7 +11,8 @@ if (!user) {
     userId: -1,
     token: "",
   };
-} else {
+}
+else {
   try {
     user = JSON.parse(user);
     instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
@@ -282,7 +283,7 @@ export default createStore({
 
     },
     getProfil: async ({ commit, state }) => {
-      const route = '/auth/'.concat('', state.user.userId);      
+      const route = '/auth/'.concat('', state.user.userId);    
       try {
         const response = await instance.get(route);
         commit("profil", response.data.user);

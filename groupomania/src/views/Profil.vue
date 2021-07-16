@@ -154,7 +154,7 @@
           <h3>SUPPRESSION DE VOTRE COMPTE</h3>
         </template>
         <template v-slot:body>
-          Attention !!! vous êtes sur le point de supprimer votre compte. Etes-vous
+          Attention vous êtes sur le point de supprimer votre compte. Etes-vous
           sur ?
         </template>
         <template v-slot:footer>
@@ -211,7 +211,6 @@ export default {
       },
     };
   },
-
   mounted() {
     this.$store.dispatch("getProfil");
     this.$store.dispatch("countUserPhoto");

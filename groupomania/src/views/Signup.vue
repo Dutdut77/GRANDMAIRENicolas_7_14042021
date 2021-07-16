@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="signup">ll
+      <div class="signup">
         <img src="../assets/profil.svg" class="profil" />
         <div class="profil--titre">
           Déjà inscrit ? Connectez-vous

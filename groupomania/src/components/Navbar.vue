@@ -19,7 +19,7 @@
       <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
-      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
+      <li v-if="user.role === 0" ><a href="#" @click="HideMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
       <li v-if="user.userId > 0" ><a href="#" @click="Logout()">LOGOUT</a></li>
     </ul>
 
