@@ -2,20 +2,7 @@
   <section>
     <div class="card-profil">
       <div class="card-top">
-        <img :src="url + profil.avatar" alt="" />
-        <div class="custom-shape-divider-bottom-1625087656">
-          <svg
-            data-name="Layer 1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M1200 0L0 0 598.97 114.72 1200 0z"
-              class="shape-fill"
-            ></path>
-          </svg>
-        </div>
+        <img v-if="profil.avatar" :src="imageUser()" alt="" />
       </div>
 
       <div class="card-content">
@@ -179,7 +166,6 @@ export default {
   components: { Input, VueApexCharts, Modal },
   data() {
     return {
-      url: "http://localhost:3000/images/users/",
       showModal: false,
 
       valueNom: null,
@@ -211,7 +197,7 @@ export default {
       },
     };
   },
-  mounted() {
+ mounted() {
     this.$store.dispatch("getProfil");
     this.$store.dispatch("countUserPhoto");
     this.$store.dispatch("countUserComment");
@@ -255,6 +241,9 @@ export default {
       this.$store.dispatch("deleteUser");
       this.$router.push({ name: "Home" });
     },
+    imageUser() {
+      return "http://localhost:3000/images/users/" + this.profil.avatar
+    }
   },
   computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
@@ -463,33 +452,14 @@ img {
   width: 100%;
   border-radius: 4px 4px 0 0;
 }
-.custom-shape-divider-bottom-1625087656 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
 
-.custom-shape-divider-bottom-1625087656 svg {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 50px;
-}
-
-.custom-shape-divider-bottom-1625087656 .shape-fill {
-  fill: #ffffff;
-}
 .card-content {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: -20px;
+  margin-top: 10px;
   z-index: 10;
 }
 h1 {

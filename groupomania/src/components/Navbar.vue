@@ -44,9 +44,10 @@ export default {
       document.getElementById("nav").classList.remove("change");
     }, 
     Logout() {
+      this.$router.push({ name: "Home"});
       localStorage.removeItem('user');
       this.$store.commit("deleteStore");
-      this.$router.push({ name: "Home"});
+      
     }
   },
    computed: {

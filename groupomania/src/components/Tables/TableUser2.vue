@@ -38,7 +38,7 @@
         </template>
         <template v-slot:footer>    
           <button class="modal-save-btn" @click="Delete(user.id)">SUPPRIMER</button>
-          <button class="modal-close-btn" @click="showModal = false">ANNULER</button>
+          <button class="modal-close-btn" @click="showModalUser = false">ANNULER</button>
         </template>      
       </Modal>
     </transition> 
@@ -48,15 +48,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import "datatables.net-bs5";
-import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-import "datatables.net";
 import Modal from "@/components/Modal.vue";
-import $ from "jquery";
-
 export default {
   name: "Admin",
+  props : ["profil"],
   data() {
     return {
       showModalUser : false,
@@ -65,39 +60,11 @@ export default {
   },
   components : {Modal},
 
-  mounted() {
-   this.$store.dispatch("getAllProfil"); 
-  },
-  updated() {
-    this.getTableUser(); 
-  },
-  computed: {
-    ...mapState(["profil"]),
-  },
   methods: {
-    getTableUser() {
-      $("#tableUser").DataTable({
-        retrieve: true,
-        searching: true,
-        language: {
-          emptyTable: "No data available in table",
-          search: "Recherche",
-          paginate: {
-            first: "Premier",
-            last: "Dernier",
-            next: "Suivant",
-            previous: "Précédent",
-          },
-          lengthMenu: "Voir _MENU_ membres",
-        },
-        info: false,
-        paging: true,
-      });
-    },
+
     Modal(user) {
       this.user = user;
-      this.showModalUser = true;
-      this.$store.dispatch("getAllStories");
+      this.showModalUser = true;      
     },
     Delete(id) {      
       this.$store.dispatch("deleteOneUser", id);
@@ -109,10 +76,7 @@ export default {
 </script>
 
 <style scoped lang="scss" >
-
-$primary: #091f43;
-$secondary: #d1515a;
-
+@import "bootstrap/scss/bootstrap.scss";
 
 
 .tableUser {
@@ -124,7 +88,7 @@ $secondary: #d1515a;
   font-weight: 600;
   @media (min-width: 768px) {
     text-align: left;
-    margin-top: -35px;
+    margin-top: 0;
   }
 }
 

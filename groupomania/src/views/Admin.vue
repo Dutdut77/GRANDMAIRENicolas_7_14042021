@@ -1,30 +1,42 @@
 <template>
   <section>
     <div class="container">
+  
+      <div class="adminTable">
+        <TableUser :profil="profil" />
+      </div>
 
-    <div class="adminTable">
-      <TableUser />
+      <div class="adminTable">
+        <TablePhoto :stories="stories" />
+      </div>
+
+      <div class="adminTable">
+        <TableCommentaire :commentaires="commentaires" />
+      </div>
+
     </div>
-
-<div class="adminTable">
-  <TablePhoto />
-</div>
-
-    </div>
-
-
-
   </section>
 </template>
 
 <script>
-import TableUser from "@/components/Tables/TableUser.vue";
-import TablePhoto from "@/components/Tables/TablePhoto.vue";
+import { mapState } from "vuex";
+import TableUser from "@/components/Tables/TableUser2.vue";
+import TablePhoto from "@/components/Tables/TablePhoto2.vue";
+import TableCommentaire from "@/components/Tables/TableCommentaire.vue";
 
 export default {
   name: "Admin",
- components: { TableUser, TablePhoto },
+  components: { TableUser, TablePhoto, TableCommentaire},
 
+  mounted() {
+    this.$store.dispatch("getAllProfil");
+    this.$store.dispatch("getAllStories");
+    this.$store.dispatch("getAllCommentairesAdmin");
+  },
+  computed: {
+    ...mapState(["stories", "profil", "commentaires"]),
+  },
+    
 };
 </script>
 
@@ -34,10 +46,11 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  padding-top : 160px;
+  padding-top: 160px;
 }
 .adminTable {
   width: 100%;
 }
+
 </style>>
 

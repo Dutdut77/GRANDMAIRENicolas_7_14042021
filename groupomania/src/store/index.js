@@ -184,7 +184,19 @@ export default createStore({
         throw (error);
       };
     },
-    getAllStories: async ({ commit }) => {
+    deleteOneUser: async ({dispatch}, userId) => {      
+      const route = '/auth/'.concat('', userId);
+      try {       
+        const response = await instance.delete(route);       
+        dispatch("getAllProfil");
+        dispatch("getAllStories");           
+      }
+      catch (error) {        
+        console.error(error);
+        throw (error);
+      };
+    },
+    getAllStories: async ({ commit }) => {   
       try {
         const response = await instance.get("/image");
         commit("stories", response.data.Storie);        
@@ -247,13 +259,25 @@ export default createStore({
         throw (error);
       };
     },
-    delete: async ({ commit }, id) => {
+    getAllCommentairesAdmin: async ({ commit }) => {
+      const route = '/image/comment/';      
+      try {
+        const response = await instance.get(route);
+        commit("commentaires", response.data.Commentaires);
+        return response.data.Commentaires;
+      }
+      catch (error) {
+        console.error(error);
+        throw (error);
+      };
+    },
+    delete: async ({ dispatch, commit }, id) => {
       const route = '/image/'.concat('', id);      
       try {
         const response = await instance.delete(route);
         commit("stories", {});
         commit("commentaires", {});        
-        return response.data.Storie;
+        return dispatch("getAllStories");
       }
       catch (error) {
         console.error(error);

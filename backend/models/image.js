@@ -134,7 +134,7 @@ async function getAllStorie() {
 }
 
 /**
- * Rechercher une storie dans la Bdd
+ * Rechercher tous les commentaires d'une storie 
  *
  * @param   {Number}  id  Id de la storie
  *
@@ -143,6 +143,27 @@ async function getAllStorie() {
  async function getAllCommentaires(id) {
     try {
         const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.avatar FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [id]);
+        return res;
+    }
+    catch (error) {
+        throw ({
+            status: 500,
+            msg: error
+        });
+    }
+};
+
+/**
+ * Rechercher tous les commentaires dans la Bdd
+ *
+ * 
+ *
+ * @return  {Object}      Info de tous les commentaires.
+ */
+ async function getAllCommentairesAdmin() {
+     
+    try {
+        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent > ? ORDER BY a.date DESC", [0]);
         return res;
     }
     catch (error) {
@@ -220,6 +241,7 @@ module.exports.getOneStorie = getOneStorie;
 module.exports.getAllStorie = getAllStorie;
 module.exports.getAllStorieUser = getAllStorieUser;
 module.exports.getAllCommentaires = getAllCommentaires;
+module.exports.getAllCommentairesAdmin = getAllCommentairesAdmin;
 module.exports.deleteStorie = deleteStorie;
 module.exports.deleteCommentaire = deleteCommentaire;
 module.exports.countUserPhoto = countUserPhoto;

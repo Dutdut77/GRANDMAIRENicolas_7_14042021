@@ -19,6 +19,9 @@ router.get('/', auth, imageCtrl.getAllStorie);
 /* Afficher tous les commentaires d'une Storie */
 router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
 
+/* Afficher tous les commentaires de toutes les Stories */
+//router.get('/comment', auth, imageCtrl.getAllStorie);
+
 /* Compter le nombre de photos posté par un utilisateur */
 router.get('/user/:id', auth, imageCtrl.countUserPhoto);
 

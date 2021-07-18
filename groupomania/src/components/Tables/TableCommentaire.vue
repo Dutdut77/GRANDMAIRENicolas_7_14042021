@@ -2,7 +2,7 @@
  
 <div>
     <div class="tableAdmin">
-      <h2 class="text-center">Liste des photos :</h2>
+      <h2 class="text-center">Liste des commentaires :</h2>
       <table class="table table-hover table-bordered mt-3" id="tableComment">
         <thead>
           <tr>
@@ -13,19 +13,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(storie, index) in stories" :key="index">
+          {{commentaires}}
+          <!-- <tr v-for="(storie, index) in stories" :key="index">
             <td>{{ storie.content }}</td>
             <td>{{ storie.pseudo }}</td>
             <td>{{ storie.date }}</td>
             <td class="trash" @click="Modal(storie)"><fa :icon="['fas', 'trash-alt']" /></td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
-      <p>Nombre de photos : {{ stories.length }}</p>
+      <p>Nombre de commentaires   : {{ commentaires.length }}</p>
     </div>
 
     <transition name="modal">
-      <Modal v-if="showModalPhoto" @close="showModalPhoto = false">
+      <Modal v-if="showModalCommentaire" @close="showModalCommentaire = false">
         <template v-slot:header>
           <h3>SUPPRESSION D'UNE PHOTO</h3>
         </template>
@@ -36,7 +37,7 @@
         </template>
         <template v-slot:footer>    
           <button class="modal-save-btn" @click="Delete(storie.id)">SUPPRIMER</button>
-          <button class="modal-close-btn" @click="showModalPhoto = false">ANNULER</button>
+          <button class="modal-close-btn" @click="showModalCommentaire = false">ANNULER</button>
         </template>      
       </Modal>
     </transition>
@@ -45,68 +46,36 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import "datatables.net-bs5";
-import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-import "datatables.net";
 import Modal from "@/components/Modal.vue";
-import $ from "jquery";
 
 export default {
   name: "Admin",
+  props : ["commentaires"],
   components : {Modal},
   data() {
     return {
-      showModalPhoto : false,
-      storie : {}
+      showModalCommentaire : false,
+      commentaire : {}
     }
   },
-  mounted() {   
-    this.$store.dispatch("getAllStories");
-  },
-  updated() {   
-    this.getTableComment();
-  },
-  computed: {
-    ...mapState(["stories"]),
-  },
-  methods: {
-    getTableComment() {
-      $("#tableComment").DataTable({
-        retrieve: true,
-        searching : true,
-        language: {
-          emptyTable: "No data available in table",
-          search: "Recherche",
-          paginate: {
-            first: "Premier",
-            last: "Dernier",
-            next: "Suivant",
-            previous: "Précédent",
-          },
-          lengthMenu: "Voir _MENU_ photos",
-        },
-        info: false,
-        paging: true,
-      });
-    },
-    Modal(storie) {
-      this.storie = storie;
-      this.showModalPhoto = true;
+  methods: { 
+
+    Modal(commentaire) {
+      this.commentaire = commentaire;
+      this.showModalCommentaire = true;
      
     },
     Delete(id) {     
-      this.$store.dispatch("delete", id );
-      this.showModalPhoto = false;       
+      //this.$store.dispatch("delete", id );
+      this.showModalCommentaire = false;       
     }
   },
 };
 </script>
 
 <style scoped lang="scss" >
+@import "bootstrap/scss/bootstrap.scss";
 
-$primary: #091f43;
-$secondary: #d1515a;
 .tableAdmin {
   width: 100%;
   padding: 40px;
@@ -116,7 +85,7 @@ $secondary: #d1515a;
   font-weight: 600;
   @media (min-width: 768px) {
     text-align: left;
-    margin-top: -35px;
+    margin-top: 0;
   }
 }
 

@@ -3,11 +3,12 @@
 
 
 <div class="storie m-2" >
-  <img :src="url+storie.content" class="img-fluid" alt="Photo Groupomania">
+  <img v-if="storie.content" :src="imageUrl()" class="img-fluid" alt="Photo Groupomania">
     <div class="title">{{ storie.pseudo }}</div>
     <div class="date">{{ storie.date }}</div>
     <div class="overlay"></div>
-    <div class="plus" @click="OneStorie(storie.id)"><fa :icon="['fas', 'search']" /></div>    
+    <div class="plus" @click="OneStorie(storie.id)"><fa :icon="['fas', 'search']" /></div>  
+     
 </div>
 
 
@@ -30,6 +31,9 @@ export default {
     OneStorie(id) {
       this.$router.push({ name: "OneStorie", params: { id: id } });
     },
+    imageUrl() {
+      return "http://localhost:3000/images/stories/" + this.storie.content
+    }
   },
 };
 </script>

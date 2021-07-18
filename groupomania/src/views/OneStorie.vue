@@ -1,83 +1,99 @@
 <template>
   <section>
-    
-<div class="container">
-    <div class="row">
-      <div class="col">
-        <h1>PHOTO</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1>PHOTO</h1>
+        </div>
       </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 d-flex  flex-wrap justify-content-center">  
-          <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>          
-          &nbsp; allias &nbsp;            
+      <div class="row my-2">
+        <div class="col-12 d-flex flex-wrap justify-content-center">
+          <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>
+          &nbsp; allias &nbsp;
           <p class="pseudo">{{ stories.pseudo }}</p>
-          &nbsp; a posté le &nbsp; 
-          <p class="date">{{ stories.date }} </p>&nbsp; :       
+          &nbsp; a posté le &nbsp;
+          <p class="date">{{ stories.date }}</p>
+          &nbsp; :
+        </div>
       </div>
-    </div>
 
-
-
-<div class="row align-items-center">
-<div class="col-xs-12 col-lg-8 my-2">
-      <img class="img-fluid"
-        :src="url+stories.content"
-        alt=""
-      />
-</div>
-<div class="col-xs-12 col-lg-4 my-2">
-      <div class="card">
-        <h2>Commentaires :</h2>
-        <div class="group" v-for="commentaire in commentaires" :key="commentaire.id">
-          <div class="group--avatar">
-            <img class="group--image" :src="url2 + commentaire.avatar" alt="user photo"/>
-          </div>
-          <div class="group--desc">
-            <div class="group--pseudo">{{ commentaire.pseudo }}</div>
-            <div class="group--date">
-              <div class="date">
-                {{ commentaire.date }}
-              </div><a
-              href="#"
-              class="group--trash"
-              v-if="user.userId === commentaire.userId"
-              @click="DeleteComment(commentaire.id)"
+      <div class="row align-items-center">
+        <div class="col-xs-12 col-lg-8 my-2">
+          <img class="img-fluid" v-if="stories.content" :src="imageUrl()" alt="" />
+        </div>
+        <div class="col-xs-12 col-lg-4 my-2">
+          <div class="card">
+            <h2>Commentaires :</h2>
+            <div
+              class="group"
+              v-for="commentaire in commentaires"
+              :key="commentaire.id"
             >
-              <fa :icon="['fas', 'trash-alt']" />
-            </a></div>
-            <div class="group--text">{{ commentaire.content }}</div>
-            
+              <div class="group--avatar">
+                <img
+                  class="group--image"
+                  :src="url2 + commentaire.avatar"
+                  alt="user photo"
+                />
+              </div>
+              <div class="group--desc">
+                <div class="group--pseudo">{{ commentaire.pseudo }}</div>
+                <div class="group--date">
+                  <div class="date">
+                    {{ commentaire.date }}
+                  </div>
+                  <a
+                    href="#"
+                    class="group--trash"
+                    v-if="user.userId === commentaire.userId"
+                    @click="DeleteComment(commentaire.id)"
+                  >
+                    <fa :icon="['fas', 'trash-alt']" />
+                  </a>
+                </div>
+                <div class="group--text">{{ commentaire.content }}</div>
+              </div>
+            </div>
+            <br />
           </div>
         </div>
-        <br />
       </div>
 
-</div>
-
-</div>
-
-   <div class="row justify-content-center my-4">
-     <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
-      <button type="button" class="btn btn-primary text-white" id="show-modal" @click="showModal = true, showModalSupp = false">
-        <span>AJOUTER COMMENTAIRE</span>
-      </button>
+      <div class="row justify-content-center my-4">
+        <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+          <button
+            type="button"
+            class="btn btn-primary text-white"
+            id="show-modal"
+            @click="(showModal = true), (showModalSupp = false)"
+          >
+            <span>AJOUTER COMMENTAIRE</span>
+          </button>
+        </div>
+        <div
+          v-if="user.userId === stories.userId"
+          class="col-xs-12 col-lg-3 d-grid gap-2 my-2"
+        >
+          <button
+            type="button"
+            class="btn btn-secondary text-white"
+            @click="(showModalSupp = true), (showModal = false)"
+          >
+            <span>SUPPRIMER PHOTO</span>
+          </button>
+        </div>
+        <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            @click="Storie()"
+          >
+            <span>RETOUR</span>
+          </button>
+        </div>
       </div>
-      <div v-if="user.userId === stories.userId" class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
-      <button  type="button" class="btn btn-secondary text-white" @click="showModalSupp = true, showModal = false">
-        <span>SUPPRIMER PHOTO</span>
-      </button>
-            </div>
-      <div class="col-xs-12 col-lg-3 d-grid gap-2 my-2">
-      <button type="button" class="btn btn-outline-primary" @click="Storie()">
-        <span>RETOUR</span>
-      </button>
-      </div>
+      Test : {{ id }}
     </div>
-
-  </div>
-
-
 
     <transition name="modal">
       <Modal v-if="showModal" @close="showModal = false">
@@ -88,30 +104,41 @@
           <Input v-model="content" :inputInfo="inputInfo" />
         </template>
         <template v-slot:footer>
-          <button class="btn btn-primary" @click="SaveComment()">AJOUTER</button>
-          <button class="btn btn-outline-primary" @click="(showModal = false), (content = null)">FERMER</button>
+          <button class="btn btn-primary" @click="SaveComment()">
+            AJOUTER
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            @click="(showModal = false), (content = null)"
+          >
+            FERMER
+          </button>
         </template>
       </Modal>
     </transition>
 
-   <transition name="modal">
-    <Modal v-if="showModalSupp" @close="showModalSupp = false">
-      <template v-slot:header>
-        <h3 class="text-secondary">SUPPRESSION DE VOTRE PHOTO</h3>
-      </template>
-      <template v-slot:body>      
-       Attention vous êtes sur le point de supprimer votre photo.
-       Etes-vous sur ?   
-      </template>
-      <template v-slot:footer>    
-        <button class="btn btn-secondary text-white" @click="Delete()">SUPPRIMER</button>
-        <button class="btn btn-outline-primary" @click="(showModalSupp = false)">FERMER</button>
-      </template>
-      
-    </Modal>
+    <transition name="modal">
+      <Modal v-if="showModalSupp" @close="showModalSupp = false">
+        <template v-slot:header>
+          <h3 class="text-secondary">SUPPRESSION DE VOTRE PHOTO</h3>
+        </template>
+        <template v-slot:body>
+          Attention vous êtes sur le point de supprimer votre photo. Etes-vous
+          sur ?
+        </template>
+        <template v-slot:footer>
+          <button class="btn btn-secondary text-white" @click="Delete()">
+            SUPPRIMER
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            @click="showModalSupp = false"
+          >
+            FERMER
+          </button>
+        </template>
+      </Modal>
     </transition>
-
-
   </section>
 </template>
 
@@ -126,16 +153,16 @@ export default {
   data() {
     return {
       url2: "http://localhost:3000/images/users/",
-      url : "http://localhost:3000/images/stories/",
+ 
       showModal: false,
-      showModalSupp : false,
+      showModalSupp: false,
       content: null,
       inputInfo: {
         title: "Commentaire :",
       },
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("getOneStorie", { id: this.id });
     this.$store.dispatch("getAllCommentaires", this.id);
   },
@@ -144,11 +171,16 @@ export default {
     ...mapState(["stories", "commentaires", "user"]),
   },
   methods: {
+
+    imageUrl() {
+    return "http://localhost:3000/images/stories/" + this.stories.content
+    },
+
     Storie() {
       this.$router.push({ path: "/storie" });
     },
     Delete() {
-      this.$store.dispatch("delete", this.id );
+      this.$store.dispatch("delete", this.id);
       this.showModalSupp = false;
       this.$router.push("/storie");
     },
@@ -171,7 +203,6 @@ export default {
 <style scoped lang="scss">
 @import "bootstrap/scss/bootstrap.scss";
 
-
 a {
   color: $primary;
 }
@@ -183,9 +214,10 @@ section {
   padding-top: 160px;
 }
 
-.name, .pseudo {
+.name,
+.pseudo {
   font-weight: 600;
-  color : $secondary;
+  color: $secondary;
 }
 .date {
   font-weight: bold;
@@ -219,11 +251,10 @@ img {
   }
   &--avatar img {
     margin: 0;
-    
   }
   &--desc {
     width: 80%;
-    padding-left:15px;
+    padding-left: 15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -232,7 +263,7 @@ img {
   &--image {
     height: auto;
     width: 100%;
-    border-radius : 10px
+    border-radius: 10px;
   }
   &--pseudo {
     width: 50%;

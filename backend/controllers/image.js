@@ -108,6 +108,25 @@ exports.getAllStorie = async (req, res, next) => {
 }
 
 /**
+ * Afficher toutes les stories
+ *
+ *
+ * @return  {JSON}        JSON de toutes les stories
+ */
+ exports.getAllCommentairesAdmin = async (req, res, next) => {
+    try {
+        const Storie = await Image.getAllCommentairesAdmin();
+        res.status(201).json({ Storie });
+
+    }
+    catch (receivedError) {
+        errorManager(receivedError, res);
+    }
+
+}
+
+
+/**
  * Compter le nombre de photos posté par un utilisateur
  *
  * @param   {Number}  req.params.id   Id du user souhaitée
