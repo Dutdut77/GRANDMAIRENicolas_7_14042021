@@ -26,7 +26,8 @@ const routes = [
     component: Admin,
     meta: {
       title: "Admin - Groupomania",
-      requiresAuth: true
+      requiresAuth: true,
+      isAdmin: true
     },
   },
   {
@@ -49,11 +50,12 @@ const routes = [
   },
   {
     path: "/profil",
-    name: "Profil", 
+    name: "Profil",
     component: Profil,
     meta: {
-    title: "Mon profil Groupomania",
-    requiresAuth: true
+      title: "Mon profil Groupomania",
+      requiresAuth: true,
+      
     },
   },
   {
@@ -95,24 +97,34 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {     
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     let start = store.state.user.start;
     let now = Date.now();
     let diff = now - start;
     // Vérification si le Token à été crée il y a plus de 24H.
-    if (diff >= 86400000) { 
+    if (diff >= 86400000) {
       localStorage.removeItem('user');
       store.state.user = "";
-       next({ path: "/login" })
+      next({ path: "/login" })
     }
-    else {     
+  }
+
+ if (to.matched.some((record) => record.meta.isAdmin)) {
+    if (store.state.user.role === 0) {      
       next()
     }
+    else {      
+      next({ path: "/" })
+    }
   }
-  else {  
-  next(); //requiresAuth = false
+
+  else {
+    next(); //requiresAuth = false
   }
- });
+
+
+
+});
 
 
 router.afterEach((to) => {

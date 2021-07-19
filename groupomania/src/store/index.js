@@ -46,7 +46,8 @@ export default createStore({
     },
     logUser(state, user) {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
-      localStorage.setItem("user", JSON.stringify(user));
+       localStorage.setItem("user", JSON.stringify(user));
+     // localStorage.setItem("user", JSON.stringify({userId : user.userId, token : user.token}));
       state.user = user;
     },
     stories(state, stories) {
