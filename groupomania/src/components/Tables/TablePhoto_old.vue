@@ -45,11 +45,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import "datatables.net-bs5";
+import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+import "datatables.net";
 import Modal from "@/components/Modal.vue";
+import $ from "jquery";
 
 export default {
   name: "Admin",
-  props : ["stories"],
   components : {Modal},
   data() {
     return {
@@ -57,8 +61,35 @@ export default {
       storie : {}
     }
   },
-  methods: { 
-
+  mounted() {   
+    this.$store.dispatch("getAllStories");
+  },
+  updated() {   
+    this.getTableComment();
+  },
+  computed: {
+    ...mapState(["stories"]),
+  },
+  methods: {
+    getTableComment() {
+      $("#tableComment").DataTable({
+        retrieve: true,
+        searching : true,
+        language: {
+          emptyTable: "No data available in table",
+          search: "Recherche",
+          paginate: {
+            first: "Premier",
+            last: "Dernier",
+            next: "Suivant",
+            previous: "Précédent",
+          },
+          lengthMenu: "Voir _MENU_ photos",
+        },
+        info: false,
+        paging: true,
+      });
+    },
     Modal(storie) {
       this.storie = storie;
       this.showModalPhoto = true;
@@ -73,8 +104,9 @@ export default {
 </script>
 
 <style scoped lang="scss" >
-@import "bootstrap/scss/bootstrap.scss";
 
+$primary: #091f43;
+$secondary: #d1515a;
 .tableAdmin {
   width: 100%;
   padding: 40px;
@@ -84,7 +116,7 @@ export default {
   font-weight: 600;
   @media (min-width: 768px) {
     text-align: left;
-    margin-top: 0;
+    margin-top: -35px;
   }
 }
 

@@ -7,7 +7,7 @@
  */
 async function addStorie(image) {    
     try {
-        const res = await database.Image("INSERT INTO images (id_parent, userId, content) VALUES (?,?,?)", [0, image.userId, image.content]);
+        const res = await database.Image("INSERT INTO images (id_parent, userId, content, userIdContent) VALUES (?,?,?,?)", [0, image.userId, image.content, image.userId]);
         return res;
     }
     catch (error) {
@@ -26,8 +26,9 @@ async function addStorie(image) {
  * @return  {void}   
  */
 async function addComment(req) {
+    
     try {
-        const res = await database.Image("INSERT INTO images (id_parent, userId, content) VALUES (?,?,?)", [req.body.id_parent, req.body.userId, req.body.content]);
+        const res = await database.Image("INSERT INTO images (id_parent, userId, content, userIdContent) VALUES (?,?,?,?)", [req.body.id_parent, req.body.userId, req.body.content, req.body.userIdContent]);
         return res;
     }
     catch (error) {
@@ -105,7 +106,7 @@ async function getOneStorie(id) {
  */
 async function getAllStorie() {
     try {
-        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [0]);
+        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.id AS userId FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [0]);
         return res;
     }
     catch (error) {
@@ -163,7 +164,7 @@ async function getAllStorie() {
  async function getAllCommentairesAdmin() {
      
     try {
-        const res = await database.Image("SELECT a.id, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent > ? ORDER BY a.date DESC", [0]);
+        const res = await database.Image("SELECT a.id, a.id_parent, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent > ? ORDER BY a.date DESC", [0]);
         return res;
     }
     catch (error) {
@@ -224,7 +225,7 @@ async function deleteStorie(id) {
  */
  async function deleteUser(id) {
     try {
-        const res = await database.User("DELETE FROM images WHERE userId = ?", [id]);
+        const res = await database.User("DELETE FROM images WHERE userIdContent = ?", [id]);
         return res;
     }
     catch (error) {

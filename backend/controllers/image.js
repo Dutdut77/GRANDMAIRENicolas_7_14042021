@@ -115,8 +115,8 @@ exports.getAllStorie = async (req, res, next) => {
  */
  exports.getAllCommentairesAdmin = async (req, res, next) => {
     try {
-        const Storie = await Image.getAllCommentairesAdmin();
-        res.status(201).json({ Storie });
+        const Commentaires = await Image.getAllCommentairesAdmin();
+        res.status(201).json({ Commentaires });
 
     }
     catch (receivedError) {

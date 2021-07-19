@@ -1,29 +1,37 @@
 <template>
  
 <div>
-    <div class="tableAdmin">
+    <div v-if="stories.length > 0" class="tableAdmin">
       <h2 class="text-center">Liste des photos :</h2>
       <table class="table table-hover table-bordered mt-3" id="tableComment">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Photo</th>
             <th>Pseudo</th>
             <th>Date</th>
+            <th>ID User</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(storie, index) in stories" :key="index">
+            <td>{{ storie.id }}</td>
             <td>{{ storie.content }}</td>
             <td>{{ storie.pseudo }}</td>
             <td>{{ storie.date }}</td>
+              <td>{{ storie.userId }}</td>
             <td class="trash" @click="Modal(storie)"><fa :icon="['fas', 'trash-alt']" /></td>
           </tr>
         </tbody>
       </table>
-      <p>Nombre de photos : {{ stories.length }}</p>
+      <p v-if="stories.length > 1">Nombre de photos : {{ stories.length }}</p>
+      <p v-else>Photo : {{ stories.length }}</p>
     </div>
 
+  <div v-else class="tableAdmin">
+      <h2 class="text-center">Aucune photo pour le moment.</h2>
+  </div>
     <transition name="modal">
       <Modal v-if="showModalPhoto" @close="showModalPhoto = false">
         <template v-slot:header>
@@ -45,15 +53,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import "datatables.net-bs5";
-import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-import "datatables.net";
 import Modal from "@/components/Modal.vue";
-import $ from "jquery";
 
 export default {
   name: "Admin",
+  props : ["stories"],
   components : {Modal},
   data() {
     return {
@@ -61,35 +65,8 @@ export default {
       storie : {}
     }
   },
-  mounted() {   
-    this.$store.dispatch("getAllStories");
-  },
-  updated() {   
-    this.getTableComment();
-  },
-  computed: {
-    ...mapState(["stories"]),
-  },
-  methods: {
-    getTableComment() {
-      $("#tableComment").DataTable({
-        retrieve: true,
-        searching : true,
-        language: {
-          emptyTable: "No data available in table",
-          search: "Recherche",
-          paginate: {
-            first: "Premier",
-            last: "Dernier",
-            next: "Suivant",
-            previous: "Précédent",
-          },
-          lengthMenu: "Voir _MENU_ photos",
-        },
-        info: false,
-        paging: true,
-      });
-    },
+  methods: { 
+
     Modal(storie) {
       this.storie = storie;
       this.showModalPhoto = true;
@@ -97,16 +74,15 @@ export default {
     },
     Delete(id) {     
       this.$store.dispatch("delete", id );
-      this.showModalPhoto = false;       
+      this.showModalPhoto = false;            
     }
   },
 };
 </script>
 
 <style scoped lang="scss" >
+@import "bootstrap/scss/bootstrap.scss";
 
-$primary: #091f43;
-$secondary: #d1515a;
 .tableAdmin {
   width: 100%;
   padding: 40px;
@@ -116,7 +92,7 @@ $secondary: #d1515a;
   font-weight: 600;
   @media (min-width: 768px) {
     text-align: left;
-    margin-top: -35px;
+    margin-top: 0;
   }
 }
 

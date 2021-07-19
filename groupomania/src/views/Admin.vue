@@ -20,8 +20,8 @@
 
 <script>
 import { mapState } from "vuex";
-import TableUser from "@/components/Tables/TableUser2.vue";
-import TablePhoto from "@/components/Tables/TablePhoto2.vue";
+import TableUser from "@/components/Tables/TableUser.vue";
+import TablePhoto from "@/components/Tables/TablePhoto.vue";
 import TableCommentaire from "@/components/Tables/TableCommentaire.vue";
 
 export default {

@@ -189,7 +189,8 @@ export default createStore({
       try {       
         const response = await instance.delete(route);       
         dispatch("getAllProfil");
-        dispatch("getAllStories");           
+        dispatch("getAllStories"); 
+        dispatch("getAllCommentairesAdmin");             
       }
       catch (error) {        
         console.error(error);
@@ -262,7 +263,7 @@ export default createStore({
     getAllCommentairesAdmin: async ({ commit }) => {
       const route = '/image/comment/';      
       try {
-        const response = await instance.get(route);
+        const response = await instance.get(route);        
         commit("commentaires", response.data.Commentaires);
         return response.data.Commentaires;
       }
@@ -277,7 +278,8 @@ export default createStore({
         const response = await instance.delete(route);
         commit("stories", {});
         commit("commentaires", {});        
-        return dispatch("getAllStories");
+        dispatch("getAllStories"); 
+        dispatch("getAllCommentairesAdmin"); 
       }
       catch (error) {
         console.error(error);
@@ -295,6 +297,17 @@ export default createStore({
         throw (error);
       };
     },
+    DeleteCommentAdmin: async ({ dispatch }, comment) => {   
+      const route = '/image/comment/'.concat('', comment.id);
+    try {
+      await instance.delete(route);
+      dispatch("getAllCommentairesAdmin");  
+    }
+    catch (error) {
+      console.error(error);
+      throw (error);
+    };
+  },
     addComment: async ({ dispatch }, comment) => { 
       try {       
         const response = await instance.post("/image/comment/", comment);            

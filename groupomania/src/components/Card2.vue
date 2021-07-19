@@ -7,7 +7,7 @@
     <div class="title">{{ storie.pseudo }}</div>
     <div class="date">{{ storie.date }}</div>
     <div class="overlay"></div>
-    <div class="plus" @click="OneStorie(storie.id)"><fa :icon="['fas', 'search']" /></div>  
+    <div class="plus" @click="OneStorie(storie.id, storie.userId)"><fa :icon="['fas', 'search']" /></div>  
      
 </div>
 
@@ -28,8 +28,8 @@ export default {
     },
   },
   methods: {
-    OneStorie(id) {
-      this.$router.push({ name: "OneStorie", params: { id: id } });
+    OneStorie(id, userIdContent) {
+      this.$router.push({ name: "OneStorie", params: { id, userIdContent } });
     },
     imageUrl() {
       return "http://localhost:3000/images/stories/" + this.storie.content

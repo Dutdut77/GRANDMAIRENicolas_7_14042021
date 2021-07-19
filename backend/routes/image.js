@@ -10,17 +10,17 @@ router.post('/', auth, multer,imageCtrl.addStorie);
 /* Ajouter un commentaire à une storie */
 router.post('/comment', auth, imageCtrl.addComment);
 
-/* Afficher une storie */
-router.get('/:id', auth, imageCtrl.getOneStorie);
-
 /* Afficher toutes les stories */
 router.get('/', auth, imageCtrl.getAllStorie);
 
+/* Afficher tous les commentaires de toutes les Stories */
+router.get('/comment/', auth, imageCtrl.getAllCommentairesAdmin);
+
+/* Afficher une storie */
+router.get('/:id', auth, imageCtrl.getOneStorie);
+
 /* Afficher tous les commentaires d'une Storie */
 router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
-
-/* Afficher tous les commentaires de toutes les Stories */
-//router.get('/comment', auth, imageCtrl.getAllStorie);
 
 /* Compter le nombre de photos posté par un utilisateur */
 router.get('/user/:id', auth, imageCtrl.countUserPhoto);

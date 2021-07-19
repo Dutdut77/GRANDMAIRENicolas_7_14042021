@@ -91,8 +91,7 @@
             <span>RETOUR</span>
           </button>
         </div>
-      </div>
-      Test : {{ id }}
+      </div> 
     </div>
 
     <transition name="modal">
@@ -149,7 +148,7 @@ import Input from "@/components/Input.vue";
 
 export default {
   name: "OneStorie",
-  props: ["id"],
+  props: ["id", "userIdContent"],
   data() {
     return {
       url2: "http://localhost:3000/images/users/",
@@ -162,7 +161,7 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.$store.dispatch("getOneStorie", { id: this.id });
     this.$store.dispatch("getAllCommentaires", this.id);
   },
@@ -190,6 +189,7 @@ export default {
         content: this.content,
         id_parent: this.id,
         userId: this.user.userId,
+        userIdContent : this.userIdContent
       });
       this.content = "";
     },
