@@ -2,7 +2,7 @@
  
 <div>
     <div class="tableAdmin" v-if="commentaires.length > 0">
-      <h2 class="text-center">Liste des commentaires :</h2>
+      <h2 class="text-center">Les commentaires :</h2>
       <table class="table table-hover table-bordered mt-3" id="tableComment">
         <thead>
           <tr>

@@ -12,7 +12,7 @@
               collègues.
             </p>
           </div>
-          <div class="row justify-content-md-center my-4">
+          <div class="row justify-content-center my-4">
             <div class="col-6 d-grid">
               <button
                 type="button"

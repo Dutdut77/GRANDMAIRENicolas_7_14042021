@@ -2,7 +2,7 @@
  
 <div>
     <div v-if="stories.length > 0" class="tableAdmin">
-      <h2 class="text-center">Liste des photos :</h2>
+      <h2 class="text-center">Les photos :</h2>
       <table class="table table-hover table-bordered mt-3" id="tableComment">
         <thead>
           <tr>

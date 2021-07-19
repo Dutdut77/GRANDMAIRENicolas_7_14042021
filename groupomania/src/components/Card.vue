@@ -55,7 +55,7 @@
           <div class="group--date">29-06-2021</div>
           <div class="group--text">
             C'est vraiment pas bon pour la santé. Rien ne vaut une bonne salade
-            de crudité.
+            de crudités.
           </div>
         </div>
       </div>

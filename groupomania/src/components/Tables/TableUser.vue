@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="tableUser">
-      <h2 class="text-center">Liste des membres : </h2>
+      <h2 class="text-center">Les membres : </h2>
       <table class="table table-hover table-bordered mt-3" id="tableUser">
         <thead>
           <tr>
