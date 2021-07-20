@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
     next();
 
   }
-  catch (err) { console.log("test")
+  catch (err) { 
     res.status(401).json({
      
       error: err

@@ -42,6 +42,7 @@
 import { mapState } from "vuex";
 import Input from "@/components/Input.vue";
 
+
 export default {
   name: "Login",
   components: { Input },
