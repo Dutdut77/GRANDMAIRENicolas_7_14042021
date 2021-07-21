@@ -30,6 +30,7 @@ else {
 export default createStore({
   state: {
     status: "",
+    errMessage: "",
     user: user,
     stories: {},    
     profil: {},
@@ -43,6 +44,9 @@ export default createStore({
   mutations: {
     setStatus(state, status) {
       state.status = status;
+    },
+    errMessage(state, error) {
+      state.errMessage = error;
     },
     logUser(state, user) {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
@@ -94,10 +98,11 @@ export default createStore({
         commit("logUser", response.data);
         return response.data;
       }
-      catch (error) {
+      catch (err) {
         commit("setStatus", "error_login");
-        console.error(error);
-        throw (error);
+        commit("errMessage",err);
+       console.log(err);
+        throw (err);
       };
     },
     signup: async ({ commit, dispatch}, userinfos) => { 

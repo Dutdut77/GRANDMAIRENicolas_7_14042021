@@ -39,16 +39,20 @@ const schema = Joi.object({
  * @param   {String}  req.body.userId   userId de l'utilisateur
  *
  */
-module.exports = async (req, res, next) => {
+exports.login = async (req, res, next) => {
 
   try {
 
-    const value = await schema.validateAsync({ username: req.body.email, birth_year: 1994 });
+   const value = await schema.validateAsync({ username: req.body.email, birth_year: 2014 });
    console.log("test :",  req.body);
    
   }
   catch (err) { 
-    console.log("erreur : ", err);
+
+
+   res.status(err.status | 500).send({"errorMessage" : "Petit tezst"})
+    
+  //  console.log(err.details);
   }
   
 };

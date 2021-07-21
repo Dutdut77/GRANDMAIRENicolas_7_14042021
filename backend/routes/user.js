@@ -9,7 +9,7 @@ const validate = require('../middleware/joi');
 router.post('/signup', multer, userCtrl.signup);
 
 /* Route pour se loguer */
-router.post('/login', validate, userCtrl.login);
+router.post('/login', validate.login, userCtrl.login);
 
 /* Route pour récupérer les informations de tous les utilisateurs */
 router.get('/', auth, userCtrl.getAllUser);

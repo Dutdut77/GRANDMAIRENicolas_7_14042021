@@ -26,7 +26,7 @@
           <span v-else>VALIDER</span>
         </button>
 
-
+{{errMessage}}
         
         <div class="error" v-if="status == 'error_login'">
           Adresse Email et / ou mot de passe invalide
@@ -66,7 +66,7 @@ export default {
     validatedFields() {
       return this.email != "" && this.password != "" ? true : false;
     },
-    ...mapState(["status"]),
+    ...mapState(["status", "errMessage"]),
   },
   methods: {
     login() {
