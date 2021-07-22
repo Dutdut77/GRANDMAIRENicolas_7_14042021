@@ -67,7 +67,7 @@ exports.signup = async (req, res, next) => {
  * @return  {Objet}                      Objet comprenant UserId + Token
  */
 exports.login = async (req, res, next) => {
-
+console.log("testrrrrrr");
     try {
         const answer = await User.findByEmail(req.body.email);
         if (!answer) {

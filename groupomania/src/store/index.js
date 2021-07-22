@@ -100,8 +100,7 @@ export default createStore({
       }
       catch (err) {
         commit("setStatus", "error_login");
-        commit("errMessage",err);
-       console.log(err);
+        commit("errMessage",err.response.data);       
         throw (err);
       };
     },
@@ -125,7 +124,7 @@ export default createStore({
       }
       catch (error) {
         commit("setStatus", "error_login");
-        console.error(error);
+        console.log(error);
         throw (error);
       };
     },

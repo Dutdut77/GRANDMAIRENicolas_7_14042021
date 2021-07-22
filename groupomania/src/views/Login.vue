@@ -26,11 +26,15 @@
           <span v-else>VALIDER</span>
         </button>
 
-{{errMessage}}
-        
         <div class="error" v-if="status == 'error_login'">
-          Adresse Email et / ou mot de passe invalide
+          <div class="list-error" v-for="(err, index) in errMessage" :key="index">
+              <li>{{err.message}}</li>
+          </div>
         </div>
+        
+        <!-- <div class="error" v-if="status == 'error_login'">
+          Adresse Email et / ou mot de passe invalide
+        </div> -->
       </div>
     </div>
   </section>
@@ -210,7 +214,16 @@ section {
   color : white;
 }
 
+.error {
+  width: 80%;
+  background-color : $secondary;
+  color: white;
+  margin-top : 20px;
+padding: 10px;
+}
 
-
+.list-error {
+  padding: 5px;
+}
 
 </style>

@@ -1,58 +1,51 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
-    username: Joi.string()
-        .alphanum()
-        .min(3)
-        .max(30)
-        .required()
+const login = Joi.object({
+
+    
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
         .messages({
-            "string.min" : '"username" doit comporter minimun 3 caratères',
-            "string.empty" : '"username" est un champ obligatoire'
+            "string.base": "Le champ Email est obligatoire !",
+            "string.email": "Votre Email n'est pas valide !"
+
         }),
-        
 
     password: Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        .required()
+        .messages({
+            "string.base": "Le mot de passe est obligatoire !",
+            "string.empty": "Le mot de passe est obligatoire !",
 
-    repeat_password: Joi.ref('password'),
+        }),
 
-    access_token: [
-        Joi.string(),
-        Joi.number()
-    ],
 
-    birth_year: Joi.number()
-        .integer()
-        .min(1900)
-        .max(2013),
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 })
+
 
 
 /**
  * Vérifie l'autorisation de l'utilisateur
  *
- * @param   {String}  req.headers.authorization   Bearer + numéro du Token
- * @param   {String}  req.body.userId   userId de l'utilisateur
+ * @param   {String}  req                 requete du formulaire login
+ * @param   {String}  req.body.email      email de l'utilisateur
+ * @param   {String}  req.body.password   password de l'utilisateur
  *
  */
 exports.login = async (req, res, next) => {
 
-  try {
+    try {
 
-   const value = await schema.validateAsync({ username: req.body.email, birth_year: 2014 });
-   console.log("test :",  req.body);
-   
-  }
-  catch (err) { 
+        const value = await login.validateAsync({ email: req.body.email, password: req.body.password }, { abortEarly: false });
+        next()
 
+    }
+    catch (err) {
 
-   res.status(err.status | 500).send({"errorMessage" : "Petit tezst"})
-    
-  //  console.log(err.details);
-  }
-  
+        res.status(err.status | 500).send(err.details)
+        console.log(err);
+
+    }
+
 };
