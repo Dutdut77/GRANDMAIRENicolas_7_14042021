@@ -36,10 +36,7 @@
               </div>      
         </div>
         
-        <button
-          class="custom-btn btn-10"          
-          @click="signup()"
-        >
+        <button class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }" @click="signup()">
           <span v-if="status == 'loading'">Connexion en cours</span>
           <span v-else>ENREGISTRER</span>
         </button>
@@ -51,9 +48,6 @@
           </div>
         </div>
 
-        <!-- <div class="error" v-if="status == 'error_login'">
-          Erreur lors de l'enregistrement
-        </div> -->
       </div>
 
       <div class="signup">
@@ -120,6 +114,9 @@ export default {
     };
   },
   computed: {
+    validatedFields() {
+      return this.contentImageUrl != null && this.contentPseudo != "" && this.contentPrenom != "" && this.contentNom != "" && this.contentEmail != "" && this.contentPassword != "" ? true : false;
+    },
     ...mapState(["status", "errMessage"]),
   },
   methods: {
@@ -302,6 +299,16 @@ section {
   height: 16px;
   margin-right: 4px;
 }
+
+  .button-disabled {
+    border: 2px solid grey; 
+    color: grey
+  }
+  .button-disabled:hover {
+    cursor:not-allowed;
+    background:#cecece;
+    border: 2px solid grey; 
+  }
 
 .error {
   width: 80%;

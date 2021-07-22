@@ -19,9 +19,8 @@
 <div class="form__group">
    <Input v-model="contentPassword" :inputInfo="inputPassword"/> 
 </div>
-
-
-        <button class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }"  @click="login()">
+{{isDisabled}}
+        <button :disabled="{ 'validated': isDisabled }" class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }"  @click="login()">
           <span v-if="status == 'loading'">Connexion en cours</span>
           <span v-else>VALIDER</span>
         </button>
@@ -52,10 +51,10 @@ export default {
   components: { Input },
   data() {
     return {
-      email: null,
-      password: null,
-      contentEmail : null,
-      contentPassword : null, 
+      email: "",
+      password: "",
+      contentEmail : "",
+      contentPassword : "", 
       inputEmail : {
         title : "Email :",
         type : "text",   
@@ -68,7 +67,10 @@ export default {
   },
   computed: {
     validatedFields() {
-      return this.email != "" && this.password != "" ? true : false;
+      return this.contentEmail != "" && this.contentPassword != "" ? true : false;
+    },
+    isDisabled() {
+      return this.validatedFields ? "false" : "true";
     },
     ...mapState(["status", "errMessage"]),
   },
@@ -213,6 +215,16 @@ section {
   background: $secondary;
   color : white;
 }
+  .button-disabled {
+    border: 2px solid grey; 
+    color: grey
+  }
+  .button-disabled:hover {
+    cursor:not-allowed;
+    background:#cecece;
+    border: 2px solid grey; 
+  }
+
 
 .error {
   width: 80%;

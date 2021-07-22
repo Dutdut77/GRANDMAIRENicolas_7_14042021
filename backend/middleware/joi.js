@@ -6,6 +6,7 @@ const login = Joi.object({
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
         .messages({
             "string.base": "Le champ email est obligatoire.",
+            "string.empty": "Le champ email est obligatoire.",
             "string.email": "Votre email n'est pas valide."
 
         }),
