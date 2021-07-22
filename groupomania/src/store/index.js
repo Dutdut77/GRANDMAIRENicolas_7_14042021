@@ -99,18 +99,18 @@ export default createStore({
         return response.data;
       }
       catch (err) {
-        console.log("erreur :", err);
         commit("setStatus", "error_login");
         commit("errMessage",err.response.data);       
         throw (err);
       };
     },
     signup: async ({ commit, dispatch}, userinfos) => { 
-      const data = new FormData();
+
+      const data = new FormData();  
+      console.log(Object.entries(userinfos))
       for (const [key, value] of Object.entries(userinfos)) {
           data.append(key, value);
-      }
-      // data.append("file", file);
+      }  
       const headers = {
         header: {
           "Content-Type": "multipart/form-data"
@@ -125,7 +125,7 @@ export default createStore({
       }
       catch (error) {
         commit("setStatus", "error_login");
-        console.log(error);
+        commit("errMessage",error.response.data);   
         throw (error);
       };
     },

@@ -46,8 +46,14 @@
 
 
         <div class="error" v-if="status == 'error_login'">
-          Erreur lors de l'enregistrement
+          <div class="list-error" v-for="(err, index) in errMessage" :key="index">
+              <li>{{err.message}}</li>
+          </div>
         </div>
+
+        <!-- <div class="error" v-if="status == 'error_login'">
+          Erreur lors de l'enregistrement
+        </div> -->
       </div>
 
       <div class="signup">
@@ -73,11 +79,11 @@ export default {
   data() {
     return {
 
-      contentNom : null,
-      contentPrenom : null,
-      contentPseudo : null,
-      contentEmail : null,
-      contentPassword : null,
+      contentNom : "",
+      contentPrenom : "",
+      contentPseudo : "",
+      contentEmail : "",
+      contentPassword : "",
       contentImageUrl : null,
 
       inputEmail: {
@@ -114,7 +120,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["status"]),
+    ...mapState(["status", "errMessage"]),
   },
   methods: {
     signup() {
@@ -295,5 +301,18 @@ section {
 .file-input__label svg {
   height: 16px;
   margin-right: 4px;
+}
+
+.error {
+  width: 80%;
+  background-color : $secondary;
+  color: white;
+  margin-top : 20px;
+padding: 10px;
+border-radius : 4px;
+}
+
+.list-error {
+  padding: 5px;
 }
 </style>

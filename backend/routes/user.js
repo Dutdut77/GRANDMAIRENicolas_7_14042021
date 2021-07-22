@@ -6,7 +6,7 @@ const userCtrl = require('../controllers/user');
 const joi = require('../middleware/joi');
 
 /* Route pour s'enregistrer sur le site */
-router.post('/signup', multer, userCtrl.signup);
+router.post('/signup',  multer, joi.signup, userCtrl.signup);
 
 /* Route pour se loguer */
 router.post('/login', joi.login, userCtrl.login);
