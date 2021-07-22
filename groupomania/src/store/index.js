@@ -99,6 +99,7 @@ export default createStore({
         return response.data;
       }
       catch (err) {
+        console.log("erreur :", err);
         commit("setStatus", "error_login");
         commit("errMessage",err.response.data);       
         throw (err);

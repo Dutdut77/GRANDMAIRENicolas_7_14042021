@@ -67,15 +67,15 @@ exports.signup = async (req, res, next) => {
  * @return  {Objet}                      Objet comprenant UserId + Token
  */
 exports.login = async (req, res, next) => {
-console.log("testrrrrrr");
     try {
         const answer = await User.findByEmail(req.body.email);
         if (!answer) {
-            return res.status(401).json({ message: 'Email Non trouvé', email: req.body.email });
+            console.log("answer : ", req.body.email);
+            return res.status(401).json([{message: "Votre email n'apparait pas dans notre base de données"}]);
         }
         const valid = await bcrypt.compare(req.body.password, answer.password);
         if (!valid) {
-            return res.status(401).json({ message: 'Mot de passe incorrect' });
+            return res.status(401).json([{message: "Mot de passe incorrect."}]);
         }
         res.status(200).json({
             userId : answer.id,

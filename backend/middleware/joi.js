@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const login = Joi.object({
 
-    
+
     email: Joi.string()
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
         .messages({
@@ -34,18 +34,11 @@ const login = Joi.object({
  *
  */
 exports.login = async (req, res, next) => {
-
     try {
-
         const value = await login.validateAsync({ email: req.body.email, password: req.body.password }, { abortEarly: false });
         next()
-
     }
     catch (err) {
-
-        res.status(err.status | 500).send(err.details)
-        console.log(err);
-
+        res.status(err.status | 500).send(err.details)        
     }
-
 };

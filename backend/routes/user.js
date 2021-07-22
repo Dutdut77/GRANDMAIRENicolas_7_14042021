@@ -3,13 +3,13 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-user');
 const userCtrl = require('../controllers/user');
-const validate = require('../middleware/joi');
+const joi = require('../middleware/joi');
 
 /* Route pour s'enregistrer sur le site */
 router.post('/signup', multer, userCtrl.signup);
 
 /* Route pour se loguer */
-router.post('/login', validate.login, userCtrl.login);
+router.post('/login', joi.login, userCtrl.login);
 
 /* Route pour récupérer les informations de tous les utilisateurs */
 router.get('/', auth, userCtrl.getAllUser);

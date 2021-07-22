@@ -220,6 +220,7 @@ section {
   color: white;
   margin-top : 20px;
 padding: 10px;
+border-radius : 4px;
 }
 
 .list-error {
