@@ -19,8 +19,8 @@
 <div class="form__group">
    <Input v-model="contentPassword" :inputInfo="inputPassword"/> 
 </div>
-{{isDisabled}}
-        <button :disabled="{ 'validated': isDisabled }" class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }"  @click="login()">
+
+        <button :disabled="!validatedFields" class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }"  @click="login()">
           <span v-if="status == 'loading'">Connexion en cours</span>
           <span v-else>VALIDER</span>
         </button>
@@ -69,9 +69,6 @@ export default {
     validatedFields() {
       return this.contentEmail != "" && this.contentPassword != "" ? true : false;
     },
-    isDisabled() {
-      return this.validatedFields ? "false" : "true";
-    },
     ...mapState(["status", "errMessage"]),
   },
   methods: {
@@ -83,9 +80,7 @@ export default {
           function () {
             self.$router.push("/storie");
           },
-          function (error) {
-            console.log(error);
-          }
+
         );
     },
   },

@@ -69,8 +69,7 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
     try {
         const answer = await User.findByEmail(req.body.email);
-        if (!answer) {
-            console.log("answer : ", req.body.email);
+        if (!answer) {           
             return res.status(401).json([{message: "Votre email n'apparait pas dans notre base de données"}]);
         }
         const valid = await bcrypt.compare(req.body.password, answer.password);

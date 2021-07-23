@@ -55,8 +55,13 @@
          </form> 
       </template>
       <template v-slot:footer>    
-        <button class="btn btn-secondary text-white" @click="AddPicture()">AJOUTER</button>
+        <button :disabled="!validatedFields" class="btn btn-secondary text-white"  @click="AddPicture()">
+          <span v-if="status == 'loading'">Connexion en cours</span>
+          <span v-else>AJOUTER</span>
+          </button>
         <button class="btn btn-primary text-white" @click="CancelUpdate()">FERMER</button>
+  
+     
       </template>
       
     </Modal>
@@ -84,7 +89,10 @@ export default {
   },
   components: { Card, Modal},
   computed: {
-    ...mapState(["stories", "user"]),
+    validatedFields() {
+      return this.contentImageUrl != null ? true : false;
+    },
+    ...mapState(["stories", "user", "status"]),
   },
   methods: {
     OneStorie(id) {
@@ -170,4 +178,17 @@ section {
 }
 
 
+
+  .error {
+  width: 80%;
+  background-color : $secondary;
+  color: white;
+  margin-top : 20px;
+padding: 10px;
+border-radius : 4px;
+}
+
+.list-error {
+  padding: 5px;
+}
 </style>

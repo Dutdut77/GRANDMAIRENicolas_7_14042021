@@ -3,12 +3,13 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer');
 const imageCtrl = require('../controllers/image');
+const joi = require('../middleware/joi');
 
 /* Ajouter une storie */
-router.post('/', auth, multer,imageCtrl.addStorie);
+router.post('/', auth, multer, imageCtrl.addStorie);
 
 /* Ajouter un commentaire à une storie */
-router.post('/comment', auth, imageCtrl.addComment);
+router.post('/comment', auth, joi.addComment, imageCtrl.addComment);
 
 /* Afficher toutes les stories */
 router.get('/', auth, imageCtrl.getAllStorie);

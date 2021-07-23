@@ -12,9 +12,11 @@ const login = Joi.object({
         }),
     password: Joi.string()
         .required()
+        .min(3)
         .messages({
             "string.base": "Le mot de passe est obligatoire.",
             "string.empty": "Le mot de passe est obligatoire.",
+            "string.min": "Votre mot de passe doit contenir au minimum 3 charactères."
         }),
 });
 
@@ -59,6 +61,16 @@ const signup = Joi.object({
             "string.pattern.base": "Le mot de passe doit contenir entre 3 et 20 charactères (minuscules, majuscules, chiffres)",
         }),
 });
+const addComment = Joi.object({
+    content : Joi.string()  
+    .alphanum()
+    .min(5)
+    .messages({
+        "string.empty": "Il n'y a aucun commentaire",
+        "string.min": "Votre commentaire doit contenir au minimum 5 charactères."
+    }),
+});
+
 
 /**
  * Vérifie les champs input de la page login
@@ -96,6 +108,23 @@ exports.login = async (req, res, next) => {
         next()       
     }
     catch (err) {      
+        res.status(err.status | 500).send(err.details)        
+    }
+};
+
+/**
+ * Vérifie le champ commentaire de la page OneStorie
+ *
+ * @param   {String}  req                 requete du formulaire login
+ * @param   {String}  req.body.content     Commentaire de l'utilisateur
+ *
+ */
+ exports.addComment = async (req, res, next) => {     
+    try {
+        const value = await addComment.validateAsync({ content: req.body.content}, { abortEarly: false });
+        next()
+    }
+    catch (err) {        
         res.status(err.status | 500).send(err.details)        
     }
 };

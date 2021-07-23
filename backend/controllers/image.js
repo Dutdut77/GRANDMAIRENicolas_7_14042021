@@ -42,7 +42,7 @@ exports.addStorie = async (req, res, next) => {
  *
  *
  */
-exports.addComment = async (req, res, next) => {
+exports.addComment = async (req, res, next) => {       
     try {
         await Image.addComment(req);
         res.status(201).json({ ...req.body });

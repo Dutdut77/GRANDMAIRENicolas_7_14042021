@@ -36,13 +36,13 @@
               </div>      
         </div>
         
-        <button class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }" @click="signup()">
+        <button :disabled="!validatedFields" class="custom-btn btn-10" :class="{ 'button-disabled': !validatedFields }" @click="signup()">
           <span v-if="status == 'loading'">Connexion en cours</span>
           <span v-else>ENREGISTRER</span>
         </button>
 
 
-        <div class="error" v-if="status == 'error_login'">
+        <div class="error" v-if="status == 'error_signup'">
           <div class="list-error" v-for="(err, index) in errMessage" :key="index">
               <li>{{err.message}}</li>
           </div>

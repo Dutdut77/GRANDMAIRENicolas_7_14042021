@@ -42,6 +42,8 @@ export default {
     HideMenu() {
       document.getElementById("hamburger").classList.remove("cross");
       document.getElementById("nav").classList.remove("change");
+      this.$store.commit("errMessage","");
+      this.$store.commit("setStatus","");
     }, 
     Logout() {
       this.$router.push({ name: "Home"});

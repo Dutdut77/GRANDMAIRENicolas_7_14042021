@@ -11,7 +11,7 @@
           <p class="name">{{ stories.nom }} {{ stories.prenom }}</p>
           &nbsp; allias &nbsp;
           <p class="pseudo">{{ stories.pseudo }}</p>
-          &nbsp; a posté le &nbsp;
+          &nbsp; a posté cette photo le &nbsp;
           <p class="date">{{ stories.date }}</p>
           &nbsp; :
         </div>
@@ -103,16 +103,24 @@
           <Input v-model="content" :inputInfo="inputInfo" />
         </template>
         <template v-slot:footer>
-          <button class="btn btn-primary" @click="SaveComment()">
-            AJOUTER
+          <button :disabled="!validatedFields" class="btn btn-primary" @click="SaveComment()">
+          <span v-if="status == 'loading'">Connexion en cours</span>
+          <span v-else>AJOUTER</span>
           </button>
           <button
             class="btn btn-outline-primary"
             @click="(showModal = false), (content = null)"
           >
             FERMER
-          </button>
+          </button>  
+          
+         <div class="error" v-if="status == 'error_addComment'">
+            <div class="list-error" v-for="(err, index) in errMessage" :key="index">
+              <li>{{err.message}}</li>
+            </div>
+          </div>
         </template>
+
       </Modal>
     </transition>
 
@@ -150,9 +158,8 @@ export default {
   name: "OneStorie",
   props: ["id", "userIdContent"],
   data() {
-    return {
-      url2: "http://localhost:3000/images/users/",
- 
+    return {  
+      url2 : "http://localhost:3000/images/users/",    
       showModal: false,
       showModalSupp: false,
       content: null,
@@ -167,7 +174,10 @@ export default {
   },
   components: { Modal, Input },
   computed: {
-    ...mapState(["stories", "commentaires", "user"]),
+    validatedFields() {
+      return this.content != null ? true : false;
+    },
+    ...mapState(["stories", "commentaires", "user", "status", "errMessage"]),
   },
   methods: {
 
@@ -183,15 +193,21 @@ export default {
       this.showModalSupp = false;
       this.$router.push("/storie");
     },
-    SaveComment() {
-      this.showModal = false;
+    SaveComment() {      
       this.$store.dispatch("addComment", {
         content: this.content,
         id_parent: this.id,
         userId: this.user.userId,
         userIdContent : this.userIdContent
       });
-      this.content = "";
+      if (this.status === "") {
+          this.showModal = false;
+          this.content = "";
+      }
+
+      
+      
+      //
     },
     DeleteComment(id) {
       this.$store.dispatch("DeleteComment", { id_parent: this.id, id: id });
@@ -300,5 +316,18 @@ img {
 .modal-enter-from,
 .modal-leave-to {
   opacity: 0;
+}
+
+  .error {
+  width: 100%;
+  background-color : $secondary;
+  color: white;
+  margin-top : 10px;
+padding: 10px;
+border-radius : 4px;
+}
+
+.list-error {
+  padding: 5px;
 }
 </style>

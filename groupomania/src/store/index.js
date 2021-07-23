@@ -82,6 +82,8 @@ export default createStore({
       state.profil = {};
       state.nbComment = 0;
       state.nbPhoto = 0;
+      state.status = "";
+      state.errMessage = "";
       state.user = {
         userId: -1,
         token: "",
@@ -105,9 +107,7 @@ export default createStore({
       };
     },
     signup: async ({ commit, dispatch}, userinfos) => { 
-
-      const data = new FormData();  
-      console.log(Object.entries(userinfos))
+      const data = new FormData();      
       for (const [key, value] of Object.entries(userinfos)) {
           data.append(key, value);
       }  
@@ -124,22 +124,25 @@ export default createStore({
         return dispatch("login", { email: userinfos.email, password: userinfos.password });
       }
       catch (error) {
-        commit("setStatus", "error_login");
+        commit("setStatus", "error_signup");
         commit("errMessage",error.response.data);   
         throw (error);
       };
     },
-    AddPhoto: async ({ dispatch }, Image) => { 
+    AddPhoto: async ({ commit, dispatch }, Image) => { 
       const data = new FormData();
       for (const [key, value] of Object.entries(Image)) {
           data.append(key, value);
       }
       try {
+        commit("setStatus", "loading");
         const response = await instance.post("/image", data);
+        commit("setStatus", "");
         return dispatch("getAllStories"); 
       }
       catch (error) {        
-        console.error(error);
+        commit("setStatus", "error_addPhoto");
+        commit("errMessage",error.response.data);   
         throw (error);
       };
      
@@ -314,13 +317,16 @@ export default createStore({
       throw (error);
     };
   },
-    addComment: async ({ dispatch }, comment) => { 
-      try {       
+    addComment: async ({ commit, dispatch }, comment) => { 
+      try {
+        commit("setStatus", "loading");       
         const response = await instance.post("/image/comment/", comment);            
+        commit("setStatus", "");
         return dispatch("getAllCommentaires", response.data.id_parent);
       }
       catch (error) {
-        console.error(error);
+        commit("setStatus", "error_addComment");
+        commit("errMessage",error.response.data);       
         throw (error);
       };
 
