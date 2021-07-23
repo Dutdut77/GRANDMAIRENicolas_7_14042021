@@ -125,6 +125,7 @@ export default {
 
 section {
   padding-top: 160px;
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -55,7 +55,9 @@ section {
   justify-content: center;
   align-items: center;
   padding-top: 140px;
-  min-height: 100vh;
+  
 }
-
+.container {
+  margin-top : 40px;
+}
 </style>

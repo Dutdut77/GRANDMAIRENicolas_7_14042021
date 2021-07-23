@@ -47,9 +47,14 @@ section {
   justify-content: center;
   align-items: flex-start;
   padding-top: 160px;
+
 }
 .adminTable {
   width: 100%;
+}
+.container {
+  min-height: 100%;
+  position: relative;
 }
 
 </style>>

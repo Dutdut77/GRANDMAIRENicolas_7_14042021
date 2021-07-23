@@ -31,7 +31,8 @@
     </header>
  
       <router-view />
-  
+
+
 
   </body> 
 </template>
@@ -77,7 +78,9 @@ export default {
   color : $secondary;
   }
 
-
+html, body {
+  height: 100%;
+}
 header {
   position: fixed;
   z-index: 99;

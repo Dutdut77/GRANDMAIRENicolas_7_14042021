@@ -19,7 +19,12 @@
 
       <div class="row align-items-center">
         <div class="col-xs-12 col-lg-8 my-2">
-          <img class="img-fluid" v-if="stories.content" :src="imageUrl()" alt="" />
+          <img
+            class="img-fluid"
+            v-if="stories.content"
+            :src="imageUrl()"
+            alt=""
+          />
         </div>
         <div class="col-xs-12 col-lg-4 my-2">
           <div class="card">
@@ -31,6 +36,7 @@
             >
               <div class="group--avatar">
                 <img
+                  v-if="commentaire.avatar"
                   class="group--image"
                   :src="url2 + commentaire.avatar"
                   alt="user photo"
@@ -91,7 +97,7 @@
             <span>RETOUR</span>
           </button>
         </div>
-      </div> 
+      </div>
     </div>
 
     <transition name="modal">
@@ -103,24 +109,31 @@
           <Input v-model="content" :inputInfo="inputInfo" />
         </template>
         <template v-slot:footer>
-          <button :disabled="!validatedFields" class="btn btn-primary" @click="SaveComment()">
-          <span v-if="status == 'loading'">Connexion en cours</span>
-          <span v-else>AJOUTER</span>
+          <button
+            :disabled="!validatedFields"
+            class="btn btn-primary"
+            @click="SaveComment()"
+          >
+            <span v-if="status == 'loading'">Connexion en cours</span>
+            <span v-else>AJOUTER</span>
           </button>
           <button
             class="btn btn-outline-primary"
             @click="(showModal = false), (content = null)"
           >
             FERMER
-          </button>  
-          
-         <div class="error" v-if="status == 'error_addComment'">
-            <div class="list-error" v-for="(err, index) in errMessage" :key="index">
-              <li>{{err.message}}</li>
+          </button>
+
+          <div class="error" v-if="status == 'error_addComment'">
+            <div
+              class="list-error"
+              v-for="(err, index) in errMessage"
+              :key="index"
+            >
+              <li>{{ err.message }}</li>
             </div>
           </div>
         </template>
-
       </Modal>
     </transition>
 
@@ -158,8 +171,8 @@ export default {
   name: "OneStorie",
   props: ["id", "userIdContent"],
   data() {
-    return {  
-      url2 : "http://localhost:3000/images/users/",    
+    return {
+      url2: "http://localhost:3000/images/users/",
       showModal: false,
       showModalSupp: false,
       content: null,
@@ -180,9 +193,8 @@ export default {
     ...mapState(["stories", "commentaires", "user", "status", "errMessage"]),
   },
   methods: {
-
     imageUrl() {
-    return "http://localhost:3000/images/stories/" + this.stories.content
+      return "http://localhost:3000/images/stories/" + this.stories.content;
     },
 
     Storie() {
@@ -193,20 +205,18 @@ export default {
       this.showModalSupp = false;
       this.$router.push("/storie");
     },
-    SaveComment() {      
+    SaveComment() {
       this.$store.dispatch("addComment", {
         content: this.content,
         id_parent: this.id,
         userId: this.user.userId,
-        userIdContent : this.userIdContent
+        userIdContent: this.userIdContent,
       });
       if (this.status === "") {
-          this.showModal = false;
-          this.content = "";
+        this.showModal = false;
+        this.content = "";
       }
 
-      
-      
       //
     },
     DeleteComment(id) {
@@ -318,13 +328,13 @@ img {
   opacity: 0;
 }
 
-  .error {
+.error {
   width: 100%;
-  background-color : $secondary;
+  background-color: $secondary;
   color: white;
-  margin-top : 10px;
-padding: 10px;
-border-radius : 4px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 .list-error {
