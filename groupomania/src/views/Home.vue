@@ -58,6 +58,6 @@ section {
   
 }
 .container {
-  margin-top : 40px;
+  margin : 50px 0;
 }
 </style>

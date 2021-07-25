@@ -211,13 +211,11 @@ export default {
         id_parent: this.id,
         userId: this.user.userId,
         userIdContent: this.userIdContent,
-      });
-      if (this.status === "") {
+      });      
+      if (this.status === "") { 
         this.showModal = false;
         this.content = "";
       }
-
-      //
     },
     DeleteComment(id) {
       this.$store.dispatch("DeleteComment", { id_parent: this.id, id: id });
@@ -263,14 +261,14 @@ img {
 
 .group {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid grey;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   margin: 10px 0;
   &--avatar {
-    width: 20%;
+    width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,9 +285,10 @@ img {
     align-items: center;
   }
   &--image {
-    height: auto;
     width: 100%;
-    border-radius: 10px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
   }
   &--pseudo {
     width: 50%;

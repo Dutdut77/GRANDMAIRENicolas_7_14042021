@@ -7,9 +7,9 @@
 
       <div class="card-content">
         <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
-        <span><fa :icon="['fas', 'user']" /> {{ profil.pseudo }}</span>
-        <span><fa :icon="['fas', 'envelope']" /> {{ profil.email }}</span>
-        <span>Niveau : {{ profil.titre }}</span>
+        <span><fa :icon="['fas', 'user']" /> Pseudo : {{ profil.pseudo }}</span>
+        <span><fa :icon="['fas', 'envelope']" /> Email :  {{ profil.email }}</span>
+        <span>Droit : {{ profil.titre }}</span>
       </div>
 
       <div class="card-stat">
@@ -449,7 +449,9 @@ section {
   position: relative;
 }
 img {
-  width: 100%;
+  width: 400px;
+  height: 300px;
+   object-fit: cover;
   border-radius: 4px 4px 0 0;
 }
 

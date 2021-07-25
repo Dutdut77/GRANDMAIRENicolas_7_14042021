@@ -25,8 +25,7 @@ async function addStorie(image) {
  *
  * @return  {void}   
  */
-async function addComment(req) {
-    console.log('model : ',req.body);
+async function addComment(req) {    
     try {
         const res = await database.Image("INSERT INTO images (id_parent, userId, content, userIdContent) VALUES (?,?,?,?)", [req.body.id_parent, req.body.userId, req.body.content, req.body.userIdContent]);
         return res;

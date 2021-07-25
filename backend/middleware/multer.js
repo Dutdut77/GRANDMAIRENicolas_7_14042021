@@ -10,7 +10,7 @@ const storage = multer.memoryStorage();
 
 module.exports = multer({
   storage: storage,
-  limits: { fileSize: 2000000 }
+  //limits: { fileSize: 2000000 }
 }).single('content');
 
 

@@ -62,8 +62,7 @@ const signup = Joi.object({
         }),
 });
 const addComment = Joi.object({
-    content : Joi.string()  
-    .alphanum()
+    content : Joi.string()      
     .min(5)
     .messages({
         "string.empty": "Il n'y a aucun commentaire",

@@ -18,7 +18,8 @@ exports.addStorie = async (req, res, next) => {
     try {
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         await sharp(req.file.buffer)
-        .resize(1000)
+        .resize(1000, 667)
+        .webp()
         .toFile("./images/stories/" + name);
 
         await Image.addStorie({userId : req.body.userId, content : name});

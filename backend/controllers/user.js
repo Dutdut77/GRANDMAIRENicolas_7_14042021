@@ -29,7 +29,7 @@ exports.signup = async (req, res, next) => {
 
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         await sharp(req.file.buffer)
-            .resize(400)
+            .resize(400, 400)
             .toFile("./images/users/" + name);
 
         const data = {
