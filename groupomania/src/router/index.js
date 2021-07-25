@@ -7,6 +7,7 @@ import OneStorie from "../views/OneStorie.vue";
 import NotFound from "../views/NotFound.vue";
 import Profil from "../views/Profil.vue";
 import Admin from "../views/Admin.vue";
+import Lock from "../views/Lock.vue";
 import store from "../store";
 
 
@@ -68,6 +69,14 @@ const routes = [
     },
   },
   {
+    path: "/lock",
+    name: "Lock",
+    component: Lock,
+    meta: {
+      title: "Locked Page",
+    },
+  },
+  {
     path: "/onestorie/:id",
     name: "OneStorie",
     component: OneStorie,
@@ -76,7 +85,7 @@ const routes = [
       title: "Photo Groupomania",
       requiresAuth: true
     },
-  },
+  }, 
   {
     path: "/:patchMatch(.*)",
     name: "NotFound",
@@ -85,6 +94,7 @@ const routes = [
       title: "404 Not Found",
     },
   },
+
 
 ];
 
@@ -96,15 +106,20 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {   
+  
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    let start = store.state.user.start;
+   
+    const start = store.state.user.start;
     let now = Date.now();
     let diff = now - start;
     // Vérification si le Token à été crée il y a plus de 24H.
-    if (diff >= 86400000) {
+    if (diff >= 86400000 || isNaN(diff)) {
       localStorage.removeItem('user');
-      store.state.user = "";
+      store.state.user = {
+        userId: -1,
+        token: "",
+      };
       next({ path: "/login" })
     }
   }
@@ -114,7 +129,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
     else {      
-      next({ path: "/" })
+      next({ path: "/lock" })
     }
   }
 

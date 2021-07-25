@@ -1,9 +1,9 @@
 <template>
 <section>
         <img class="logo" src="../assets/logo-blue.png" alt="Groupomania Mon réseau social d'entreprise"/>
-        <h1>Oups page introuvable</h1>
+        <h1>Page réservée aux administrateurs !</h1>
  <div class="error">
-        <img src="../assets/404.svg" class="notFound" />
+        <img src="../assets/lock.svg" class="notFound" />
          <p><router-link to="/">RETOUR SUR LA PAGE D'ACCUEIL </router-link></p>
 </div>
 </section>

@@ -23,8 +23,8 @@ exports.signup = async (req, res, next) => {
     try {
         const answer = await User.emailExists(req.body.email);
         if (answer) {
-            await Delete.imageUser(req.file.filename);
-            return res.status(401).json({ message: 'Adresse Email déjà prise !!!' });
+            //await Delete.imageUser(req.file.filename);
+            return res.status(401).json([{ message: 'Adresse Email déjà prise !!!' }]);
         }
 
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
