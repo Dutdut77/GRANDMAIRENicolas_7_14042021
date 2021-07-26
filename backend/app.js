@@ -5,6 +5,7 @@ const userRoutes = require('./routes/user');
 const imagesRoutes = require('./routes/image');
 const helmet = require('helmet');
 const Ddos = require('ddos');
+const fs = require('fs');
 var ddos = new Ddos({ burst: 10, limit: 15 });
 
 global.errorManager = require("./controllers/errorManager");
@@ -22,7 +23,13 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/public', express.static(path.join(__dirname, 'public_html')));
+app.use('/', express.static(path.join(__dirname, 'public_html')));
 app.use('/api/auth', userRoutes);
 app.use('/api/image', imagesRoutes);
+// app.get('/', function(req, res,next) {
+// const content = fs.readFileSync("./public_html/index.html");
+// res.send(content);
+// });
 
 module.exports = app;

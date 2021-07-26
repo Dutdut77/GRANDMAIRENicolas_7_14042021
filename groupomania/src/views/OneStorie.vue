@@ -206,17 +206,21 @@ export default {
       this.$router.push("/storie");
     },
     SaveComment() {
-      this.$store.dispatch("addComment", {
-        content: this.content,
-        id_parent: this.id,
-        userId: this.user.userId,
-        userIdContent: this.userIdContent,
-      });      
-      if (this.status === "") { 
-        this.showModal = false;
-        this.content = "";
-      }
+      this.$store
+        .dispatch("addComment", {
+          content: this.content,
+          id_parent: this.id,
+          userId: this.user.userId,
+          userIdContent: this.userIdContent,
+        })
+        .then(() => {
+          if (this.status === "") {
+            this.showModal = false;
+            this.content = "";
+          }
+        });
     },
+
     DeleteComment(id) {
       this.$store.dispatch("DeleteComment", { id_parent: this.id, id: id });
     },

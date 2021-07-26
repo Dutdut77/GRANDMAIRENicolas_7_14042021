@@ -12,6 +12,12 @@
        
 </template>
 
+<script>
+export default {
+  name: "Lock",
+};
+</script>
+
 <style scoped lang="scss">
 @import "bootstrap/scss/bootstrap.scss";
 

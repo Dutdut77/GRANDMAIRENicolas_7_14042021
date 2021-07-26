@@ -22,24 +22,18 @@ const login = Joi.object({
 
 const signup = Joi.object({
     nom : Joi.string()
-   
-    .alphanum()
     .min(3)
     .messages({
         "string.empty": "Le champ nom est obligatoire.",
         "string.min": "Votre nom doit contenir au minimum 3 charactères."
     }),
     prenom : Joi.string()
-  
-    .alphanum()
     .min(2)
     .messages({
         "string.empty": "Le champ prénom est obligatoire.",
         "string.min": "Votre prénom doit contenir au minimum 2 charactères."
     }),
     pseudo : Joi.string()
-  
-    .alphanum()
     .min(3)
     .messages({
         "string.empty": "Le champ pseudo est obligatoire.",

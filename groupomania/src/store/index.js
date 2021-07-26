@@ -319,7 +319,7 @@ export default createStore({
   },
     addComment: async ({ commit, dispatch }, comment) => { 
       try {
-        commit("setStatus", "loading");       
+        commit("setStatus", "loading");             
         const response = await instance.post("/image/comment/", comment);            
         commit("setStatus", "");
         return dispatch("getAllCommentaires", response.data.id_parent);
