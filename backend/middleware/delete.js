@@ -25,9 +25,9 @@ async function imageUser(imageUrl) {
 
 
 /**
- * Supprime physiquement la photo de l'image
+ * Supprime physiquement la photo de la storie
  *
- * @param   {String}  imageUrl  nom de la photo de l'utilisateur
+ * @param   {String}  imageUrl  nom de la photo de la storie
  *
  *
  */

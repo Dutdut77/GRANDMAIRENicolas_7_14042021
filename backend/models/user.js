@@ -14,9 +14,9 @@ const jwt = require('jsonwebtoken');
  * @param   {String}  user.body.avatar    URL du fichier
  * @param   {String}  user.body.role      Role de l'utilisateur 
  *
- * @return  {[type]}        [return description]
+ * @return  {[void]}       
  */
-async function addUser(user) {   
+async function addUser(user) {
     try {
         const pass = await bcrypt.hash(user.password, 10);
         const res = await database.User("INSERT INTO users(prenom, nom, pseudo, password, email, avatar, id_roles) VALUES (?,?,?,?,?,?,?)", [user.prenom, user.nom, user.pseudo, pass, user.email, user.avatar, user.role]);

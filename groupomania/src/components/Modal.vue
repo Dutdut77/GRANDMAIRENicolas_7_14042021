@@ -1,43 +1,35 @@
 <template>
-  
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+  <div class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <slot name="header"> default header </slot>
+        </div>
 
-          <div class="modal-header">
-            <slot name="header">
-              default header
-            </slot>
-          </div>
+        <div class="modal-body">
+          <slot name="body"> default body </slot>
+        </div>
 
-          <div class="modal-body">
-            <slot name="body">
-              default body
-            </slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
-          </div>
+        <div class="modal-footer">
+          <slot name="footer">
+            default footer
+            <button class="modal-default-button" @click="$emit('close')">
+              OK
+            </button>
+          </slot>
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
 export default {
   name: "Modal",
-}
+};
 </script>
 
 <style scoped lang="scss">
-
 $primary: #091f43;
 $secondary: #d1515a;
 
@@ -49,7 +41,7 @@ $secondary: #d1515a;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;  
+  display: flex;
 }
 
 .modal-wrapper {
@@ -64,7 +56,7 @@ $secondary: #d1515a;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   width: 100%;
   margin: 0px 20px;
   padding: 20px 20px;
@@ -72,20 +64,18 @@ $secondary: #d1515a;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   font-family: Helvetica, Arial, sans-serif;
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
     width: 40%;
-    
-    }
+  }
 }
 
 .modal-header {
-    margin-bottom: 20px;
-    width: 100%;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-
 .modal-body {
-  width: 100%;  
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,12 +89,10 @@ $secondary: #d1515a;
 }
 
 .modal-footer {
-    margin-top : 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
-
-
 </style>

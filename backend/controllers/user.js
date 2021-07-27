@@ -22,11 +22,9 @@ const sharp = require('sharp');
 exports.signup = async (req, res, next) => {
     try {
         const answer = await User.emailExists(req.body.email);
-        if (answer) {
-            //await Delete.imageUser(req.file.filename);
+        if (answer) {            
             return res.status(401).json([{ message: 'Adresse Email déjà prise !!!' }]);
         }
-
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         await sharp(req.file.buffer)
             .resize(400, 400)
@@ -69,17 +67,17 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
     try {
         const answer = await User.findByEmail(req.body.email);
-        if (!answer) {           
-            return res.status(401).json([{message: "Votre email n'apparait pas dans notre base de données"}]);
+        if (!answer) {
+            return res.status(401).json([{ message: "Votre email n'apparait pas dans notre base de données" }]);
         }
         const valid = await bcrypt.compare(req.body.password, answer.password);
         if (!valid) {
-            return res.status(401).json([{message: "Mot de passe incorrect."}]);
+            return res.status(401).json([{ message: "Mot de passe incorrect." }]);
         }
         res.status(200).json({
-            userId : answer.id,
-            start : Date.now(),
-            role : answer.id_roles,
+            userId: answer.id,
+            start: Date.now(),
+            role: answer.id_roles,
             token: jwt.sign(
                 { userId: answer.id },
                 process.env.SECRET_TOKEN,
@@ -100,8 +98,6 @@ exports.login = async (req, res, next) => {
  * @param   {String}  req.body.prenom    Prénom de l'utilisateur
  * @param   {String}  req.body.nom       Nom de l'utilisateur
  * @param   {String}  req.body.pseudo    Pseudo de l'utilisateur
- * @param   {String}  req.body.password  Mot de passe de l'utilisateur
- * @param   {String}  req.body.email     Email de l'utilisateur
  *
  */
 exports.update = async (req, res, next) => {
@@ -158,7 +154,7 @@ exports.getAllUser = async (req, res, next) => {
 /**
  * Supprimer un utilisateur
  *
- * @param   {Number}  req.params.id   Id de l'utilisateur souhaité.
+ * @param   {Number}  req.params.id   Id de l'utilisateur a supprimer.
  *
  * @return  {void}               
  */
@@ -168,7 +164,7 @@ exports.deleteUser = async (req, res, next) => {
         const user = await User.getOneUser(req.params.id);
         const image_user = await Image.getAllStorieUser(req.params.id);
         for (let i = 0; i < image_user.length; i++) {
-            await Delete.imageStorie(image_user[i].content);            
+            await Delete.imageStorie(image_user[i].content);
         }
         await Delete.imageUser(user.avatar);
         await User.deleteUser(req.params.id);
@@ -183,7 +179,7 @@ exports.deleteUser = async (req, res, next) => {
 /**
  * Modification de l'avatar d'un utilisateur
  *
- * @param   {Number}  req.params.id       Id de l'utilisateur souhaité.
+ * @param   {Number}  req.params.id       Id de l'utilisateur.
  * @param   {String}  req.file.filename   Nom de fichier.
  *
  * @return  {void}                 
@@ -194,8 +190,6 @@ exports.avatar = async (req, res, next) => {
     await sharp(req.file.buffer)
         .resize(400)
         .toFile("./images/users/" + name);
-
-
 
     try {
         const answer = await User.getOneUser(req.params.id);

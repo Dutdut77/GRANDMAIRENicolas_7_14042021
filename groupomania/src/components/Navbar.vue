@@ -1,30 +1,22 @@
 <template>
-
   <div class="navbar">
-
           <div class="mobile"></div>
-    <img
-      class="logo"
-      src="../assets/logo-blue.png"
-      alt="Groupomania Mon réseau social d'entreprise"
-    />
-    <div class="hamburger" id="hamburger" @click="ShowMenu()">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
-    <ul class="nav" id="nav">
-      <li><a href="#" @click="HideMenu()"><router-link to="/">ACCUEIL</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/login">CONNEXION</router-link></a></li>
-      <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
-      <li v-if="user.role === 0" ><a href="#" @click="HideMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
-      <li v-if="user.userId > 0" ><a href="#" @click="Logout()">LOGOUT</a></li>
-    </ul>
-
+          <img class="logo" src="../assets/logo-blue.png" alt="Groupomania Mon réseau social d'entreprise"/>
+          <div class="hamburger" id="hamburger" @click="ShowMenu()">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+          </div>
+          <ul class="nav" id="nav">
+              <li><a href="#" @click="HideMenu()"><router-link to="/">ACCUEIL</router-link></a></li>
+              <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/login">CONNEXION</router-link></a></li>
+              <li v-if="user.userId < 0" ><a href="#" @click="HideMenu()"><router-link to="/signup">INSCRIPTION</router-link></a></li>
+              <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/storie">ALBUM</router-link></a></li>
+              <li v-if="user.userId > 0" ><a href="#" @click="HideMenu()"><router-link to="/profil">PROFIL</router-link></a></li>      
+              <li v-if="user.role === 0" ><a href="#" @click="HideMenu()"><router-link to="/Admin">ADMIN</router-link></a></li>
+              <li v-if="user.userId > 0" ><a href="#" @click="Logout()">LOGOUT</a></li>
+          </ul>
   </div> 
-
 </template>
 
 <script>

@@ -1,7 +1,6 @@
 <template>
   <section>
     <div class="container">
-  
       <div class="adminTable">
         <TableUser :profil="profil" />
       </div>
@@ -13,7 +12,6 @@
       <div class="adminTable">
         <TableCommentaire :commentaires="commentaires" />
       </div>
-
     </div>
   </section>
 </template>
@@ -26,7 +24,7 @@ import TableCommentaire from "@/components/Tables/TableCommentaire.vue";
 
 export default {
   name: "Admin",
-  components: { TableUser, TablePhoto, TableCommentaire},
+  components: { TableUser, TablePhoto, TableCommentaire },
 
   mounted() {
     this.$store.dispatch("getAllProfil");
@@ -36,7 +34,6 @@ export default {
   computed: {
     ...mapState(["stories", "profil", "commentaires"]),
   },
-    
 };
 </script>
 
@@ -47,7 +44,6 @@ section {
   justify-content: center;
   align-items: flex-start;
   padding-top: 160px;
-
 }
 .adminTable {
   width: 100%;
@@ -56,6 +52,5 @@ section {
   min-height: 100%;
   position: relative;
 }
-
 </style>>
 

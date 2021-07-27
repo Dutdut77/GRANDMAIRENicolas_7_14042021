@@ -1,17 +1,18 @@
 <template>
-
-
-
-<div class="storie m-2" >
-  <img v-if="storie.content" :src="imageUrl()" class="img-fluid" alt="Photo Groupomania">
+  <div class="storie m-2">
+    <img
+      v-if="storie.content"
+      :src="imageUrl()"
+      class="img-fluid"
+      alt="Photo Groupomania"
+    />
     <div class="title">{{ storie.pseudo }}</div>
     <div class="date">{{ storie.date }}</div>
     <div class="overlay"></div>
-    <div class="plus" @click="OneStorie(storie.id, storie.userId)"><fa :icon="['fas', 'search']" /></div>  
-     
-</div>
-
-
+    <div class="plus" @click="OneStorie(storie.id, storie.userId)">
+      <fa :icon="['fas', 'search']" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,8 +20,8 @@ export default {
   name: "Card2",
   data() {
     return {
-      url : "http://localhost:3000/images/stories/"
-    }
+      url: "http://localhost:3000/images/stories/",
+    };
   },
   props: {
     storie: {
@@ -32,8 +33,8 @@ export default {
       this.$router.push({ name: "OneStorie", params: { id, userIdContent } });
     },
     imageUrl() {
-      return "http://localhost:3000/images/stories/" + this.storie.content
-    }
+      return "http://localhost:3000/images/stories/" + this.storie.content;
+    },
   },
 };
 </script>
@@ -45,9 +46,8 @@ export default {
   max-width: 400px;
 }
 
-
 .storie {
-  position: relative; 
+  position: relative;
   overflow: hidden;
   height: 100%;
   border-radius: 4px;
@@ -58,14 +58,12 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;  
+  width: 100%;
   height: 50px;
-  border-radius : 4px;
-  background: rgba(0, 0, 0, .3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
   transition: height 0.3s ease;
 }
-
-
 
 img {
   position: relative;
@@ -89,7 +87,6 @@ img {
   transition: opacity 0.4s ease;
 }
 
-
 .date {
   position: absolute;
   width: 100%;
@@ -105,20 +102,19 @@ img {
   transition: opacity 0.5s ease;
 }
 
-.plus { 
+.plus {
   cursor: pointer;
   position: absolute;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color :  white;
-padding: 20px;
-border-radius: 50%;
-bottom: 30px;
-left : calc(50% - 20px);
-width: 36px;
-height: 36px;
-color : $secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 50%;
+  bottom: 30px;
+  left: calc(50% - 20px);
+  width: 36px;
+  height: 36px;
+  color: $secondary;
 }
-
 </style>

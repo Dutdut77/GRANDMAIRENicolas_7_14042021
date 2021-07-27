@@ -19,12 +19,7 @@
 
       <div class="row align-items-center">
         <div class="col-xs-12 col-lg-8 my-2">
-          <img
-            class="img-fluid"
-            v-if="stories.content"
-            :src="imageUrl()"
-            alt=""
-          />
+          <img class="img-fluid" v-if="stories.content" :src="imageUrl()" alt=""/>
         </div>
         <div class="col-xs-12 col-lg-4 my-2">
           <div class="card">
@@ -109,18 +104,11 @@
           <Input v-model="content" :inputInfo="inputInfo" />
         </template>
         <template v-slot:footer>
-          <button
-            :disabled="!validatedFields"
-            class="btn btn-primary"
-            @click="SaveComment()"
-          >
+          <button :disabled="!validatedFields" class="btn btn-primary" @click="SaveComment()">
             <span v-if="status == 'loading'">Connexion en cours</span>
             <span v-else>AJOUTER</span>
           </button>
-          <button
-            class="btn btn-outline-primary"
-            @click="(showModal = false), (content = null)"
-          >
+          <button class="btn btn-outline-primary" @click="(showModal = false), (content = null)">
             FERMER
           </button>
 
@@ -150,10 +138,7 @@
           <button class="btn btn-secondary text-white" @click="Delete()">
             SUPPRIMER
           </button>
-          <button
-            class="btn btn-outline-primary"
-            @click="showModalSupp = false"
-          >
+          <button class="btn btn-outline-primary" @click="showModalSupp = false">
             FERMER
           </button>
         </template>

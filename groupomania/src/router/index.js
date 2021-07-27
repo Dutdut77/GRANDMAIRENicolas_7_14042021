@@ -56,7 +56,7 @@ const routes = [
     meta: {
       title: "Mon profil Groupomania",
       requiresAuth: true,
-      
+
     },
   },
   {
@@ -85,7 +85,7 @@ const routes = [
       title: "Photo Groupomania",
       requiresAuth: true
     },
-  }, 
+  },
   {
     path: "/:patchMatch(.*)",
     name: "NotFound",
@@ -106,10 +106,9 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to, from, next) => {   
-  
+router.beforeEach((to, from, next) => {
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-   
     const start = store.state.user.start;
     let now = Date.now();
     let diff = now - start;
@@ -124,11 +123,11 @@ router.beforeEach((to, from, next) => {
     }
   }
 
- if (to.matched.some((record) => record.meta.isAdmin)) {
-    if (store.state.user.role === 0) {      
+  if (to.matched.some((record) => record.meta.isAdmin)) {
+    if (store.state.user.role === 0) {
       next()
     }
-    else {      
+    else {
       next({ path: "/lock" })
     }
   }
@@ -145,12 +144,6 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   document.title = to.meta.title;
 });
-
-
-
-
-
-
 
 
 export default router;

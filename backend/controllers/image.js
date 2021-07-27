@@ -18,18 +18,18 @@ exports.addStorie = async (req, res, next) => {
     try {
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         await sharp(req.file.buffer)
-        .resize(1000, 667)
-        .webp()
-        .toFile("./images/stories/" + name);
+            .resize(1000, 667)
+            .webp()
+            .toFile("./images/stories/" + name);
 
-        await Image.addStorie({userId : req.body.userId, content : name});
+        await Image.addStorie({ userId: req.body.userId, content: name });
         res.status(201).json({
             ...req.body,
             content: `${req.protocol}://${req.get('host')}/images/stories/${name}`,
         });
     }
     catch (receivedError) {
-          error(receivedError, res);
+        error(receivedError, res);
     }
 }
 
@@ -43,7 +43,7 @@ exports.addStorie = async (req, res, next) => {
  *
  *
  */
-exports.addComment = async (req, res, next) => {       
+exports.addComment = async (req, res, next) => {
     try {
         await Image.addComment(req);
         res.status(201).json({ ...req.body });
@@ -59,9 +59,9 @@ exports.addComment = async (req, res, next) => {
  *
  * @param   {Number}  req.params.id   Id de la storie souhaitée
  *
- * @return  {JSON}                    Json des info de la storie
+ * @return  {JSON}                    Json des infos de la storie
  */
-exports.getOneStorie = async (req, res, next) => {   
+exports.getOneStorie = async (req, res, next) => {
     try {
         const Storie = await Image.getOneStorie(req.params.id);
         res.status(201).json({ Storie });
@@ -97,7 +97,7 @@ exports.getAllStorie = async (req, res, next) => {
  *
  * @return  {JSON}                    Json des info de la storie
  */
- exports.getAllCommentaires = async (req, res, next) => {
+exports.getAllCommentaires = async (req, res, next) => {
     try {
         const Commentaires = await Image.getAllCommentaires(req.params.id);
         res.status(201).json({ Commentaires });
@@ -114,7 +114,7 @@ exports.getAllStorie = async (req, res, next) => {
  *
  * @return  {JSON}        JSON de toutes les stories
  */
- exports.getAllCommentairesAdmin = async (req, res, next) => {
+exports.getAllCommentairesAdmin = async (req, res, next) => {
     try {
         const Commentaires = await Image.getAllCommentairesAdmin();
         res.status(201).json({ Commentaires });
@@ -130,16 +130,14 @@ exports.getAllStorie = async (req, res, next) => {
 /**
  * Compter le nombre de photos posté par un utilisateur
  *
- * @param   {Number}  req.params.id   Id du user souhaitée
+ * @param   {Number}  req.params.id   Id du user souhaité
  *
  * @return  {JSON}                    Nombre de photos
  */
- exports.countUserPhoto = async (req, res, next) => {
-    
+exports.countUserPhoto = async (req, res, next) => {
     try {
         const NbPhoto = await Image.countUserPhoto(req.params.id);
-        res.status(201).json({ NbPhoto : NbPhoto.nbPhoto });
-
+        res.status(201).json({ NbPhoto: NbPhoto.nbPhoto });
     }
     catch (receivedError) {
         errorManager(receivedError, res);
@@ -154,10 +152,10 @@ exports.getAllStorie = async (req, res, next) => {
  *
  * @return  {JSON}                    Nombre de photos
  */
- exports.countUserCommentPhoto = async (req, res, next) => {
-    try {        
+exports.countUserCommentPhoto = async (req, res, next) => {
+    try {
         const NbComment = await Image.countUserCommentPhoto(req.params.id);
-        res.status(201).json({ NbComment : NbComment.nbComment });
+        res.status(201).json({ NbComment: NbComment.nbComment });
     }
     catch (receivedError) {
         errorManager(receivedError, res);
@@ -168,7 +166,7 @@ exports.getAllStorie = async (req, res, next) => {
 /**
  * Effacer une storie
  *
- * @param   {Number}  req.parmas.id  Champs du formulaire
+ * @param   {Number}  req.params.id  Id de la storie a effacer.
  *
  *
  */
@@ -185,13 +183,13 @@ exports.deleteStorie = async (req, res, next) => {
 }
 
 /**
- * Effacer une storie
+ * Effacer un commentaire
  *
- * @param   {Number}  req.parmas.id  Champs du formulaire
+ * @param   {Number}  req.params.id  Id du commentaire à éffacer.
  *
  *
  */
- exports.deleteCommentaire = async (req, res, next) => {
+exports.deleteCommentaire = async (req, res, next) => {
     try {
         await Image.deleteCommentaire(req.params.id);
         res.status(201).json({ message: "Commentaire supprimée !" });

@@ -6,7 +6,7 @@ const userCtrl = require('../controllers/user');
 const joi = require('../middleware/joi');
 
 /* Route pour s'enregistrer sur le site */
-router.post('/signup',  multer, joi.signup, userCtrl.signup);
+router.post('/signup', multer, joi.signup, userCtrl.signup);
 
 /* Route pour se loguer */
 router.post('/login', joi.login, userCtrl.login);
@@ -24,6 +24,6 @@ router.put('/:id', auth, userCtrl.update);
 router.get('/:id', auth, userCtrl.getOneUser);
 
 /* Route pour supprimer un utilisateur */
-router.delete('/:id',  auth, userCtrl.deleteUser);
+router.delete('/:id', auth, userCtrl.deleteUser);
 
 module.exports = router;

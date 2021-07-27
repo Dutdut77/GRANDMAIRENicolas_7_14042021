@@ -8,7 +8,7 @@
       <div class="card-content">
         <h1>{{ profil.nom }} {{ profil.prenom }}</h1>
         <span><fa :icon="['fas', 'user']" /> Pseudo : {{ profil.pseudo }}</span>
-        <span><fa :icon="['fas', 'envelope']" /> Email :  {{ profil.email }}</span>
+        <span><fa :icon="['fas', 'envelope']" /> Email : {{ profil.email }}</span>
         <span>Droit : {{ profil.titre }}</span>
       </div>
 
@@ -46,16 +46,10 @@
       </div>
 
       <div class="card-footer">
-        <button
-          class="btn-add"
-          @click="(showProfil = true), (showPhoto = false)"
-        >
+        <button class="btn-add" @click="(showProfil = true), (showPhoto = false)">
           <span>Modifier Profil </span>
         </button>
-        <button
-          class="btn-add"
-          @click="(showPhoto = true), (showProfil = false)"
-        >
+        <button class="btn-add" @click="(showPhoto = true), (showProfil = false)">
           <span>Modifier Photo</span>
         </button>
         <button class="btn-supp" @click="showModal = true">
@@ -94,13 +88,7 @@
           <div class="titre"><h1>CHANGER MA PHOTO</h1></div>
           <div class="form__group">
             <div class="file-input">
-              <input
-                type="file"
-                name="file-input"
-                id="file-input"
-                class="file-input__input"
-                @change="PreviewFile"
-              />
+              <input type="file" name="file-input" id="file-input" class="file-input__input" @change="PreviewFile"/>
               <label class="file-input__label" for="file-input">
                 <svg
                   aria-hidden="true"
@@ -197,7 +185,7 @@ export default {
       },
     };
   },
- mounted() {
+  mounted() {
     this.$store.dispatch("getProfil");
     this.$store.dispatch("countUserPhoto");
     this.$store.dispatch("countUserComment");
@@ -242,8 +230,8 @@ export default {
       this.$router.push({ name: "Home" });
     },
     imageUser() {
-      return "http://localhost:3000/images/users/" + this.profil.avatar
-    }
+      return "http://localhost:3000/images/users/" + this.profil.avatar;
+    },
   },
   computed: {
     ...mapState(["profil", "nbPhoto", "nbComment"]),
@@ -451,7 +439,7 @@ section {
 img {
   width: 400px;
   height: 300px;
-   object-fit: cover;
+  object-fit: cover;
   border-radius: 4px 4px 0 0;
 }
 

@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 app.use(helmet());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 // app.use('/public', express.static(path.join(__dirname, 'public_html')));
 app.use('/', express.static(path.join(__dirname, 'public_html')));

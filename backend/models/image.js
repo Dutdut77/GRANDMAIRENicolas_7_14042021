@@ -1,11 +1,13 @@
 /**
  * Ajouter une stories dans la base donnée
  *
- * @param   {Object}  image  Champs du formulaire
+ * @param   {Object}  image           Champs du formulaire
+ * @param   {Number}  image.userId    Id du user
+ * @param   {String}  image.content   Nom de l'image
  *
  * @return  {void}         
  */
-async function addStorie(image) {    
+async function addStorie(image) {
     try {
         const res = await database.Image("INSERT INTO images (id_parent, userId, content, userIdContent) VALUES (?,?,?,?)", [0, image.userId, image.content, image.userId]);
         return res;
@@ -21,11 +23,15 @@ async function addStorie(image) {
 /**
  * Ajouter un commentaire dans la base de donnée
  *
- * @param   {Object}  req  Champs du formulaire
+ * @param   {Object}  req                       Champs du formulaire
+ * @param   {Number}  req.body.id_parent        Id de la photo sur laquelle on ajoute le commentaire
+ * @param   {String}  req.body.userId           Id du user
+ * @param   {Number}  req.body.content          Le commentaire
+ * @param   {String}  req.body.userIdContent    Id du user qui a publié la photo.
  *
  * @return  {void}   
  */
-async function addComment(req) {    
+async function addComment(req) {
     try {
         const res = await database.Image("INSERT INTO images (id_parent, userId, content, userIdContent) VALUES (?,?,?,?)", [req.body.id_parent, req.body.userId, req.body.content, req.body.userIdContent]);
         return res;
@@ -45,7 +51,7 @@ async function addComment(req) {
  *
  * @return  {Object}      Info de la storie
  */
-async function getOneStorie(id) {    
+async function getOneStorie(id) {
     try {
         const res = await database.FindOne("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.nom, b.prenom FROM images AS a INNER JOIN users AS b ON a.userId = b.id WHERE a.id = ?", [id]);
         return res;
@@ -65,7 +71,7 @@ async function getOneStorie(id) {
  *
  * @return  {Object}      Nombre de photo
  */
- async function countUserPhoto(id) {
+async function countUserPhoto(id) {
     try {
         const res = await database.FindOne("SELECT COUNT(*) AS nbPhoto FROM images WHERE id_parent = 0 AND userId = ?", [id]);
         return res;
@@ -85,7 +91,7 @@ async function getOneStorie(id) {
  *
  * @return  {Object}      Nombre de photo
  */
- async function countUserCommentPhoto(id) {
+async function countUserCommentPhoto(id) {
     try {
         const res = await database.FindOne("SELECT COUNT(*) AS nbComment FROM images WHERE id_parent != 0 AND userId = ?", [id]);
         return res;
@@ -118,9 +124,11 @@ async function getAllStorie() {
 /**
  * Rechercher toutes les stories dans la Bdd d'un User
  *
- * @return  {Object}  Info de toutes les stories
+ * @param   {Number}  id  Id du user
+ * 
+ * @return  {Object}      Info de toutes les stories
  */
- async function getAllStorieUser(id) {
+async function getAllStorieUser(id) {
     try {
         const res = await database.Image("SELECT content FROM images WHERE id_parent = ? AND userId = ?", [0, id]);
         return res;
@@ -140,7 +148,7 @@ async function getAllStorie() {
  *
  * @return  {Object}      Info de la storie
  */
- async function getAllCommentaires(id) {
+async function getAllCommentaires(id) {
     try {
         const res = await database.Image("SELECT a.id, a.userId, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo, b.avatar FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent = ? ORDER BY a.date DESC", [id]);
         return res;
@@ -160,8 +168,8 @@ async function getAllStorie() {
  *
  * @return  {Object}      Info de tous les commentaires.
  */
- async function getAllCommentairesAdmin() {
-     
+async function getAllCommentairesAdmin() {
+
     try {
         const res = await database.Image("SELECT a.id, a.id_parent, a.content, DATE_FORMAT(a.date, '%d-%m-%Y') AS date, b.pseudo FROM images AS a LEFT JOIN users AS b ON a.userId = b.id WHERE a.id_parent > ? ORDER BY a.date DESC", [0]);
         return res;
@@ -201,7 +209,7 @@ async function deleteStorie(id) {
  *
  * @return  {Void}     
  */
- async function deleteCommentaire(id) {
+async function deleteCommentaire(id) {
     try {
         const res = await database.Image("DELETE FROM images WHERE id = ?", [id]);
         return res;
@@ -222,7 +230,7 @@ async function deleteStorie(id) {
  *
  * @return  {void}      
  */
- async function deleteUser(id) {
+async function deleteUser(id) {
     try {
         const res = await database.User("DELETE FROM images WHERE userIdContent = ?", [id]);
         return res;

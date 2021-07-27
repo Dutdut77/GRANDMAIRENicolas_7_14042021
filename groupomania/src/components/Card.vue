@@ -1,6 +1,5 @@
 <template>
   <div class="card px-3">
-
     <div class="image">
       <img src="../assets/img_home.png" class="card-img" alt="Hamburger" />
       <div class="titre">
@@ -59,7 +58,7 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -72,12 +71,11 @@ export default {
 <style scoped lang="scss">
 @import "bootstrap/scss/bootstrap.scss";
 
-
 .card {
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
 }
 .image {
-position: relative;
+  position: relative;
 }
 .card-img {
   position: relative;
@@ -89,7 +87,7 @@ position: relative;
   align-items: flex-end;
 }
 .titre {
-  position : absolute;
+  position: absolute;
   bottom: 25px;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);

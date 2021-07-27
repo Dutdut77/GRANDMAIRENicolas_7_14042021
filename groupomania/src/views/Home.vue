@@ -34,7 +34,6 @@
 
 <script>
 import Card from "@/components/Card.vue";
-// @ is an alias to /src
 
 export default {
   name: "Home",
@@ -55,9 +54,8 @@ section {
   justify-content: center;
   align-items: center;
   padding-top: 140px;
-  
 }
 .container {
-  margin : 50px 0;
+  margin: 50px 0;
 }
 </style>

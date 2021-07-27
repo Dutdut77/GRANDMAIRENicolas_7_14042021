@@ -30,7 +30,7 @@ router.get('/user/:id', auth, imageCtrl.countUserPhoto);
 router.get('/user/comment/:id', auth, imageCtrl.countUserCommentPhoto);
 
 /* Supprimer une storie */
-router.delete('/:id',  auth, imageCtrl.deleteStorie);
+router.delete('/:id', auth, imageCtrl.deleteStorie);
 
 /* Supprimer un commentaire d'une Storie */
 router.delete('/comment/:id', auth, imageCtrl.deleteCommentaire);
