@@ -14,7 +14,6 @@ const sharp = require('sharp');
  *
  */
 exports.addStorie = async (req, res, next) => {
-
     try {
         const name = Date.now() + '-' + req.file.originalname.split(' ').join('_');
         await sharp(req.file.buffer)

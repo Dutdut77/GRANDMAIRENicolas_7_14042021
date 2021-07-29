@@ -170,7 +170,7 @@ export default createStore({
       }
       try {
         commit("setStatus", "loading");
-        const response = await instance.post("/image", data);
+        const response = await instance.post("/image",data);
         commit("setStatus", "");
         return dispatch("getAllStories");
       }
@@ -276,9 +276,10 @@ export default createStore({
      * Requete API pour afficher toutes les stories
      *
      */
-    getAllStories: async ({ commit }) => {
+    getAllStories: async ({ commit, state }) => {
+      
       try {
-        const response = await instance.get("/image");
+        const response = await instance.post("/image/allStories", { userId : state.user.userId });
         commit("stories", response.data.Storie);
         return response.data.Storie;
       }
@@ -296,10 +297,10 @@ export default createStore({
      *
      * @return  {JSON}             Info de la storie souhaitée.
      */
-    getOneStorie: async ({ commit }, id) => {
-      const route = '/image/'.concat('', id.id);
+    getOneStorie: async ({ commit, state }, id) => {
+      const route = '/image/oneStorie/'.concat('', id.id);
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("stories", response.data.Storie);
 
         return response.data.Storie;
@@ -317,7 +318,7 @@ export default createStore({
     countUserPhoto: async ({ commit, state }) => {
       const route = '/image/user/'.concat('', state.user.userId);
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("nbPhoto", response.data.NbPhoto);
         return response.data.NbPhoto;
 
@@ -335,7 +336,7 @@ export default createStore({
     countUserComment: async ({ commit, state }) => {
       const route = '/image/user/comment/'.concat('', state.user.userId);
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("nbComment", response.data.NbComment);
 
         return response.data.NbComment;
@@ -354,10 +355,10 @@ export default createStore({
      *
      * @return  {JSON}            Tous les commentairtes de la storie.
      */
-    getAllCommentaires: async ({ commit }, id) => {
-      const route = '/image/comment/'.concat('', id);
+    getAllCommentaires: async ({ commit, state }, id) => {
+      const route = '/image/viewComment/'.concat('', id);
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("commentaires", response.data.Commentaires);
         return response.data.Commentaires;
       }
@@ -373,10 +374,10 @@ export default createStore({
      *
      * @return  {JSON}          Tous les commentaires de toutes les stories.
      */
-    getAllCommentairesAdmin: async ({ commit }) => {
-      const route = '/image/comment/';
+    getAllCommentairesAdmin: async ({ commit, state }) => {
+      const route = '/image/allComment/';
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("commentaires", response.data.Commentaires);
         return response.data.Commentaires;
       }
@@ -393,10 +394,10 @@ export default createStore({
      * @param   {Number}  id        Id de la storie a supprimer
      *
      */
-    delete: async ({ dispatch, commit }, id) => {
-      const route = '/image/'.concat('', id);
+    delete: async ({ dispatch, commit, state }, id) => {
+      const route = '/image/delete/'.concat('', id);
       try {
-        const response = await instance.delete(route);
+        const response = await instance.post(route,{ userId : state.user.userId });
         commit("stories", {});
         commit("commentaires", {});
         dispatch("getAllStories");
@@ -416,10 +417,10 @@ export default createStore({
      * @param   {Number}  comment.id_parent    Id de la photo ou se trouve le commentaire.
      *
      */
-    DeleteComment: async ({ dispatch }, comment) => {
-      const route = '/image/comment/'.concat('', comment.id);
+    DeleteComment: async ({ dispatch, state }, comment) => {
+      const route = '/image/delete/comment/'.concat('', comment.id);
       try {
-        await instance.delete(route);
+        await instance.post(route, { userId : state.user.userId });
         return dispatch("getAllCommentaires", comment.id_parent);
       }
       catch (error) {

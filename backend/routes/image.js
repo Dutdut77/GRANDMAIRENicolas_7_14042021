@@ -6,34 +6,34 @@ const imageCtrl = require('../controllers/image');
 const joi = require('../middleware/joi');
 
 /* Ajouter une storie */
-router.post('/', auth, multer, imageCtrl.addStorie);
+router.post('/',  multer, auth, imageCtrl.addStorie);
 
 /* Ajouter un commentaire à une storie */
 router.post('/comment', auth, joi.addComment, imageCtrl.addComment);
 
 /* Afficher toutes les stories */
-router.get('/', auth, imageCtrl.getAllStorie);
+router.post('/allStories/', auth, imageCtrl.getAllStorie);
 
 /* Afficher tous les commentaires de toutes les Stories */
-router.get('/comment/', auth, imageCtrl.getAllCommentairesAdmin);
+router.post('/allComment/', auth, imageCtrl.getAllCommentairesAdmin);
 
 /* Afficher une storie */
-router.get('/:id', auth, imageCtrl.getOneStorie);
+router.post('/oneStorie/:id', auth, imageCtrl.getOneStorie);
 
 /* Afficher tous les commentaires d'une Storie */
-router.get('/comment/:id', auth, imageCtrl.getAllCommentaires);
+router.post('/viewComment/:id', auth, imageCtrl.getAllCommentaires);
 
 /* Compter le nombre de photos posté par un utilisateur */
-router.get('/user/:id', auth, imageCtrl.countUserPhoto);
+router.post('/user/:id', auth, imageCtrl.countUserPhoto);
 
 /* Compter le nombre de commentaire posté par un utilisateur */
-router.get('/user/comment/:id', auth, imageCtrl.countUserCommentPhoto);
+router.post('/user/comment/:id', auth, imageCtrl.countUserCommentPhoto);
 
 /* Supprimer une storie */
-router.delete('/:id', auth, imageCtrl.deleteStorie);
+router.post('/delete/:id', auth, imageCtrl.deleteStorie);
 
 /* Supprimer un commentaire d'une Storie */
-router.delete('/comment/:id', auth, imageCtrl.deleteCommentaire);
+router.post('/delete/comment/:id', auth, imageCtrl.deleteCommentaire);
 
 
 
