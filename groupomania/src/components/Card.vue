@@ -69,7 +69,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "bootstrap/scss/bootstrap.scss";
+$primary: #091f43;
+$secondary: #d1515a;
 
 .card {
   box-shadow: 0 5px 20px rgba(9, 31, 67, 0.5);
@@ -77,10 +78,11 @@ export default {
 .image {
   position: relative;
 }
-.card-img {
+img.card-img {
   position: relative;
   top: -25px;
   height: auto;
+  width: auto;
   border-radius: 0.25rem;
   box-shadow: 0 0px 10px rgba(9, 31, 67, 0.4);
   display: flex;

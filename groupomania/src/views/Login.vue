@@ -94,7 +94,8 @@ export default {
 
 
 <style scoped lang="scss">
-@import "bootstrap/scss/bootstrap.scss";
+$primary: #091f43;
+$secondary: #d1515a;
 $gray: #091f43;
 
 section {

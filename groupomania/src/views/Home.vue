@@ -47,7 +47,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "bootstrap/scss/bootstrap.scss";
 
 section {
   display: flex;

@@ -1,6 +1,5 @@
 <template>
-  <div class="navbar">
-          <div class="mobile"></div>
+  <div class="navbar">         
           <img class="logo" src="../assets/logo-blue.png" alt="Groupomania Mon réseau social d'entreprise"/>
           <div class="hamburger" id="hamburger" @click="ShowMenu()">
               <span class="bar"></span>
@@ -53,7 +52,8 @@ export default {
 
 <style scoped lang="scss">
 
-@import "bootstrap/scss/bootstrap.scss";
+$primary: #091f43;
+$secondary: #d1515a;
 
 
 .navbar {
@@ -74,13 +74,7 @@ export default {
   }
 }
 
-.mobile{  
-  height: 30px;
-  width: 100%;
-    @media (min-width: 768px) {
-display: none;
-  }
-}
+
 .logo {
   display: flex;
   z-index: 10;

@@ -406,7 +406,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "bootstrap/scss/bootstrap.scss";
+$primary: #091f43;
+$secondary: #d1515a;
 
 section {
   padding-top: 160px;
