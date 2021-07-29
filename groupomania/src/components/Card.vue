@@ -4,7 +4,7 @@
       <img src="../assets/img_home.png" class="card-img" alt="Hamburger" />
       <div class="titre">
         <div class="pseudo">
-          <p class="h2">Messi</p>
+          <h2>Messi</h2>
         </div>
         <div class="date">21-06-2021</div>
       </div>
@@ -158,7 +158,7 @@ export default {
   }
   &--text {
     width: 100%;
-    text-align: justify;
+    text-align: left;
     color: $primary;
   }
 }

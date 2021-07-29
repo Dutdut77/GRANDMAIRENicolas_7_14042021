@@ -86,6 +86,7 @@ display: none;
   z-index: 10;
   align-items: center;  
   height: 35px;
+  width: auto;
   font-size: 1rem;
   margin: 0 1rem;
 }
@@ -160,7 +161,7 @@ display: none;
 }
 
 .nav li a {
-  color: #091f43;
+  color: #050C1A;
   text-decoration: none;
 }
 .nav li a:hover {

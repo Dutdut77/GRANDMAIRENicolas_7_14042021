@@ -16,7 +16,7 @@
             <div class="col-6 d-grid">
               <button
                 type="button"
-                class="btn btn-secondary text-white"
+                class="btn btn-secondary"
                 @click="storie()"
               >
                 ALBUM PHOTO
@@ -57,5 +57,9 @@ section {
 }
 .container {
   margin: 50px 0;
+}
+.btn-secondary{
+ color: #050C1A;
+ font-weight: 600;
 }
 </style>
