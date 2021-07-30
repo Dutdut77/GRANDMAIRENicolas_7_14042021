@@ -205,6 +205,7 @@ export default {
         nom: this.valueNom,
         prenom: this.valuePrenom,
         pseudo: this.valuePseudo,
+        userId : this.profil.id
       });
       this.showProfil = false;
     },
@@ -222,7 +223,7 @@ export default {
     },
     UpdatePhoto() {
       this.$store
-        .dispatch("updatePhoto", { image_url: this.contentImageUrl })
+        .dispatch("updatePhoto", { image_url: this.contentImageUrl, userId : this.profil.id })
         .then(this.$store.dispatch("getProfil"), (this.showPhoto = false));
     },
     Delete() {

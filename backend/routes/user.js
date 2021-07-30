@@ -12,18 +12,18 @@ router.post('/signup', multer, joi.signup, userCtrl.signup);
 router.post('/login', joi.login, userCtrl.login);
 
 /* Route pour récupérer les informations de tous les utilisateurs */
-router.get('/', auth, userCtrl.getAllUser);
+router.post('/', auth, userCtrl.getAllUser);
 
 /* Route pour modifier l'avatar du profil */
-router.put('/avatar/:id', auth, multer, userCtrl.avatar);
+router.put('/avatar/:id', multer, auth, userCtrl.avatar);
 
 /* Route pour modifier le profil */
 router.put('/:id', auth, userCtrl.update);
 
 /* Route pour récupérer les informations d'un utilisateur */
-router.get('/:id', auth, userCtrl.getOneUser);
+router.post('/:id', auth, userCtrl.getOneUser);
 
 /* Route pour supprimer un utilisateur */
-router.delete('/:id', auth, userCtrl.deleteUser);
+router.post('/delete/:id', auth, userCtrl.deleteUser);
 
 module.exports = router;

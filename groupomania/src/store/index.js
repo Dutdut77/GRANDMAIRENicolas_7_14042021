@@ -237,10 +237,10 @@ export default createStore({
      *
      */
     deleteUser: async ({ commit, state }) => {
-      const route = '/auth/'.concat('', state.user.userId);
+      const route = '/auth/delete/'.concat('', state.user.userId);
       try {
         commit("setStatus", "loading");
-        const response = await instance.delete(route);
+        const response = await instance.post(route , { userId : state.user.userId });
         commit("setStatus", "");
         localStorage.removeItem('user');
         commit("deleteStore");
@@ -258,10 +258,10 @@ export default createStore({
      * @param   {Number}  userId    Id de l'utilisateur à supprimer
      *
      */
-    deleteOneUser: async ({ dispatch }, userId) => {
-      const route = '/auth/'.concat('', userId);
+    deleteOneUser: async ({ dispatch, state }, userId) => {
+      const route = '/auth/delete/'.concat('', userId);
       try {
-        const response = await instance.delete(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         dispatch("getAllProfil");
         dispatch("getAllStories");
         dispatch("getAllCommentairesAdmin");
@@ -436,10 +436,10 @@ export default createStore({
      * @param   {Number}  comment.id    Id du commentaire à supprimer.
      *
      */
-    DeleteCommentAdmin: async ({ dispatch }, comment) => {
-      const route = '/image/comment/'.concat('', comment.id);
+    DeleteCommentAdmin: async ({ dispatch, state }, comment) => {
+      const route = '/image/delete/comment/'.concat('', comment.id);
       try {
-        await instance.delete(route);
+        await instance.post(route, { userId : state.user.userId });
         dispatch("getAllCommentairesAdmin");
       }
       catch (error) {
@@ -482,7 +482,7 @@ export default createStore({
     getProfil: async ({ commit, state }) => {
       const route = '/auth/'.concat('', state.user.userId);
       try {
-        const response = await instance.get(route);
+        const response = await instance.post(route, { userId : state.user.userId });
         commit("profil", response.data.user);
         return response.data.user;
       }
@@ -499,9 +499,9 @@ export default createStore({
      *
      * @return  {JSON}          Toutes les informations de tous les membres
      */
-    getAllProfil: async ({ commit }) => {
+    getAllProfil: async ({ commit, state }) => {
       try {
-        const response = await instance.get("/auth");
+        const response = await instance.post("/auth", { userId : state.user.userId });
         commit("profil", response.data.user);
         return response.data.user;
       }
