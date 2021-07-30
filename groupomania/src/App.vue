@@ -46,7 +46,8 @@ export default {
 
 
 <style lang="scss">
-@import "bootstrap/scss/bootstrap.scss";
+$primary: #091f43;
+$secondary: #d1515a;
 
 #app {
   text-align: center;
