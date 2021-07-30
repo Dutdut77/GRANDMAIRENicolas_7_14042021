@@ -82,7 +82,6 @@ img.card-img {
   position: relative;
   top: -25px;
   height: auto;
-  width: auto;
   border-radius: 0.25rem;
   box-shadow: 0 0px 10px rgba(9, 31, 67, 0.4);
   display: flex;
