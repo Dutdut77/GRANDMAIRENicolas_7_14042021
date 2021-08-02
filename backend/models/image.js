@@ -232,7 +232,7 @@ async function deleteCommentaire(id) {
  */
 async function deleteUser(id) {
     try {
-        const res = await database.User("DELETE FROM images WHERE userIdContent = ?", [id]);
+        const res = await database.User("DELETE FROM images WHERE userIdContent = ? OR userId = ?", [id, id]);
         return res;
     }
     catch (error) {
